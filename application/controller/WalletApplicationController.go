@@ -30,7 +30,7 @@ func (w *WalletApplicationController) CreateAccount(rw http.ResponseWriter, req 
 	var response vo.CreateAccountResponse
 	response.Account = &accountVo
 
-	SuccessHttpResponse(rw, "", response)
+	success(rw, response)
 }
 func (w *WalletApplicationController) CreateAndSaveAccount(rw http.ResponseWriter, req *http.Request) {
 	account := w.blockchainNetCore.GetBlockchainCore().GetWallet().CreateAndSaveAccount()
@@ -38,7 +38,7 @@ func (w *WalletApplicationController) CreateAndSaveAccount(rw http.ResponseWrite
 	var response vo.CreateAndSaveAccountResponse
 	response.Account = &accountVo
 
-	SuccessHttpResponse(rw, "", response)
+	success(rw, response)
 }
 
 func (w *WalletApplicationController) SaveAccount(rw http.ResponseWriter, req *http.Request) {
@@ -46,15 +46,14 @@ func (w *WalletApplicationController) SaveAccount(rw http.ResponseWriter, req *h
 
 	privateKey := request.PrivateKey
 	if StringUtil.IsNullOrEmpty(privateKey) {
-		FailedHttpResponse(rw, "账户私钥不能为空。")
+		requestParamIllegal(rw)
 		return
 	}
 	account := AccountUtil.AccountFromPrivateKey(privateKey)
 	w.blockchainNetCore.GetBlockchainCore().GetWallet().SaveAccount(account)
 	var response vo.SaveAccountResponse
-	response.AddAccountSuccess = true
 
-	SuccessHttpResponse(rw, "", response)
+	success(rw, response)
 }
 
 func (w *WalletApplicationController) DeleteAccount(rw http.ResponseWriter, req *http.Request) {
@@ -62,14 +61,13 @@ func (w *WalletApplicationController) DeleteAccount(rw http.ResponseWriter, req 
 
 	address := request.Address
 	if StringUtil.IsNullOrEmpty(address) {
-		FailedHttpResponse(rw, "请填写需要删除的地址。")
+		requestParamIllegal(rw)
 		return
 	}
 	w.blockchainNetCore.GetBlockchainCore().GetWallet().DeleteAccountByAddress(address)
 	var response vo.DeleteAccountResponse
-	response.DeleteAccountSuccess = true
 
-	SuccessHttpResponse(rw, "", response)
+	success(rw, response)
 }
 
 func (w *WalletApplicationController) QueryAllAccounts(rw http.ResponseWriter, req *http.Request) {
@@ -96,7 +94,7 @@ func (w *WalletApplicationController) QueryAllAccounts(rw http.ResponseWriter, r
 	response.Accounts = accountVos
 	response.Balance = balance
 
-	SuccessHttpResponse(rw, "", response)
+	success(rw, response)
 }
 func (w *WalletApplicationController) AutomaticBuildTransaction(rw http.ResponseWriter, req *http.Request) {
 	request := GetRequest(req, vo.AutomaticBuildTransactionRequest{}).(*vo.AutomaticBuildTransactionRequest)
@@ -104,10 +102,10 @@ func (w *WalletApplicationController) AutomaticBuildTransaction(rw http.Response
 	response := w.walletApplicationService.AutomaticBuildTransaction(request)
 
 	if response.BuildTransactionSuccess {
-		SuccessHttpResponse(rw, "构建交易成功", response)
+		success(rw, response)
 		return
 	} else {
-		FailedHttpResponse(rw, response.Message)
+		fail(rw, response.Message)
 		return
 	}
 }
@@ -116,5 +114,5 @@ func (w *WalletApplicationController) SubmitTransactionToBlockchainNetwork(rw ht
 
 	response := w.walletApplicationService.SubmitTransactionToBlockchainNetwork(request)
 
-	SuccessHttpResponse(rw, "", response)
+	success(rw, response)
 }

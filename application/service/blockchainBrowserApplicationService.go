@@ -79,8 +79,8 @@ func (b *BlockchainBrowserApplicationService) QueryTransactionOutputByAddress(ad
 	if transactionOutput == nil {
 		return nil
 	}
-	transactionOutputDetailVo := b.QueryTransactionOutputByTransactionOutputId(transactionOutput.TransactionHash, transactionOutput.TransactionOutputIndex)
-	return transactionOutputDetailVo
+	transactionOutputVo3 := b.QueryTransactionOutputByTransactionOutputId(transactionOutput.TransactionHash, transactionOutput.TransactionOutputIndex)
+	return transactionOutputVo3
 }
 
 func (b *BlockchainBrowserApplicationService) QueryTransactionListByBlockHashTransactionHeight(blockHash string, from uint64, size uint64) []*vo.TransactionVo {

@@ -29,7 +29,6 @@ type DeleteAccountRequest struct {
 	Address string `json:"address"`
 }
 type DeleteAccountResponse struct {
-	DeleteAccountSuccess bool `json:"deleteAccountSuccess"`
 }
 type QueryAllAccountsRequest struct {
 }
@@ -41,5 +40,4 @@ type SaveAccountRequest struct {
 	PrivateKey string `json:"privateKey"`
 }
 type SaveAccountResponse struct {
-	AddAccountSuccess bool `json:"addAccountSuccess"`
 }

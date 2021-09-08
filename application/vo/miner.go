@@ -7,13 +7,11 @@ package vo
 type ActiveMinerRequest struct {
 }
 type ActiveMinerResponse struct {
-	ActiveMinerSuccess bool `json:"activeMinerSuccess"`
 }
 
 type DeactiveMinerRequest struct {
 }
 type DeactiveMinerResponse struct {
-	DeactiveMinerSuccess bool `json:"deactiveMinerSuccess"`
 }
 
 type IsMinerActiveRequest struct {
