@@ -100,27 +100,27 @@ function unconfirmedTransactionHtml(item){
 }
 
 function localLanguage(element){
-    if(element == 'REQUEST_PARAM_ILLEGAL'){
+    if(element == 'request_param_illegal'){
         return '请求参数非法';
     }
-    if(element == 'SERVICE_UNAVAILABLE'){
+    if(element == 'service_unavailable'){
         return '服务不可用';
     }
 
-    if(element == 'BUILD_TRANSACTION_SUCCESS'){
-       return '构建交易成功';
-    }
-    if(element == 'PAYEE_CAN_NOT_EMPTY'){
+    if(element == 'payee_can_not_empty'){
         return '收款方不能为空';
     }
-    if(element == 'PAYEE_ADDRESS_CAN_NOT_EMPTY'){
+    if(element == 'payee_address_can_not_empty'){
         return '收款方地址不能为空';
     }
-    if(element == 'PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO'){
+    if(element == 'payee_value_can_not_less_equal_than_zero'){
         return '收款金额不能小于等于零';
     }
-    if(element == 'NOT_ENOUGH_MONEY_TO_PAY'){
-       return '没有足够的钱进行支付';
+    if(element == 'not_enough_money_to_pay'){
+        return '没有足够的钱进行支付';
+    }
+    if(element == 'build_transaction_success'){
+        return '构建交易成功';
     }
     return '本地语言翻译异常,请联系管理员';
 }

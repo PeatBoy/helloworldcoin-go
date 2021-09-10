@@ -29,10 +29,14 @@ func requestParamIllegal(rw http.ResponseWriter) {
 func serviceUnavailable(rw http.ResponseWriter) {
 	fail(rw, SERVICE_UNAVAILABLE)
 }
+func ServiceUnauthorized(rw http.ResponseWriter) {
+	fail(rw, SERVICE_UNAUTHORIZED)
+}
 
-const REQUEST_PARAM_ILLEGAL = "REQUEST_PARAM_ILLEGAL"
-const SERVICE_UNAVAILABLE = "SERVICE_UNAVAILABLE"
+const REQUEST_PARAM_ILLEGAL = "request_param_illegal"
+const SERVICE_UNAVAILABLE = "service_unavailable"
+const SERVICE_UNAUTHORIZED = "service_unauthorized"
 
-const NOT_FOUND_TRANSACTION = "NOT_FOUND_TRANSACTION"
-const NOT_FOUNT_BLOCK = "NOT_FOUNT_BLOCK"
-const NOT_FOUNT_UNCONFIRMED_TRANSACTIONS = "NOT_FOUNT_UNCONFIRMED_TRANSACTIONS"
+const NOT_FOUND_TRANSACTION = "not_found_transaction"
+const NOT_FOUND_BLOCK = "not_found_block"
+const NOT_FOUND_UNCONFIRMED_TRANSACTIONS = "not_found_unconfirmed_transactions"

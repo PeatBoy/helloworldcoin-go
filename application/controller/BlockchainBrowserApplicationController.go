@@ -89,7 +89,7 @@ func (b *BlockchainBrowserApplicationController) QueryUnconfirmedTransactionByTr
 
 	unconfirmedTransactionVo := b.blockchainBrowserApplicationService.QueryUnconfirmedTransactionByTransactionHash(request.TransactionHash)
 	if unconfirmedTransactionVo == nil {
-		fail(rw, NOT_FOUNT_UNCONFIRMED_TRANSACTIONS)
+		fail(rw, NOT_FOUND_UNCONFIRMED_TRANSACTIONS)
 		return
 	}
 	var response vo.QueryUnconfirmedTransactionByTransactionHashResponse
@@ -104,7 +104,7 @@ func (b *BlockchainBrowserApplicationController) QueryUnconfirmedTransactions(rw
 	pageCondition := request.PageCondition
 	transactionDtos := b.blockchainNetCore.GetBlockchainCore().QueryUnconfirmedTransactions(pageCondition.From, pageCondition.Size)
 	if transactionDtos == nil {
-		fail(rw, NOT_FOUNT_UNCONFIRMED_TRANSACTIONS)
+		fail(rw, NOT_FOUND_UNCONFIRMED_TRANSACTIONS)
 		return
 	}
 
@@ -126,7 +126,7 @@ func (b *BlockchainBrowserApplicationController) QueryBlockByBlockHeight(rw http
 
 	blockVo := b.blockchainBrowserApplicationService.QueryBlockViewByBlockHeight(request.BlockHeight)
 	if blockVo == nil {
-		fail(rw, NOT_FOUNT_BLOCK)
+		fail(rw, NOT_FOUND_BLOCK)
 		return
 	}
 	var response vo.QueryBlockByBlockHeightResponse
@@ -139,7 +139,7 @@ func (b *BlockchainBrowserApplicationController) QueryBlockByBlockHash(rw http.R
 
 	block1 := b.blockchainNetCore.GetBlockchainCore().QueryBlockByBlockHash(request.BlockHash)
 	if block1 == nil {
-		fail(rw, NOT_FOUNT_BLOCK)
+		fail(rw, NOT_FOUND_BLOCK)
 		return
 	}
 	blockVo := b.blockchainBrowserApplicationService.QueryBlockViewByBlockHeight(block1.Height)

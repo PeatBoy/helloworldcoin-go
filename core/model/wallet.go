@@ -33,8 +33,8 @@ type AutoBuildTransactionResponse struct {
 }
 
 //PayAlert
-const PAYEE_CAN_NOT_EMPTY = "PAYEE_CAN_NOT_EMPTY"
-const PAYEE_ADDRESS_CAN_NOT_EMPTY = "PAYEE_ADDRESS_CAN_NOT_EMPTY"
-const PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO = "PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO"
-const NOT_ENOUGH_MONEY_TO_PAY = "NOT_ENOUGH_MONEY_TO_PAY"
-const BUILD_TRANSACTION_SUCCESS = "BUILD_TRANSACTION_SUCCESS"
+const PAYEE_CAN_NOT_EMPTY = "payee_can_not_empty"
+const PAYEE_ADDRESS_CAN_NOT_EMPTY = "payee_address_can_not_empty"
+const PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO = "payee_value_can_not_less_equal_than_zero"
+const NOT_ENOUGH_MONEY_TO_PAY = "not_enough_money_to_pay"
+const BUILD_TRANSACTION_SUCCESS = "build_transaction_success"

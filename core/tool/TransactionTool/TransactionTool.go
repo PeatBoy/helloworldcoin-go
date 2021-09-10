@@ -18,8 +18,8 @@ import (
 	"helloworld-blockchain-go/core/model"
 )
 
-func CalculateTransactionHash(transaction model.Transaction) string {
-	transactionDto := Model2DtoTool.Transaction2TransactionDto(&transaction)
+func CalculateTransactionHash(transaction *model.Transaction) string {
+	transactionDto := Model2DtoTool.Transaction2TransactionDto(transaction)
 	return TransactionDtoTool.CalculateTransactionHash(transactionDto)
 }
 func GetTransactionFee(transaction *model.Transaction) uint64 {

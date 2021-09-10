@@ -5,14 +5,15 @@ package main
 */
 
 import (
-	"flag"
 	"helloworld-blockchain-go/application/controller"
+	"helloworld-blockchain-go/application/interceptor"
 	"helloworld-blockchain-go/application/service"
 	"helloworld-blockchain-go/application/vo/BlockchainBrowserApplicationApi"
 	"helloworld-blockchain-go/application/vo/NodeConsoleApplicationApi"
 	"helloworld-blockchain-go/application/vo/WalletApplicationApi"
 	"helloworld-blockchain-go/netcore"
 	"helloworld-blockchain-go/util/SystemUtil"
+	"io"
 	"net/http"
 )
 
@@ -73,18 +74,14 @@ func main() {
 	apiMux.Handle("/", http.FileServer(http.Dir(SystemUtil.SystemRootDirectory()+"/application/resources/static")))
 
 	ipInterceptorServeMux := http.NewServeMux()
-	var accessIp = flag.String("ip", "", "access ip")
-	flag.Parse()
-	if "" != *accessIp {
-        SystemUtil.AccessIp = *accessIp
-	}
-
-	ipInterceptorServeMux.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		if req.Host == "localhost" ||  req.Host == "127.0.0.1"  || req.Host == SystemUtil.AccessIp   {
-				apiMux.ServeHTTP(w, req)
+	ipInterceptorServeMux.Handle("/", http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+		if interceptor.IsIpAllow(req) {
+			apiMux.ServeHTTP(rw, req)
+			return
 		}
-		http.Error(w, "Blocked", 401)
-		return
+		s := "{\"status\":\"fail\",\"message\":\"service_unauthorized\",\"data\":null" + "}"
+		rw.Header().Set("content-type", "text/json")
+		io.WriteString(rw, s)
 	}))
 
 	http.ListenAndServe(":80", ipInterceptorServeMux)

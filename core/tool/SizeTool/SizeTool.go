@@ -35,7 +35,7 @@ func CheckTransactionSize(transaction *model.Transaction) bool {
 func CalculateBlockSize(block *model.Block) uint64 {
 	return DtoSizeTool.CalculateBlockSize(Model2DtoTool.Block2BlockDto(block))
 }
-func calculateTransactionSize(transaction *model.Transaction) uint64 {
+func CalculateTransactionSize(transaction *model.Transaction) uint64 {
 	return DtoSizeTool.CalculateTransactionSize(Model2DtoTool.Transaction2TransactionDto(transaction))
 }
 
