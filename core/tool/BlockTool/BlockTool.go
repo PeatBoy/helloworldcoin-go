@@ -10,8 +10,8 @@ import (
 	"helloworld-blockchain-go/core/tool/Model2DtoTool"
 	"helloworld-blockchain-go/core/tool/TransactionTool"
 	"helloworld-blockchain-go/setting/GenesisBlockSetting"
-	"helloworld-blockchain-go/util/DataStructureUtil"
 	"helloworld-blockchain-go/util/StringUtil"
+	"helloworld-blockchain-go/util/StringsUtil"
 	"helloworld-blockchain-go/util/TimeUtil"
 
 	"helloworld-blockchain-go/core/model"
@@ -108,7 +108,7 @@ func IsExistDuplicateNewHash(block *model.Block) bool {
 			newHashs = append(newHashs, transactionHash)
 		}
 	}
-	return DataStructureUtil.IsExistDuplicateElement(&newHashs)
+	return StringsUtil.HasDuplicateElement(&newHashs)
 }
 
 /**
@@ -128,7 +128,7 @@ func IsExistDuplicateNewAddress(block *model.Block) bool {
 			}
 		}
 	}
-	return DataStructureUtil.IsExistDuplicateElement(&newAddresss)
+	return StringsUtil.HasDuplicateElement(&newAddresss)
 }
 
 /**
@@ -149,7 +149,7 @@ func IsExistDuplicateUtxo(block *model.Block) bool {
 			}
 		}
 	}
-	return DataStructureUtil.IsExistDuplicateElement(&utxoIds)
+	return StringsUtil.HasDuplicateElement(&utxoIds)
 }
 
 /**

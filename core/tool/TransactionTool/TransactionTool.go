@@ -5,6 +5,7 @@ package TransactionTool
 */
 
 import (
+	"helloworld-blockchain-go/core/model"
 	"helloworld-blockchain-go/core/model/TransactionType"
 	"helloworld-blockchain-go/core/tool/BlockchainDatabaseKeyTool"
 	"helloworld-blockchain-go/core/tool/Model2DtoTool"
@@ -12,10 +13,8 @@ import (
 	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
 	"helloworld-blockchain-go/crypto/AccountUtil"
 	"helloworld-blockchain-go/setting/TransactionSettingTool"
-	"helloworld-blockchain-go/util/DataStructureUtil"
 	"helloworld-blockchain-go/util/LogUtil"
-
-	"helloworld-blockchain-go/core/model"
+	"helloworld-blockchain-go/util/StringsUtil"
 )
 
 func CalculateTransactionHash(transaction *model.Transaction) string {
@@ -59,7 +58,7 @@ func IsExistDuplicateNewAddress(transaction *model.Transaction) bool {
 			newAddresss = append(newAddresss, address)
 		}
 	}
-	return DataStructureUtil.IsExistDuplicateElement(&newAddresss)
+	return StringsUtil.HasDuplicateElement(&newAddresss)
 }
 func GetTransactionOutputId(transactionOutput *model.TransactionOutput) string {
 	return BlockchainDatabaseKeyTool.BuildTransactionOutputId(transactionOutput.TransactionHash, transactionOutput.TransactionOutputIndex)
@@ -78,7 +77,7 @@ func IsExistDuplicateUtxo(transaction *model.Transaction) bool {
 			utxoIds = append(utxoIds, utxoId)
 		}
 	}
-	return DataStructureUtil.IsExistDuplicateElement(&utxoIds)
+	return StringsUtil.HasDuplicateElement(&utxoIds)
 }
 
 /**
