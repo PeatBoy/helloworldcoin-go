@@ -78,7 +78,7 @@ func IsPayToPublicKeyHashAddress(address string) bool {
 	var bytesPublicKeyHash []byte
 	ByteUtil.CopyTo(bytesAddress, 1, 20, &bytesPublicKeyHash, 0)
 	base58Address := AddressFromPublicKeyHash(ByteUtil.BytesToHexString(bytesPublicKeyHash))
-	return base58Address == address
+	return StringUtil.IsEquals(base58Address, address)
 }
 
 func encodePrivateKey0(privateKey0 *btcec.PrivateKey) string {
