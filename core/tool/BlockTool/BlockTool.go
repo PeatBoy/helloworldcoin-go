@@ -158,13 +158,7 @@ func IsExistDuplicateUtxo(block *model.Block) bool {
  * ，所以即使这里认为两个区块相等，实际上这两个区块还是有可能不相等的。
  */
 func IsBlockEquals(block1 *model.Block, block2 *model.Block) bool {
-	//如果任一区块为为空，则认为两个区块不相等
-	if block1 == nil || block2 == nil {
-		return false
-	}
-	blockDto1 := Model2DtoTool.Block2BlockDto(block1)
-	blockDto2 := Model2DtoTool.Block2BlockDto(block2)
-	return BlockDtoTool.IsBlockEquals(blockDto1, blockDto2)
+	return StringUtil.IsEquals(block1.Hash, block2.Hash)
 }
 
 /**
