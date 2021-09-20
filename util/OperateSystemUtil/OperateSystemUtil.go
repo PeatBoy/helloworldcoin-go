@@ -15,3 +15,7 @@ func IsWindowsOperateSystem() bool {
 func IsMacOperateSystem() bool {
 	return "darwin" == runtime.GOOS
 }
+
+func IsLinuxOperateSystem() bool {
+	return "linux" == runtime.GOOS
+}

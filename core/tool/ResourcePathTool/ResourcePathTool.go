@@ -18,6 +18,8 @@ func GetDataRootPath() string {
 		dataRootPath = "C:\\helloworld-blockchain-go\\"
 	} else if OperateSystemUtil.IsMacOperateSystem() {
 		dataRootPath = "/tmp/helloworld-blockchain-go/"
+	} else if OperateSystemUtil.IsLinuxOperateSystem() {
+		dataRootPath = "/tmp/helloworld-blockchain-go/"
 	} else {
 		dataRootPath = "/tmp/helloworld-blockchain-go/"
 	}
@@ -33,6 +35,8 @@ func GetTestDataRootPath() string {
 	if OperateSystemUtil.IsWindowsOperateSystem() {
 		dataRootPath = "C:\\helloworld-blockchain-go-test\\"
 	} else if OperateSystemUtil.IsMacOperateSystem() {
+		dataRootPath = "/tmp/helloworld-blockchain-go-test/"
+	} else if OperateSystemUtil.IsLinuxOperateSystem() {
 		dataRootPath = "/tmp/helloworld-blockchain-go-test/"
 	} else {
 		dataRootPath = "/tmp/helloworld-blockchain-go-test/"
