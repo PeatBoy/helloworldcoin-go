@@ -5,6 +5,7 @@ package FileUtil
 */
 
 import (
+	"helloworld-blockchain-go/util/SystemUtil"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -17,14 +18,14 @@ func MakeDirectory(path string) {
 	if !isExist(path) {
 		err := os.MkdirAll(path, os.ModePerm)
 		if err != nil {
-			panic(err)
+			SystemUtil.ErrorExit("create directory failed. path is "+path+".", err)
 		}
 	}
 }
 func DeleteDirectory(path string) {
 	error := os.RemoveAll(path)
 	if error != nil {
-		panic(error)
+		SystemUtil.ErrorExit("delete directory failed. path is "+path+".", nil)
 	}
 }
 
