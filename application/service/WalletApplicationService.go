@@ -73,15 +73,15 @@ func (w *WalletApplicationService) AutomaticBuildTransaction(request *vo.Automat
 }
 
 func payAlert2PayAlertVo(message string) string {
-	if StringUtil.IsEquals(vo.BUILD_TRANSACTION_SUCCESS, message) {
+	if StringUtil.Equals(vo.BUILD_TRANSACTION_SUCCESS, message) {
 		return vo.BUILD_TRANSACTION_SUCCESS
-	} else if StringUtil.IsEquals(vo.PAYEE_CAN_NOT_EMPTY, message) {
+	} else if StringUtil.Equals(vo.PAYEE_CAN_NOT_EMPTY, message) {
 		return vo.PAYEE_CAN_NOT_EMPTY
-	} else if StringUtil.IsEquals(vo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO, message) {
+	} else if StringUtil.Equals(vo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO, message) {
 		return vo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO
-	} else if StringUtil.IsEquals(vo.NOT_ENOUGH_MONEY_TO_PAY, message) {
+	} else if StringUtil.Equals(vo.NOT_ENOUGH_MONEY_TO_PAY, message) {
 		return vo.NOT_ENOUGH_MONEY_TO_PAY
-	} else if StringUtil.IsEquals(vo.PAYEE_ADDRESS_CAN_NOT_EMPTY, message) {
+	} else if StringUtil.Equals(vo.PAYEE_ADDRESS_CAN_NOT_EMPTY, message) {
 		return vo.PAYEE_ADDRESS_CAN_NOT_EMPTY
 	}
 	//exit when can not convert

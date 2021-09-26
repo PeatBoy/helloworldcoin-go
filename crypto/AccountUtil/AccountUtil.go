@@ -6,9 +6,9 @@ package AccountUtil
 
 import (
 	"helloworld-blockchain-go/crypto/Base58Util"
-	"helloworld-blockchain-go/crypto/ByteUtil"
 	"helloworld-blockchain-go/crypto/Ripemd160Util"
 	"helloworld-blockchain-go/crypto/Sha256Util"
+	"helloworld-blockchain-go/util/ByteUtil"
 	"helloworld-blockchain-go/util/StringUtil"
 
 	"github.com/btcsuite/btcd/btcec"
@@ -78,7 +78,7 @@ func IsPayToPublicKeyHashAddress(address string) bool {
 	var bytesPublicKeyHash []byte
 	ByteUtil.CopyTo(bytesAddress, 1, 20, &bytesPublicKeyHash, 0)
 	base58Address := AddressFromPublicKeyHash(ByteUtil.BytesToHexString(bytesPublicKeyHash))
-	return StringUtil.IsEquals(base58Address, address)
+	return StringUtil.Equals(base58Address, address)
 }
 
 func encodePrivateKey0(privateKey0 *btcec.PrivateKey) string {

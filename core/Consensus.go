@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"helloworld-blockchain-go/core/model"
 	"helloworld-blockchain-go/core/tool/BlockTool"
-	"helloworld-blockchain-go/crypto/ByteUtil"
 	"helloworld-blockchain-go/setting/GenesisBlockSetting"
 	"helloworld-blockchain-go/setting/IncentiveSetting"
+	"helloworld-blockchain-go/util/ByteUtil"
 	"helloworld-blockchain-go/util/StringUtil"
 	"math/big"
 )

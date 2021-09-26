@@ -212,7 +212,7 @@ func (b *BlockSearcher) isForkNode(blockchainCore *core.BlockchainCore, node *mo
 		return false
 	}
 	blockHash := BlockDtoTool.CalculateBlockHash(blockDto)
-	return !StringUtil.IsEquals(block.Hash, blockHash)
+	return !StringUtil.Equals(block.Hash, blockHash)
 }
 
 func (b *BlockSearcher) isHardFork(blockchainCore1 *core.BlockchainCore, blockchainCore2 *core.BlockchainCore) bool {

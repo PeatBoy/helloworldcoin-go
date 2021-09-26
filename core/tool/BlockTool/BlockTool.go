@@ -78,9 +78,9 @@ func CheckBlockHeight(previousBlock *model.Block, currentBlock *model.Block) boo
 }
 func CheckPreviousBlockHash(previousBlock *model.Block, currentBlock *model.Block) bool {
 	if previousBlock == nil {
-		return StringUtil.IsEquals(GenesisBlockSetting.HASH, currentBlock.PreviousHash)
+		return StringUtil.Equals(GenesisBlockSetting.HASH, currentBlock.PreviousHash)
 	} else {
-		return StringUtil.IsEquals(previousBlock.Hash, currentBlock.PreviousHash)
+		return StringUtil.Equals(previousBlock.Hash, currentBlock.PreviousHash)
 	}
 }
 func CheckBlockTimestamp(previousBlock *model.Block, currentBlock *model.Block) bool {
@@ -158,7 +158,7 @@ func IsExistDuplicateUtxo(block *model.Block) bool {
  * ，所以即使这里认为两个区块相等，实际上这两个区块还是有可能不相等的。
  */
 func IsBlockEquals(block1 *model.Block, block2 *model.Block) bool {
-	return StringUtil.IsEquals(block1.Hash, block2.Hash)
+	return StringUtil.Equals(block1.Hash, block2.Hash)
 }
 
 /**

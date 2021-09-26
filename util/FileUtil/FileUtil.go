@@ -14,6 +14,7 @@ import (
 func NewPath(parent string, child string) string {
 	return filepath.Join(parent, child)
 }
+
 func MakeDirectory(path string) {
 	if !isExist(path) {
 		err := os.MkdirAll(path, os.ModePerm)
@@ -22,11 +23,21 @@ func MakeDirectory(path string) {
 		}
 	}
 }
+
 func DeleteDirectory(path string) {
 	error := os.RemoveAll(path)
 	if error != nil {
 		SystemUtil.ErrorExit("delete directory failed. path is "+path+".", nil)
 	}
+}
+
+func Read(path string) string {
+	f, err := os.Open(path)
+	if err != nil {
+		panic(err)
+	}
+	bytesData, _ := ioutil.ReadAll(f)
+	return string(bytesData)
 }
 
 func isExist(path string) bool {
@@ -38,13 +49,4 @@ func isExist(path string) bool {
 		return false
 	}
 	return true
-}
-
-func Read(path string) string {
-	f, err := os.Open(path)
-	if err != nil {
-		panic(err)
-	}
-	bytesData, _ := ioutil.ReadAll(f)
-	return string(bytesData)
 }

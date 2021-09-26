@@ -11,7 +11,7 @@ import (
 
 const BLANKSPACE string = " "
 
-func IsEquals(value1 string, value2 string) bool {
+func Equals(value1 string, value2 string) bool {
 	return value1 == value2
 }
 func IsNullOrEmpty(value1 string) bool {
@@ -33,6 +33,6 @@ func Concatenate3(value1 string, value2 string, value3 string) string {
 func ValueOfUint64(number uint64) string {
 	return strconv.FormatUint(number, 10)
 }
-func UtfCharacterCount(value string) int {
-	return utf8.RuneCountInString(value)
+func Length(value string) uint64 {
+	return uint64(utf8.RuneCountInString(value))
 }

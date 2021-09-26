@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"helloworld-blockchain-go/application/vo"
 	"helloworld-blockchain-go/core/model"
+	"helloworld-blockchain-go/crypto/AccountUtil"
 	"helloworld-blockchain-go/dto"
 	"helloworld-blockchain-go/netcore/po"
 )
@@ -103,16 +104,16 @@ func ToObject(jsonString string, object interface{}) interface{} {
 		json.Unmarshal([]byte(jsonString), &_0009)
 		return &_0009
 	}
-	_1009, ok := object.(dto.BlockDto)
+	_1009, ok := object.(dto.TransactionDto)
 	if ok {
 		json.Unmarshal([]byte(jsonString), &_1009)
 		return &_1009
 	}
 
-	_0010, ok := object.(po.NodePo)
+	_0050, ok := object.(po.NodePo)
 	if ok {
-		json.Unmarshal([]byte(jsonString), &_0010)
-		return &_0010
+		json.Unmarshal([]byte(jsonString), &_0050)
+		return &_0050
 	}
 
 	_0100, ok := object.(vo.ActiveAutoSearchNodeRequest)
@@ -181,10 +182,26 @@ func ToObject(jsonString string, object interface{}) interface{} {
 		json.Unmarshal([]byte(jsonString), &_0153)
 		return &_0153
 	}
-	_0200, ok := object.(vo.SetMaxBlockHeightRequest)
+
+	_0200, ok := object.(vo.GetMinerMineMaxBlockHeightRequest)
 	if ok {
 		json.Unmarshal([]byte(jsonString), &_0200)
 		return &_0200
+	}
+	_0201, ok := object.(vo.GetMinerMineMaxBlockHeightResponse)
+	if ok {
+		json.Unmarshal([]byte(jsonString), &_0201)
+		return &_0201
+	}
+	_0202, ok := object.(vo.SetMinerMineMaxBlockHeightRequest)
+	if ok {
+		json.Unmarshal([]byte(jsonString), &_0202)
+		return &_0202
+	}
+	_0203, ok := object.(vo.SetMinerMineMaxBlockHeightResponse)
+	if ok {
+		json.Unmarshal([]byte(jsonString), &_0203)
+		return &_0203
 	}
 
 	_0250, ok := object.(vo.CreateAccountRequest)
@@ -258,6 +275,26 @@ func ToObject(jsonString string, object interface{}) interface{} {
 	if ok {
 		json.Unmarshal([]byte(jsonString), &_0400)
 		return &_0400
+	}
+	_0450, ok := object.(AccountUtil.Account)
+	if ok {
+		json.Unmarshal([]byte(jsonString), &_0450)
+		return &_0450
+	}
+	_0500, ok := object.(model.Block)
+	if ok {
+		json.Unmarshal([]byte(jsonString), &_0500)
+		return &_0500
+	}
+	_0501, ok := object.(model.Transaction)
+	if ok {
+		json.Unmarshal([]byte(jsonString), &_0501)
+		return &_0501
+	}
+	_0502, ok := object.(model.TransactionOutput)
+	if ok {
+		json.Unmarshal([]byte(jsonString), &_0502)
+		return &_0502
 	}
 	panic("JsonUtil.ToObject can not recognize object type")
 }

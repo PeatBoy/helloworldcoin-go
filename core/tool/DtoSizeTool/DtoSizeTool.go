@@ -11,8 +11,6 @@ import (
 	"helloworld-blockchain-go/setting/TransactionSetting"
 	"helloworld-blockchain-go/util/LogUtil"
 	"helloworld-blockchain-go/util/StringUtil"
-	"strconv"
-	"unicode/utf8"
 )
 
 //region 校验大小
@@ -209,11 +207,10 @@ func calculateScriptSize(script *[]string) uint64 {
 	return size
 }
 func sizeOfString(value string) uint64 {
-	return uint64(utf8.RuneCountInString(value))
+	return StringUtil.Length(value)
 }
-
 func sizeOfUint64(number uint64) uint64 {
-	return uint64(utf8.RuneCountInString(strconv.FormatUint(number, 10)))
+	return StringUtil.Length(StringUtil.ValueOfUint64(number))
 }
 
 //endregion

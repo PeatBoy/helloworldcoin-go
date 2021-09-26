@@ -6,10 +6,10 @@ package BlockDtoTool
 
 import (
 	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
-	"helloworld-blockchain-go/crypto/ByteUtil"
 	"helloworld-blockchain-go/crypto/MerkleTreeUtil"
 	"helloworld-blockchain-go/crypto/Sha256Util"
 	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/util/ByteUtil"
 	"helloworld-blockchain-go/util/StringUtil"
 )
 
@@ -44,5 +44,5 @@ func CalculateBlockMerkleTreeRoot(block *dto.BlockDto) string {
 func IsBlockEquals(block1 *dto.BlockDto, block2 *dto.BlockDto) bool {
 	block1Hash := CalculateBlockHash(block1)
 	block2Hash := CalculateBlockHash(block2)
-	return StringUtil.IsEquals(block1Hash, block2Hash)
+	return StringUtil.Equals(block1Hash, block2Hash)
 }

@@ -1,4 +1,4 @@
-package BooleanCodeEnum
+package BooleanCode
 
 /*
  @author king 409060350@qq.com

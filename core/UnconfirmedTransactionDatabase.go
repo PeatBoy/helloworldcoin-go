@@ -5,10 +5,10 @@ package core
 */
 
 import (
-	"helloworld-blockchain-go/core/tool/EncodeDecodeTool"
 	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
-	"helloworld-blockchain-go/crypto/ByteUtil"
 	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/util/ByteUtil"
+	"helloworld-blockchain-go/util/EncodeDecodeTool"
 	"helloworld-blockchain-go/util/FileUtil"
 	"helloworld-blockchain-go/util/JsonUtil"
 	"helloworld-blockchain-go/util/KvDbUtil"
@@ -35,7 +35,7 @@ func (u *UnconfirmedTransactionDatabase) InsertTransaction(transaction *dto.Tran
 		}
 	}()
 	transactionHash := TransactionDtoTool.CalculateTransactionHash(transaction)
-	KvDbUtil.Put(u.getUnconfirmedTransactionDatabasePath(), u.getKey(transactionHash), EncodeDecodeTool.EncodeTransactionDto(transaction))
+	KvDbUtil.Put(u.getUnconfirmedTransactionDatabasePath(), u.getKey(transactionHash), EncodeDecodeTool.Encode(transaction))
 	return true
 }
 
@@ -44,7 +44,7 @@ func (u *UnconfirmedTransactionDatabase) SelectTransactions(from uint64, size ui
 	bytesTransactionDtos := KvDbUtil.Gets(u.getUnconfirmedTransactionDatabasePath(), from, size)
 	if bytesTransactionDtos != nil {
 		for e := bytesTransactionDtos.Front(); e != nil; e = e.Next() {
-			transactionDto := EncodeDecodeTool.DecodeToTransactionDto(e.Value.([]byte))
+			transactionDto := EncodeDecodeTool.Decode(e.Value.([]byte), dto.TransactionDto{}).(*dto.TransactionDto)
 			transactionDtos = append(transactionDtos, transactionDto)
 		}
 	}
@@ -60,7 +60,7 @@ func (u *UnconfirmedTransactionDatabase) SelectTransactionByTransactionHash(tran
 	if byteTransactionDto == nil {
 		return nil
 	}
-	return EncodeDecodeTool.DecodeToTransactionDto(byteTransactionDto)
+	return EncodeDecodeTool.Decode(byteTransactionDto, dto.TransactionDto{}).(*dto.TransactionDto)
 }
 
 func (u *UnconfirmedTransactionDatabase) getUnconfirmedTransactionDatabasePath() string {

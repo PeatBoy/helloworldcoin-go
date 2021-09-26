@@ -32,10 +32,10 @@ const ACTIVE_AUTO_SEARCH_NODE = "/Api/NodeConsoleApplication/ActiveAutoSearchNod
 const DEACTIVE_AUTO_SEARCH_NODE = "/Api/NodeConsoleApplication/DeactiveAutoSearchNode"
 
 //设置最大挖矿高度
-const SET_MAX_BLOCK_HEIGHT = "/Api/NodeConsoleApplication/SetMaxBlockHeight"
+const SET_MINER_MINE_MAX_BLOCK_HEIGHT = "/Api/NodeConsoleApplication/SetMinerMineMaxBlockHeight"
 
 //获取最大挖矿高度
-const GET_MAX_BLOCK_HEIGHT = "/Api/NodeConsoleApplication/GetMaxBlockHeight"
+const GET_MINER_MINE_MAX_BLOCK_HEIGHT = "/Api/NodeConsoleApplication/GetMinerMineMaxBlockHeight"
 
 //新增节点
 const ADD_NODE = "/Api/NodeConsoleApplication/AddNode"

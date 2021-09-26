@@ -5,7 +5,7 @@ package configuration
 */
 
 import (
-	"helloworld-blockchain-go/crypto/ByteUtil"
+	"helloworld-blockchain-go/util/ByteUtil"
 	"helloworld-blockchain-go/util/FileUtil"
 	"helloworld-blockchain-go/util/KvDbUtil"
 )

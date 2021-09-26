@@ -1,4 +1,4 @@
-package OperationCodeEnum
+package OperationCode
 
 /*
  @author king 409060350@qq.com

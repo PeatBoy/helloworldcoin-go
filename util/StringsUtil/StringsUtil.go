@@ -9,13 +9,13 @@ import (
  @author king 409060350@qq.com
 */
 
-func HasDuplicateElement(datas *[]string) bool {
+func HasDuplicateElement(values *[]string) bool {
 	visited := make(map[string]bool, 0)
-	for i := 0; i < len(*datas); i++ {
-		if visited[(*datas)[i]] == true {
+	for i := 0; i < len(*values); i++ {
+		if visited[(*values)[i]] == true {
 			return true
 		} else {
-			visited[(*datas)[i]] = true
+			visited[(*values)[i]] = true
 		}
 	}
 	return false

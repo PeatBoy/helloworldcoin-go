@@ -56,7 +56,7 @@ func (b *BlockchainBrowserApplicationService) QueryTransactionOutputByTransactio
 			for inputIndex := 0; inputIndex < len(inputs); inputIndex++ {
 				transactionInput := inputs[inputIndex]
 				unspentTransactionOutput := transactionInput.UnspentTransactionOutput
-				if StringUtil.IsEquals(transactionOutput.TransactionHash, unspentTransactionOutput.TransactionHash) &&
+				if StringUtil.Equals(transactionOutput.TransactionHash, unspentTransactionOutput.TransactionHash) &&
 					transactionOutput.TransactionOutputIndex == unspentTransactionOutput.TransactionOutputIndex {
 					transactionOutputVo3.ToTransactionInputIndex = uint64(inputIndex) + uint64(1)
 					transactionOutputVo3.ToInputScript = ScriptTool.StringInputScript(transactionInput.InputScript)

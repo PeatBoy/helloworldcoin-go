@@ -157,19 +157,19 @@ func (n *NodeConsoleApplicationController) DeleteBlocks(rw http.ResponseWriter, 
 	success(rw, response)
 }
 
-func (n *NodeConsoleApplicationController) GetMaxBlockHeight(rw http.ResponseWriter, req *http.Request) {
-	maxBlockHeight := n.blockchainNetCore.GetBlockchainCore().GetMiner().GetMaxBlockHeight()
-	var response vo.GetMaxBlockHeightResponse
+func (n *NodeConsoleApplicationController) GetMinerMineMaxBlockHeight(rw http.ResponseWriter, req *http.Request) {
+	maxBlockHeight := n.blockchainNetCore.GetBlockchainCore().GetMiner().GetMinerMineMaxBlockHeight()
+	var response vo.GetMinerMineMaxBlockHeightResponse
 	response.MaxBlockHeight = maxBlockHeight
 
 	success(rw, response)
 }
-func (n *NodeConsoleApplicationController) SetMaxBlockHeight(rw http.ResponseWriter, req *http.Request) {
-	request := GetRequest(req, vo.SetMaxBlockHeightRequest{}).(*vo.SetMaxBlockHeightRequest)
+func (n *NodeConsoleApplicationController) SetMinerMineMaxBlockHeight(rw http.ResponseWriter, req *http.Request) {
+	request := GetRequest(req, vo.SetMinerMineMaxBlockHeightRequest{}).(*vo.SetMinerMineMaxBlockHeightRequest)
 
 	height := request.MaxBlockHeight
-	n.blockchainNetCore.GetBlockchainCore().GetMiner().SetMaxBlockHeight(height)
-	var response vo.SetMaxBlockHeightResponse
+	n.blockchainNetCore.GetBlockchainCore().GetMiner().SetMinerMineMaxBlockHeight(height)
+	var response vo.SetMinerMineMaxBlockHeightResponse
 
 	success(rw, response)
 }

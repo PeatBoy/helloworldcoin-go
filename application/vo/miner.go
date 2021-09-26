@@ -21,11 +21,13 @@ type IsMinerActiveResponse struct {
 }
 type GetMaxBlockHeightRequest struct {
 }
-type GetMaxBlockHeightResponse struct {
+type GetMinerMineMaxBlockHeightRequest struct {
+}
+type GetMinerMineMaxBlockHeightResponse struct {
 	MaxBlockHeight uint64 `json:"maxBlockHeight"`
 }
-type SetMaxBlockHeightRequest struct {
+type SetMinerMineMaxBlockHeightRequest struct {
 	MaxBlockHeight uint64 `json:"maxBlockHeight"`
 }
-type SetMaxBlockHeightResponse struct {
+type SetMinerMineMaxBlockHeightResponse struct {
 }

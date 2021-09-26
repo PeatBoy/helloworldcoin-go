@@ -11,4 +11,4 @@ import (
 type Script = []string
 type InputScript = Script
 type OutputScript = Script
-type ScriptExecuteResult = StringStack.StringStack
+type Result = StringStack.StringStack

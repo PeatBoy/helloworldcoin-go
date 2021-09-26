@@ -5,10 +5,10 @@ package ScriptDtoTool
 */
 
 import (
-	"helloworld-blockchain-go/core/model/script/OperationCodeEnum"
+	"helloworld-blockchain-go/core/model/script/OperationCode"
 	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/crypto/ByteUtil"
 	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/util/ByteUtil"
 	"helloworld-blockchain-go/util/StringUtil"
 )
 
@@ -28,12 +28,12 @@ func BytesScript(script *dto.ScriptDto) []byte {
 	for i := 0; i < len(*script); i++ {
 		operationCode := (*script)[i]
 		bytesOperationCode := ByteUtil.HexStringToBytes(operationCode)
-		if ByteUtil.IsEquals(OperationCodeEnum.OP_DUP.Code, bytesOperationCode) ||
-			ByteUtil.IsEquals(OperationCodeEnum.OP_HASH160.Code, bytesOperationCode) ||
-			ByteUtil.IsEquals(OperationCodeEnum.OP_EQUALVERIFY.Code, bytesOperationCode) ||
-			ByteUtil.IsEquals(OperationCodeEnum.OP_CHECKSIG.Code, bytesOperationCode) {
+		if ByteUtil.Equals(OperationCode.OP_DUP.Code, bytesOperationCode) ||
+			ByteUtil.Equals(OperationCode.OP_HASH160.Code, bytesOperationCode) ||
+			ByteUtil.Equals(OperationCode.OP_EQUALVERIFY.Code, bytesOperationCode) ||
+			ByteUtil.Equals(OperationCode.OP_CHECKSIG.Code, bytesOperationCode) {
 			bytesScript = ByteUtil.Concatenate(bytesScript, ByteUtil.ConcatenateLength(bytesOperationCode))
-		} else if ByteUtil.IsEquals(OperationCodeEnum.OP_PUSHDATA.Code, bytesOperationCode) {
+		} else if ByteUtil.Equals(OperationCode.OP_PUSHDATA.Code, bytesOperationCode) {
 			i = i + 1
 			operationData := (*script)[i]
 			bytesOperationData := ByteUtil.HexStringToBytes(operationData)
@@ -56,10 +56,10 @@ func GetPublicKeyHashFromPayToPublicKeyHashOutputScript(outputScript *dto.Output
  */
 func IsPayToPublicKeyHashInputScript(inputScriptDto *dto.InputScriptDto) bool {
 	return (len(*inputScriptDto) == 4) &&
-		(StringUtil.IsEquals(ByteUtil.BytesToHexString(OperationCodeEnum.OP_PUSHDATA.Code), (*inputScriptDto)[0])) &&
-		(136 <= StringUtil.UtfCharacterCount((*inputScriptDto)[1]) && 144 >= StringUtil.UtfCharacterCount((*inputScriptDto)[1])) &&
-		(StringUtil.IsEquals(ByteUtil.BytesToHexString(OperationCodeEnum.OP_PUSHDATA.Code), (*inputScriptDto)[2])) &&
-		(66 == StringUtil.UtfCharacterCount((*inputScriptDto)[3]))
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code), (*inputScriptDto)[0])) &&
+		(136 <= StringUtil.Length((*inputScriptDto)[1]) && 144 >= StringUtil.Length((*inputScriptDto)[1])) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code), (*inputScriptDto)[2])) &&
+		(66 == StringUtil.Length((*inputScriptDto)[3]))
 }
 
 /**
@@ -67,12 +67,12 @@ func IsPayToPublicKeyHashInputScript(inputScriptDto *dto.InputScriptDto) bool {
  */
 func IsPayToPublicKeyHashOutputScript(outputScriptDto *dto.OutputScriptDto) bool {
 	return (len(*outputScriptDto) == 6) &&
-		(StringUtil.IsEquals(ByteUtil.BytesToHexString(OperationCodeEnum.OP_DUP.Code), (*outputScriptDto)[0])) &&
-		(StringUtil.IsEquals(ByteUtil.BytesToHexString(OperationCodeEnum.OP_HASH160.Code), (*outputScriptDto)[1])) &&
-		(StringUtil.IsEquals(ByteUtil.BytesToHexString(OperationCodeEnum.OP_PUSHDATA.Code), (*outputScriptDto)[2])) &&
-		(40 == StringUtil.UtfCharacterCount((*outputScriptDto)[3])) &&
-		(StringUtil.IsEquals(ByteUtil.BytesToHexString(OperationCodeEnum.OP_EQUALVERIFY.Code), (*outputScriptDto)[4])) &&
-		(StringUtil.IsEquals(ByteUtil.BytesToHexString(OperationCodeEnum.OP_CHECKSIG.Code), (*outputScriptDto)[5]))
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_DUP.Code), (*outputScriptDto)[0])) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_HASH160.Code), (*outputScriptDto)[1])) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code), (*outputScriptDto)[2])) &&
+		(40 == StringUtil.Length((*outputScriptDto)[3])) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_EQUALVERIFY.Code), (*outputScriptDto)[4])) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_CHECKSIG.Code), (*outputScriptDto)[5]))
 }
 
 /**
@@ -80,13 +80,13 @@ func IsPayToPublicKeyHashOutputScript(outputScriptDto *dto.OutputScriptDto) bool
  */
 func CreatePayToPublicKeyHashOutputScript(address string) *dto.OutputScriptDto {
 	var script dto.OutputScriptDto
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_DUP.Code))
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_HASH160.Code))
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_PUSHDATA.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_DUP.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_HASH160.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
 	publicKeyHash := AccountUtil.PublicKeyHashFromAddress(address)
 	script = append(script, publicKeyHash)
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_EQUALVERIFY.Code))
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_CHECKSIG.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_EQUALVERIFY.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_CHECKSIG.Code))
 	return &script
 }
 
@@ -96,9 +96,9 @@ func CreatePayToPublicKeyHashOutputScript(address string) *dto.OutputScriptDto {
 func CreatePayToPublicKeyHashInputScript(sign string, publicKey string) *dto.InputScriptDto {
 	var script dto.InputScriptDto
 
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_PUSHDATA.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
 	script = append(script, sign)
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_PUSHDATA.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
 	script = append(script, publicKey)
 	return &script
 }

@@ -5,7 +5,7 @@ package core
 */
 
 import (
-	"helloworld-blockchain-go/crypto/ByteUtil"
+	"helloworld-blockchain-go/util/ByteUtil"
 	"helloworld-blockchain-go/util/FileUtil"
 	"helloworld-blockchain-go/util/KvDbUtil"
 )
@@ -27,7 +27,7 @@ const CONFIGURATION_DATABASE_NAME = "ConfigurationDatabase"
 const MINE_OPTION_KEY = "IS_MINER_ACTIVE"
 
 //'矿工可挖的最高区块高度'存入到数据库时的主键
-const MINE_MAX_BLOCK_HEIGHT_KEY = "MAX_BLOCK_HEIGHT"
+const MINER_MINE_MAX_BLOCK_HEIGHT_KEY = "MINER_MINE_MAX_BLOCK_HEIGHT"
 
 //'矿工是否是激活状态'的默认值
 const MINE_OPTION_DEFAULT_VALUE = false
@@ -55,12 +55,12 @@ func (c *CoreConfiguration) deactiveMiner() {
 	c.addOrUpdateConfiguration(ByteUtil.StringToUtf8Bytes(MINE_OPTION_KEY), ByteUtil.BooleanToUtf8Bytes(false))
 }
 
-func (c *CoreConfiguration) setMaxBlockHeight(maxHeight uint64) {
-	c.addOrUpdateConfiguration(ByteUtil.StringToUtf8Bytes(MINE_MAX_BLOCK_HEIGHT_KEY), ByteUtil.Uint64ToBytes(maxHeight))
+func (c *CoreConfiguration) setMinerMineMaxBlockHeight(maxHeight uint64) {
+	c.addOrUpdateConfiguration(ByteUtil.StringToUtf8Bytes(MINER_MINE_MAX_BLOCK_HEIGHT_KEY), ByteUtil.Uint64ToBytes(maxHeight))
 }
 
-func (c *CoreConfiguration) getMaxBlockHeight() uint64 {
-	bytesMineMaxBlockHeight := c.getConfigurationValue(ByteUtil.StringToUtf8Bytes(MINE_MAX_BLOCK_HEIGHT_KEY))
+func (c *CoreConfiguration) getMinerMineMaxBlockHeight() uint64 {
+	bytesMineMaxBlockHeight := c.getConfigurationValue(ByteUtil.StringToUtf8Bytes(MINER_MINE_MAX_BLOCK_HEIGHT_KEY))
 	if bytesMineMaxBlockHeight == nil {
 		//设置默认值，这是一个十分巨大的数字，矿工永远挖不到的高度
 		return uint64(10000000000000000)

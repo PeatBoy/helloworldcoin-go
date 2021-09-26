@@ -104,7 +104,7 @@
             }());
             $(async function(){
                 let response = await $ajax({
-                    url : baseUrl() + "/Api/NodeConsoleApplication/GetMaxBlockHeight"
+                    url : baseUrl() + "/Api/NodeConsoleApplication/GetMinerMineMaxBlockHeight"
                 });
                 maxBlockHeight = response.data.maxBlockHeight;
                 $('#maxBlockHeight').val(maxBlockHeight );
@@ -159,7 +159,7 @@
             $('#setMaxBlockHeight').click(async function(){
                 maxBlockHeight = $('#maxBlockHeight').val();
                 let response = await $ajax({
-                    url : baseUrl() + "/Api/NodeConsoleApplication/SetMaxBlockHeight",
+                    url : baseUrl() + "/Api/NodeConsoleApplication/SetMinerMineMaxBlockHeight",
                     data: `{
                         "maxBlockHeight":${maxBlockHeight}
                     }`

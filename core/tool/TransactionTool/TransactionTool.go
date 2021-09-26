@@ -12,9 +12,9 @@ import (
 	"helloworld-blockchain-go/core/tool/ScriptTool"
 	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
 	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/setting/TransactionSettingTool"
 	"helloworld-blockchain-go/util/LogUtil"
 	"helloworld-blockchain-go/util/StringsUtil"
+	"helloworld-blockchain-go/util/SystemUtil"
 )
 
 func CalculateTransactionHash(transaction *model.Transaction) string {
@@ -22,8 +22,16 @@ func CalculateTransactionHash(transaction *model.Transaction) string {
 	return TransactionDtoTool.CalculateTransactionHash(transactionDto)
 }
 func GetTransactionFee(transaction *model.Transaction) uint64 {
-	transactionFee := GetInputValue(transaction) - GetOutputValue(transaction)
-	return transactionFee
+	if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {
+		transactionFee := GetInputValue(transaction) - GetOutputValue(transaction)
+		return transactionFee
+	} else if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
+		return 0
+	} else {
+		//will exit , can not return
+		SystemUtil.ErrorExit("unrecognized transaction type", nil)
+		return 0
+	}
 }
 func GetInputValue(transaction *model.Transaction) uint64 {
 	inputs := transaction.Inputs
@@ -88,7 +96,7 @@ func CheckTransactionValue(transaction *model.Transaction) bool {
 	if inputs != nil {
 		//校验交易输入的金额
 		for _, input := range inputs {
-			if !TransactionSettingTool.CheckTransactionValue(input.UnspentTransactionOutput.Value) {
+			if !CheckValue(input.UnspentTransactionOutput.Value) {
 				LogUtil.Debug("交易金额不合法")
 				return false
 			}
@@ -99,7 +107,7 @@ func CheckTransactionValue(transaction *model.Transaction) bool {
 	if outputs != nil {
 		//校验交易输出的金额
 		for _, output := range outputs {
-			if !TransactionSettingTool.CheckTransactionValue(output.Value) {
+			if !CheckValue(output.Value) {
 				LogUtil.Debug("交易金额不合法")
 				return false
 			}
@@ -232,4 +240,17 @@ func GetTransactionOutputCount(transaction *model.Transaction) uint64 {
 		return uint64(0)
 	}
 	return uint64(len(outputs))
+}
+
+/**
+ * 校验交易金额是否是一个合法的交易金额：这里用于限制交易金额的最大值、最小值、小数保留位等
+ */
+func CheckValue(transactionAmount uint64) bool {
+	//交易金额不能小于等于0
+	if transactionAmount <= 0 {
+		return false
+	}
+	//最大值是2^64
+	//小数保留位是0位
+	return true
 }

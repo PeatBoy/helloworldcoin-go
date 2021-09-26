@@ -14,9 +14,9 @@ import (
 	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
 	"helloworld-blockchain-go/core/tool/TransactionTool"
 	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/crypto/ByteUtil"
 	"helloworld-blockchain-go/setting/BlockSetting"
 	"helloworld-blockchain-go/setting/GenesisBlockSetting"
+	"helloworld-blockchain-go/util/ByteUtil"
 	"helloworld-blockchain-go/util/LogUtil"
 	"helloworld-blockchain-go/util/StringUtil"
 	"helloworld-blockchain-go/util/ThreadUtil"
@@ -48,7 +48,7 @@ func (i *Miner) Start() {
 
 		blockChainHeight := i.blockchainDatabase.QueryBlockchainHeight()
 		//'当前区块链的高度'是否大于'矿工最大被允许的挖矿高度'
-		if blockChainHeight >= i.coreConfiguration.getMaxBlockHeight() {
+		if blockChainHeight >= i.coreConfiguration.getMinerMineMaxBlockHeight() {
 			continue
 		}
 
@@ -90,12 +90,12 @@ func (i *Miner) Active() {
 	i.coreConfiguration.activeMiner()
 }
 
-func (i *Miner) SetMaxBlockHeight(maxHeight uint64) {
-	i.coreConfiguration.setMaxBlockHeight(maxHeight)
+func (i *Miner) SetMinerMineMaxBlockHeight(maxHeight uint64) {
+	i.coreConfiguration.setMinerMineMaxBlockHeight(maxHeight)
 }
 
-func (i *Miner) GetMaxBlockHeight() uint64 {
-	return i.coreConfiguration.getMaxBlockHeight()
+func (i *Miner) GetMinerMineMaxBlockHeight() uint64 {
+	return i.coreConfiguration.getMinerMineMaxBlockHeight()
 }
 
 func (i *Miner) buildMiningBlock(blockchainDatabase *BlockchainDatabase, unconfirmedTransactionDatabase *UnconfirmedTransactionDatabase, minerAccount *AccountUtil.Account) *model.Block {

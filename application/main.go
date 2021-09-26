@@ -68,8 +68,8 @@ func main() {
 	apiMux.HandleFunc(NodeConsoleApplicationApi.DEACTIVE_AUTO_SEARCH_NODE, nodeConsoleApplicationController.DeactiveAutoSearchNode)
 
 	apiMux.HandleFunc(NodeConsoleApplicationApi.DELETE_BLOCKS, nodeConsoleApplicationController.DeleteBlocks)
-	apiMux.HandleFunc(NodeConsoleApplicationApi.GET_MAX_BLOCK_HEIGHT, nodeConsoleApplicationController.GetMaxBlockHeight)
-	apiMux.HandleFunc(NodeConsoleApplicationApi.SET_MAX_BLOCK_HEIGHT, nodeConsoleApplicationController.SetMaxBlockHeight)
+	apiMux.HandleFunc(NodeConsoleApplicationApi.GET_MINER_MINE_MAX_BLOCK_HEIGHT, nodeConsoleApplicationController.GetMinerMineMaxBlockHeight)
+	apiMux.HandleFunc(NodeConsoleApplicationApi.SET_MINER_MINE_MAX_BLOCK_HEIGHT, nodeConsoleApplicationController.SetMinerMineMaxBlockHeight)
 
 	apiMux.Handle("/", http.FileServer(http.Dir(SystemUtil.SystemRootDirectory()+"/application/resources/static")))
 

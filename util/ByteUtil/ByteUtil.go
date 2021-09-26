@@ -39,10 +39,8 @@ func Utf8BytesToString(bytesValue []byte) string {
 }
 
 func BooleanToUtf8Bytes(booleanValue bool) []byte {
-
 	return StringToUtf8Bytes(strconv.FormatBool(booleanValue))
 }
-
 func Utf8BytesToBoolean(bytesValue []byte) bool {
 	b, _ := strconv.ParseBool(string(bytesValue))
 	return b
@@ -74,14 +72,9 @@ func FlatAndConcatenateLength(values [][]byte) []byte {
 	return ConcatenateLength(flatBytes)
 }
 
-func IsEquals(bytes1 []byte, bytes2 []byte) bool {
-	return bytes.Equal(bytes1, bytes2)
-}
-
 func Copy(sourceBytes []byte, startPosition int, length int) []byte {
 	return sourceBytes[startPosition : startPosition+length]
 }
-
 func CopyTo(sourceBytes []byte, sourceStartPosition int, length int, destinationBytes *[]byte, destinationStartPosition int) {
 	for len(*destinationBytes) < destinationStartPosition+length {
 		*destinationBytes = append(*destinationBytes, byte(0x00))
@@ -89,6 +82,10 @@ func CopyTo(sourceBytes []byte, sourceStartPosition int, length int, destination
 	for i := 0; i < length; i = i + 1 {
 		(*destinationBytes)[destinationStartPosition+i] = sourceBytes[sourceStartPosition+i]
 	}
+}
+
+func Equals(bytes1 []byte, bytes2 []byte) bool {
+	return bytes.Equal(bytes1, bytes2)
 }
 
 func Random32Bytes() []byte {

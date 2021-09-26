@@ -6,12 +6,12 @@ package core
 
 import (
 	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/core/tool/EncodeDecodeTool"
 	"helloworld-blockchain-go/core/tool/ScriptDtoTool"
 	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
 	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/crypto/ByteUtil"
 	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/util/ByteUtil"
+	"helloworld-blockchain-go/util/EncodeDecodeTool"
 	"helloworld-blockchain-go/util/FileUtil"
 	"helloworld-blockchain-go/util/KvDbUtil"
 	"helloworld-blockchain-go/util/StringUtil"
@@ -35,7 +35,7 @@ func (w *Wallet) GetAllAccounts() []*AccountUtil.Account {
 	var accounts []*AccountUtil.Account
 	bytesAccounts := KvDbUtil.Gets(w.getWalletDatabasePath(), 1, 100000000)
 	for e := bytesAccounts.Front(); e != nil; e = e.Next() {
-		account := EncodeDecodeTool.DecodeToAccount(e.Value.([]byte))
+		account := EncodeDecodeTool.Decode(e.Value.([]byte), AccountUtil.Account{}).(*AccountUtil.Account)
 		accounts = append(accounts, account)
 	}
 	return accounts
@@ -44,7 +44,7 @@ func (w *Wallet) GetNonZeroBalanceAccounts() []*AccountUtil.Account {
 	var accounts []*AccountUtil.Account
 	bytesAccounts := KvDbUtil.Gets(w.getWalletDatabasePath(), 1, 100000000)
 	for e := bytesAccounts.Front(); e != nil; e = e.Next() {
-		account := EncodeDecodeTool.DecodeToAccount(e.Value.([]byte))
+		account := EncodeDecodeTool.Decode(e.Value.([]byte), AccountUtil.Account{}).(*AccountUtil.Account)
 		utxo := w.blockchainDatabase.QueryUnspentTransactionOutputByAddress(account.Address)
 		if utxo != nil && utxo.Value > 0 {
 			accounts = append(accounts, account)
@@ -61,7 +61,7 @@ func (w *Wallet) CreateAndSaveAccount() *AccountUtil.Account {
 	return account
 }
 func (w *Wallet) SaveAccount(account *AccountUtil.Account) {
-	KvDbUtil.Put(w.getWalletDatabasePath(), w.getKeyByAccount(account), EncodeDecodeTool.EncodeAccount(account))
+	KvDbUtil.Put(w.getWalletDatabasePath(), w.getKeyByAccount(account), EncodeDecodeTool.Encode(account))
 }
 func (w *Wallet) DeleteAccountByAddress(address string) {
 	KvDbUtil.Delete(w.getWalletDatabasePath(), w.getKeyByAddress(address))

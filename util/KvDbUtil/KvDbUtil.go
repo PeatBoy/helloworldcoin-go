@@ -64,26 +64,26 @@ func Write(dbPath string, kvWriteBatch *KvWriteBatch) {
 	batch := new(leveldb.Batch)
 	kvWrites := kvWriteBatch.GetKvWrites()
 	for _, kvWrite := range kvWrites {
-		if kvWrite.kvWriteActionEnum == ADD {
+		if kvWrite.kvWriteAction == ADD {
 			batch.Put(kvWrite.key, kvWrite.value)
-		} else if kvWrite.kvWriteActionEnum == ADD {
+		} else if kvWrite.kvWriteAction == ADD {
 			batch.Delete(kvWrite.key)
 		}
 	}
 	getDb(dbPath).Write(batch, nil)
 }
 
-type KvWriteActionEnum = bool
+type KvWriteAction = bool
 
 const (
-	ADD    KvWriteActionEnum = true
-	DELETE KvWriteActionEnum = false
+	ADD    KvWriteAction = true
+	DELETE KvWriteAction = false
 )
 
 type KvWrite struct {
-	kvWriteActionEnum KvWriteActionEnum
-	key               []byte
-	value             []byte
+	kvWriteAction KvWriteAction
+	key           []byte
+	value         []byte
 }
 type KvWriteBatch struct {
 	kvWrites []KvWrite
@@ -98,10 +98,10 @@ func (kvWriteBatch *KvWriteBatch) SetKvWrites(kvWrites []KvWrite) {
 	kvWriteBatch.kvWrites = kvWrites
 }
 func (kvWriteBatch *KvWriteBatch) Put(key []byte, value []byte) {
-	kvWrite := KvWrite{kvWriteActionEnum: ADD, key: key, value: value}
+	kvWrite := KvWrite{kvWriteAction: ADD, key: key, value: value}
 	kvWriteBatch.kvWrites = append(kvWriteBatch.kvWrites, kvWrite)
 }
 func (kvWriteBatch *KvWriteBatch) Delete(key []byte) {
-	kvWrite := KvWrite{kvWriteActionEnum: DELETE, key: key, value: nil}
+	kvWrite := KvWrite{kvWriteAction: DELETE, key: key, value: nil}
 	kvWriteBatch.kvWrites = append(kvWriteBatch.kvWrites, kvWrite)
 }

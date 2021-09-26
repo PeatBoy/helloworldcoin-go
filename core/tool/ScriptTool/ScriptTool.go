@@ -6,23 +6,23 @@ package ScriptTool
 
 import (
 	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/core/model/script/OperationCodeEnum"
+	"helloworld-blockchain-go/core/model/script/OperationCode"
 	"helloworld-blockchain-go/core/tool/Model2DtoTool"
 	"helloworld-blockchain-go/core/tool/ScriptDtoTool"
 	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/crypto/ByteUtil"
+	"helloworld-blockchain-go/util/ByteUtil"
 	"helloworld-blockchain-go/util/StringUtil"
 )
 
 func CreatePayToPublicKeyHashOutputScript(address string) *model.OutputScript {
 	var script model.OutputScript
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_DUP.Code))
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_HASH160.Code))
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_PUSHDATA.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_DUP.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_HASH160.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
 	publicKeyHash := AccountUtil.PublicKeyHashFromAddress(address)
 	script = append(script, publicKeyHash)
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_EQUALVERIFY.Code))
-	script = append(script, ByteUtil.BytesToHexString(OperationCodeEnum.OP_CHECKSIG.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_EQUALVERIFY.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_CHECKSIG.Code))
 	return &script
 }
 
@@ -64,18 +64,18 @@ func stringScript(script *model.Script) string {
 	for i := 0; i < len(*script); i++ {
 		operationCode := (*script)[i]
 		bytesOperationCode := ByteUtil.HexStringToBytes(operationCode)
-		if ByteUtil.IsEquals(OperationCodeEnum.OP_DUP.Code, bytesOperationCode) {
-			stringScript = StringUtil.Concatenate3(stringScript, OperationCodeEnum.OP_DUP.Name, StringUtil.BLANKSPACE)
-		} else if ByteUtil.IsEquals(OperationCodeEnum.OP_HASH160.Code, bytesOperationCode) {
-			stringScript = StringUtil.Concatenate3(stringScript, OperationCodeEnum.OP_HASH160.Name, StringUtil.BLANKSPACE)
-		} else if ByteUtil.IsEquals(OperationCodeEnum.OP_EQUALVERIFY.Code, bytesOperationCode) {
-			stringScript = StringUtil.Concatenate3(stringScript, OperationCodeEnum.OP_EQUALVERIFY.Name, StringUtil.BLANKSPACE)
-		} else if ByteUtil.IsEquals(OperationCodeEnum.OP_CHECKSIG.Code, bytesOperationCode) {
-			stringScript = StringUtil.Concatenate3(stringScript, OperationCodeEnum.OP_CHECKSIG.Name, StringUtil.BLANKSPACE)
-		} else if ByteUtil.IsEquals(OperationCodeEnum.OP_PUSHDATA.Code, bytesOperationCode) {
+		if ByteUtil.Equals(OperationCode.OP_DUP.Code, bytesOperationCode) {
+			stringScript = StringUtil.Concatenate3(stringScript, OperationCode.OP_DUP.Name, StringUtil.BLANKSPACE)
+		} else if ByteUtil.Equals(OperationCode.OP_HASH160.Code, bytesOperationCode) {
+			stringScript = StringUtil.Concatenate3(stringScript, OperationCode.OP_HASH160.Name, StringUtil.BLANKSPACE)
+		} else if ByteUtil.Equals(OperationCode.OP_EQUALVERIFY.Code, bytesOperationCode) {
+			stringScript = StringUtil.Concatenate3(stringScript, OperationCode.OP_EQUALVERIFY.Name, StringUtil.BLANKSPACE)
+		} else if ByteUtil.Equals(OperationCode.OP_CHECKSIG.Code, bytesOperationCode) {
+			stringScript = StringUtil.Concatenate3(stringScript, OperationCode.OP_CHECKSIG.Name, StringUtil.BLANKSPACE)
+		} else if ByteUtil.Equals(OperationCode.OP_PUSHDATA.Code, bytesOperationCode) {
 			i = i + 1
 			operationData := (*script)[i]
-			stringScript = StringUtil.Concatenate3(stringScript, OperationCodeEnum.OP_PUSHDATA.Name, StringUtil.BLANKSPACE)
+			stringScript = StringUtil.Concatenate3(stringScript, OperationCode.OP_PUSHDATA.Name, StringUtil.BLANKSPACE)
 			stringScript = StringUtil.Concatenate3(stringScript, operationData, StringUtil.BLANKSPACE)
 		} else {
 			panic("不能识别的指令")
