@@ -11,7 +11,6 @@ import (
 	"helloworld-blockchain-go/util/EncodeDecodeTool"
 	"helloworld-blockchain-go/util/FileUtil"
 	"helloworld-blockchain-go/util/KvDbUtil"
-	"helloworld-blockchain-go/util/StringUtil"
 )
 
 type NodeDao struct {
@@ -25,13 +24,9 @@ func NewNodeDao(netCoreConfiguration *configuration.NetCoreConfiguration) *NodeD
 const NODE_DATABASE_NAME = "NodeDatabase"
 
 func (n *NodeDao) QueryNode(ip string) *po.NodePo {
-	nodePos := n.QueryAllNodes()
-	if nodePos != nil {
-		for _, nodePo := range nodePos {
-			if StringUtil.Equals(ip, nodePo.Ip) {
-				return nodePo
-			}
-		}
+	bytesNodePo := KvDbUtil.Get(n.getNodeDatabasePath(), n.getKeyByIp(ip))
+	if bytesNodePo != nil {
+		return EncodeDecodeTool.Decode(bytesNodePo, po.NodePo{}).(*po.NodePo)
 	}
 	return nil
 }
