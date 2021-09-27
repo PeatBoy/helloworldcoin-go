@@ -38,14 +38,6 @@ func AccountFromPrivateKey(privateKey string) *Account {
 	account := Account{PrivateKey: privateKey, PublicKey: publicKey, PublicKeyHash: publicKeyHash, Address: address}
 	return &account
 }
-func AddressFromPublicKey(publicKey string) string {
-	bytesPublicKey := ByteUtil.HexStringToBytes(publicKey)
-	return base58AddressFromPublicKey0(bytesPublicKey)
-}
-func AddressFromPublicKeyHash(publicKeyHash string) string {
-	bytesPublicKeyHash := ByteUtil.HexStringToBytes(publicKeyHash)
-	return base58AddressFromPublicKeyHash0(bytesPublicKeyHash)
-}
 
 func PublicKeyHashFromPublicKey(publicKey string) string {
 	publicKeyHash := Ripemd160Util.Digest(Sha256Util.Digest(ByteUtil.HexStringToBytes(publicKey)))
@@ -56,6 +48,15 @@ func PublicKeyHashFromAddress(address string) string {
 	var bytesPublicKeyHash []byte
 	ByteUtil.CopyTo(bytesAddress, 1, 20, &bytesPublicKeyHash, 0)
 	return ByteUtil.BytesToHexString(bytesPublicKeyHash)
+}
+
+func AddressFromPublicKey(publicKey string) string {
+	bytesPublicKey := ByteUtil.HexStringToBytes(publicKey)
+	return base58AddressFromPublicKey0(bytesPublicKey)
+}
+func AddressFromPublicKeyHash(publicKeyHash string) string {
+	bytesPublicKeyHash := ByteUtil.HexStringToBytes(publicKeyHash)
+	return base58AddressFromPublicKeyHash0(bytesPublicKeyHash)
 }
 
 func Signature(privateKey string, bytesMessage []byte) string {

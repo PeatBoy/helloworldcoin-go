@@ -10,8 +10,8 @@ import (
 	"helloworld-blockchain-go/util/MathUtil"
 )
 
-func CalculateMerkleTreeRoot(dataList [][]byte) []byte {
-	tree := dataList[:]
+func CalculateMerkleTreeRoot(datas [][]byte) []byte {
+	tree := datas[:]
 	levelOffset := 0
 	for levelSize := len(tree); levelSize > 1; levelSize = (levelSize + 1) / 2 {
 		for left := 0; left < levelSize; left += 2 {
