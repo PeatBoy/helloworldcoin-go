@@ -65,7 +65,7 @@ func (n *NodeConsoleApplicationController) AddNode(rw http.ResponseWriter, req *
 	request := GetRequest(req, vo.AddNodeRequest{}).(*vo.AddNodeRequest)
 
 	ip := request.Ip
-	if StringUtil.IsNullOrEmpty(ip) {
+	if StringUtil.IsEmpty(ip) {
 		requestParamIllegal(rw)
 		return
 	}
@@ -89,7 +89,7 @@ func (n *NodeConsoleApplicationController) UpdateNode(rw http.ResponseWriter, re
 	request := GetRequest(req, vo.UpdateNodeRequest{}).(*vo.UpdateNodeRequest)
 
 	ip := request.Ip
-	if StringUtil.IsNullOrEmpty(ip) {
+	if StringUtil.IsEmpty(ip) {
 		requestParamIllegal(rw)
 		return
 	}

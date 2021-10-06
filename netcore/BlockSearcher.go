@@ -15,8 +15,8 @@ import (
 	"helloworld-blockchain-go/netcore/model"
 	"helloworld-blockchain-go/netcore/service"
 	"helloworld-blockchain-go/setting/GenesisBlockSetting"
+	"helloworld-blockchain-go/util/LogUtil"
 	"helloworld-blockchain-go/util/StringUtil"
-	"helloworld-blockchain-go/util/SystemUtil"
 	"helloworld-blockchain-go/util/ThreadUtil"
 )
 
@@ -39,19 +39,19 @@ func NewBlockSearcher(netCoreConfiguration *configuration.NetCoreConfiguration, 
 func (b *BlockSearcher) start() {
 	defer func() {
 		if e := recover(); e != nil {
-			SystemUtil.ErrorExit("在区块链网络中同步节点的区块出现异常", e)
+			LogUtil.Error("在区块链网络中同步节点的区块出现异常", e)
 		}
 	}()
 	for {
-		b.searchBlocks()
-		ThreadUtil.MillisecondSleep(b.netCoreConfiguration.GetSearchBlockTimeInterval())
+		b.searchNodesBlocks()
+		ThreadUtil.MillisecondSleep(b.netCoreConfiguration.GetBlockSearchTimeInterval())
 	}
 }
 
 /**
  * 搜索新的区块，并同步这些区块到本地区块链系统
  */
-func (b *BlockSearcher) searchBlocks() {
+func (b *BlockSearcher) searchNodesBlocks() {
 	nodes := b.nodeService.QueryAllNodes()
 	if nodes == nil || len(nodes) == 0 {
 		return

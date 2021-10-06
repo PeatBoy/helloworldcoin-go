@@ -10,7 +10,6 @@ import (
 	"helloworld-blockchain-go/netcore"
 	"helloworld-blockchain-go/netcore-client/client"
 	"helloworld-blockchain-go/util/StringUtil"
-	"helloworld-blockchain-go/util/SystemUtil"
 )
 
 type WalletApplicationService struct {
@@ -83,10 +82,9 @@ func payAlert2PayAlertVo(message string) string {
 		return vo.NOT_ENOUGH_MONEY_TO_PAY
 	} else if StringUtil.Equals(vo.PAYEE_ADDRESS_CAN_NOT_EMPTY, message) {
 		return vo.PAYEE_ADDRESS_CAN_NOT_EMPTY
+	} else {
+		panic(nil)
 	}
-	//exit when can not convert
-	SystemUtil.ErrorExit("PayAlertVo not have message value", nil)
-	panic(nil)
 }
 
 func payeeVos2payees(payeeVos []*vo.PayeeVo) []*model.Payee {

@@ -9,7 +9,7 @@ import (
 	"helloworld-blockchain-go/netcore-client/client"
 	"helloworld-blockchain-go/netcore/configuration"
 	"helloworld-blockchain-go/netcore/service"
-	"helloworld-blockchain-go/util/SystemUtil"
+	"helloworld-blockchain-go/util/LogUtil"
 	"helloworld-blockchain-go/util/ThreadUtil"
 )
 
@@ -28,12 +28,12 @@ func NewBlockchainHeightSearcher(netCoreConfiguration *configuration.NetCoreConf
 func (b *BlockchainHeightSearcher) start() {
 	defer func() {
 		if e := recover(); e != nil {
-			SystemUtil.ErrorExit("在区块链网络中搜索节点的高度异常", e)
+			LogUtil.Error("在区块链网络中搜索节点的高度异常", e)
 		}
 	}()
 	for {
 		b.searchBlockchainHeight()
-		ThreadUtil.MillisecondSleep(b.netCoreConfiguration.GetSearchBlockchainHeightTimeInterval())
+		ThreadUtil.MillisecondSleep(b.netCoreConfiguration.GetBlockchainHeightSearchTimeInterval())
 	}
 }
 

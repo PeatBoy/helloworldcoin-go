@@ -93,7 +93,7 @@ func (w *Wallet) AutoBuildTransaction(request *model.AutoBuildTransactionRequest
 		return &response
 	}
 	for _, payee := range nonChangePayees {
-		if StringUtil.IsNullOrEmpty(payee.Address) {
+		if StringUtil.IsEmpty(payee.Address) {
 			var response model.AutoBuildTransactionResponse
 			response.BuildTransactionSuccess = false
 			response.Message = model.PAYEE_ADDRESS_CAN_NOT_EMPTY

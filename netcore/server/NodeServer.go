@@ -16,9 +16,9 @@ import (
 	"helloworld-blockchain-go/setting/BlockSetting"
 	"helloworld-blockchain-go/util/JsonUtil"
 	"helloworld-blockchain-go/util/LogUtil"
+	"helloworld-blockchain-go/util/SystemUtil"
 	"io"
 	"io/ioutil"
-	"log"
 	"net"
 	"net/http"
 	"strings"
@@ -44,9 +44,9 @@ func (b *NodeServer) Start() {
 	http.HandleFunc(API.POST_TRANSACTION, b.postTransaction)
 	http.HandleFunc(API.GET_UNCONFIRMED_TRANSACTIONS, b.getUnconfirmedTransactions)
 
-	err := http.ListenAndServe(":8888", nil)
-	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
+	e := http.ListenAndServe(":8888", nil)
+	if e != nil {
+		SystemUtil.ErrorExit("blockchain node server can not start.", e)
 	}
 }
 

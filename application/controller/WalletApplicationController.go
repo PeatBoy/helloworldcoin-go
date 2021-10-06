@@ -45,7 +45,7 @@ func (w *WalletApplicationController) SaveAccount(rw http.ResponseWriter, req *h
 	request := GetRequest(req, vo.SaveAccountRequest{}).(*vo.SaveAccountRequest)
 
 	privateKey := request.PrivateKey
-	if StringUtil.IsNullOrEmpty(privateKey) {
+	if StringUtil.IsEmpty(privateKey) {
 		requestParamIllegal(rw)
 		return
 	}
@@ -60,7 +60,7 @@ func (w *WalletApplicationController) DeleteAccount(rw http.ResponseWriter, req 
 	request := GetRequest(req, vo.DeleteAccountRequest{}).(*vo.DeleteAccountRequest)
 
 	address := request.Address
-	if StringUtil.IsNullOrEmpty(address) {
+	if StringUtil.IsEmpty(address) {
 		requestParamIllegal(rw)
 		return
 	}

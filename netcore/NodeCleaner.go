@@ -10,7 +10,6 @@ import (
 	"helloworld-blockchain-go/netcore/configuration"
 	"helloworld-blockchain-go/netcore/service"
 	"helloworld-blockchain-go/util/LogUtil"
-	"helloworld-blockchain-go/util/SystemUtil"
 	"helloworld-blockchain-go/util/ThreadUtil"
 )
 
@@ -29,7 +28,7 @@ func NewNodeCleaner(netCoreConfiguration *configuration.NetCoreConfiguration, no
 func (b *NodeCleaner) start() {
 	defer func() {
 		if e := recover(); e != nil {
-			SystemUtil.ErrorExit("清理死亡节点出现异常", e)
+			LogUtil.Error("清理死亡节点出现异常", e)
 		}
 	}()
 	for {

@@ -14,7 +14,6 @@ import (
 	"helloworld-blockchain-go/crypto/AccountUtil"
 	"helloworld-blockchain-go/util/LogUtil"
 	"helloworld-blockchain-go/util/StringsUtil"
-	"helloworld-blockchain-go/util/SystemUtil"
 )
 
 func CalculateTransactionHash(transaction *model.Transaction) string {
@@ -28,9 +27,7 @@ func GetTransactionFee(transaction *model.Transaction) uint64 {
 	} else if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
 		return 0
 	} else {
-		//will exit , can not return
-		SystemUtil.ErrorExit("unrecognized transaction type", nil)
-		return 0
+		panic(nil)
 	}
 }
 func GetInputValue(transaction *model.Transaction) uint64 {
@@ -127,8 +124,7 @@ func CheckTransactionValue(transaction *model.Transaction) bool {
 		}
 		return true
 	} else {
-		LogUtil.Debug("区块数据异常，不能识别的交易类型。")
-		return false
+		panic(nil)
 	}
 	return true
 }
@@ -196,7 +192,7 @@ func CalculateTransactionFee(transaction *model.Transaction) uint64 {
 		outputsValue := getOutputValue(transaction)
 		return inputsValue - outputsValue
 	} else {
-		panic("没有该交易类型。")
+		panic(nil)
 	}
 }
 

@@ -85,6 +85,9 @@ func (b *BlockchainBrowserApplicationService) QueryTransactionOutputByAddress(ad
 
 func (b *BlockchainBrowserApplicationService) QueryTransactionListByBlockHashTransactionHeight(blockHash string, from uint64, size uint64) []*vo.TransactionVo {
 	block := b.blockchainNetCore.GetBlockchainCore().QueryBlockByBlockHash(blockHash)
+	if block == nil {
+		return nil
+	}
 	var transactionVos []*vo.TransactionVo
 	for i := from; i < from+size; i++ {
 		if from < 0 {

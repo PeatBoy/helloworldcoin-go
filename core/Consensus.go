@@ -25,12 +25,12 @@ func NewConsensus() *Consensus {
 
 func (c *Consensus) CheckConsensus(blockchainDatabase *BlockchainDatabase, block *model.Block) bool {
 	difficulty := block.Difficulty
-	if StringUtil.IsNullOrEmpty(difficulty) {
+	if StringUtil.IsEmpty(difficulty) {
 		difficulty = c.CalculateDifficult(blockchainDatabase, block)
 	}
 
 	hash := block.Hash
-	if StringUtil.IsNullOrEmpty(hash) {
+	if StringUtil.IsEmpty(hash) {
 		hash = BlockTool.CalculateBlockHash(block)
 	}
 

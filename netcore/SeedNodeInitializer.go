@@ -10,7 +10,6 @@ import (
 	"helloworld-blockchain-go/netcore/service"
 	"helloworld-blockchain-go/setting/NetworkSetting"
 	"helloworld-blockchain-go/util/LogUtil"
-	"helloworld-blockchain-go/util/SystemUtil"
 	"helloworld-blockchain-go/util/ThreadUtil"
 )
 
@@ -29,12 +28,12 @@ func NewSeedNodeInitializer(netCoreConfiguration *configuration.NetCoreConfigura
 func (s *SeedNodeInitializer) start() {
 	defer func() {
 		if e := recover(); e != nil {
-			SystemUtil.ErrorExit("定时将种子节点加入区块链网络出现异常", e)
+			LogUtil.Error("定时将种子节点加入区块链网络出现异常", e)
 		}
 	}()
 	for {
 		s.addSeedNodes()
-		ThreadUtil.MillisecondSleep(s.netCoreConfiguration.GetAddSeedNodeTimeInterval())
+		ThreadUtil.MillisecondSleep(s.netCoreConfiguration.GetSeedNodeInitializeTimeInterval())
 	}
 }
 

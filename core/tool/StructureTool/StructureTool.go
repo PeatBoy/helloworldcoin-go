@@ -74,8 +74,7 @@ func CheckTransactionStructure(transaction *model.Transaction) bool {
 			return false
 		}
 	} else {
-		LogUtil.Debug("交易数据异常：不能识别的交易的类型。")
-		return false
+		panic(nil)
 	}
 	//校验脚本结构
 	//输入脚本不需要校验，如果输入脚本结构有误，则在业务[交易输入脚本解锁交易输出脚本]上就通不过。

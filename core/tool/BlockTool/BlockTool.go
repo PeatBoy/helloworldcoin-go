@@ -52,6 +52,7 @@ func GetBlockFee(block *model.Block) uint64 {
 				fee := TransactionTool.GetTransactionFee(transaction)
 				blockFee += fee
 			} else {
+				panic(nil)
 			}
 		}
 	}

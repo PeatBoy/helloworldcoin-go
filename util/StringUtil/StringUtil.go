@@ -14,7 +14,7 @@ const BLANKSPACE string = " "
 func Equals(value1 string, value2 string) bool {
 	return value1 == value2
 }
-func IsNullOrEmpty(value1 string) bool {
+func IsEmpty(value1 string) bool {
 	return len(value1) == 0
 }
 func PrefixPadding(rawValue string, targetLength int, paddingValue string) string {

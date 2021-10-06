@@ -11,7 +11,6 @@ import (
 	"helloworld-blockchain-go/netcore/model"
 	"helloworld-blockchain-go/netcore/service"
 	"helloworld-blockchain-go/util/LogUtil"
-	"helloworld-blockchain-go/util/SystemUtil"
 	"helloworld-blockchain-go/util/ThreadUtil"
 )
 
@@ -30,12 +29,12 @@ func NewNodeSearcher(netCoreConfiguration *configuration.NetCoreConfiguration, n
 func (b *NodeSearcher) start() {
 	defer func() {
 		if e := recover(); e != nil {
-			SystemUtil.ErrorExit("在区块链网络中搜索新的节点出现异常", e)
+			LogUtil.Error("在区块链网络中搜索新的节点出现异常", e)
 		}
 	}()
 	for {
 		b.searchNodes()
-		ThreadUtil.MillisecondSleep(b.netCoreConfiguration.GetSearchNodeTimeInterval())
+		ThreadUtil.MillisecondSleep(b.netCoreConfiguration.GetNodeSearchTimeInterval())
 	}
 }
 

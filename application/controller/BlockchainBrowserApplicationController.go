@@ -47,7 +47,7 @@ func (b *BlockchainBrowserApplicationController) QueryTransactionsByBlockHashTra
 	request := GetRequest(req, vo.QueryTransactionsByBlockHashTransactionHeightRequest{}).(*vo.QueryTransactionsByBlockHashTransactionHeightRequest)
 
 	pageCondition := request.PageCondition
-	if StringUtil.IsNullOrEmpty(request.BlockHash) {
+	if StringUtil.IsEmpty(request.BlockHash) {
 		requestParamIllegal(rw)
 		return
 	}

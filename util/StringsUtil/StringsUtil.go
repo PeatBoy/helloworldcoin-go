@@ -33,7 +33,7 @@ func Contains(values *[]string, value string) bool {
 }
 
 func Split(values string, valueSeparator string) []string {
-	if StringUtil.IsNullOrEmpty(values) {
+	if StringUtil.IsEmpty(values) {
 		return []string{}
 	}
 	return strings.Split(values, valueSeparator)

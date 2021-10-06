@@ -25,10 +25,10 @@ const NODE_DATABASE_NAME = "NodeDatabase"
 
 func (n *NodeDao) QueryNode(ip string) *po.NodePo {
 	bytesNodePo := KvDbUtil.Get(n.getNodeDatabasePath(), n.getKeyByIp(ip))
-	if bytesNodePo != nil {
-		return EncodeDecodeTool.Decode(bytesNodePo, po.NodePo{}).(*po.NodePo)
+	if bytesNodePo == nil {
+		return nil
 	}
-	return nil
+	return EncodeDecodeTool.Decode(bytesNodePo, po.NodePo{}).(*po.NodePo)
 }
 
 func (n *NodeDao) AddNode(node *po.NodePo) {
