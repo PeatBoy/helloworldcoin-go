@@ -9,7 +9,7 @@ import (
 	"helloworld-blockchain-go/core/tool/ScriptDtoTool"
 	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
 	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/netcore-dto/dto"
 	"helloworld-blockchain-go/util/ByteUtil"
 	"helloworld-blockchain-go/util/EncodeDecodeTool"
 	"helloworld-blockchain-go/util/FileUtil"

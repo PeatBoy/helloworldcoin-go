@@ -7,7 +7,7 @@ package ScriptDtoTool
 import (
 	"helloworld-blockchain-go/core/model/script/OperationCode"
 	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/netcore-dto/dto"
 	"helloworld-blockchain-go/util/ByteUtil"
 	"helloworld-blockchain-go/util/StringUtil"
 )

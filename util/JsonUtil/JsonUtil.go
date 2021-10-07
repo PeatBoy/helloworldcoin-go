@@ -9,7 +9,7 @@ import (
 	"helloworld-blockchain-go/application/vo"
 	"helloworld-blockchain-go/core/model"
 	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/netcore-dto/dto"
 	"helloworld-blockchain-go/netcore/po"
 )
 

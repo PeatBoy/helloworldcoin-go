@@ -7,8 +7,8 @@ package netcore
 import (
 	"helloworld-blockchain-go/core"
 	"helloworld-blockchain-go/core/tool/Model2DtoTool"
-	"helloworld-blockchain-go/dto"
 	"helloworld-blockchain-go/netcore-client/client"
+	"helloworld-blockchain-go/netcore-dto/dto"
 	"helloworld-blockchain-go/netcore/configuration"
 	"helloworld-blockchain-go/netcore/service"
 	"helloworld-blockchain-go/util/LogUtil"

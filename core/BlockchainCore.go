@@ -8,7 +8,7 @@ import (
 	"helloworld-blockchain-go/core/model"
 	"helloworld-blockchain-go/core/tool/Model2DtoTool"
 	"helloworld-blockchain-go/core/tool/ResourcePathTool"
-	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/netcore-dto/dto"
 )
 
 type BlockchainCore struct {

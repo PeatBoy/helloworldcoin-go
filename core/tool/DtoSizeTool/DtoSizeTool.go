@@ -5,7 +5,7 @@ package DtoSizeTool
 */
 
 import (
-	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/netcore-dto/dto"
 	"helloworld-blockchain-go/setting/BlockSetting"
 	"helloworld-blockchain-go/setting/ScriptSetting"
 	"helloworld-blockchain-go/setting/TransactionSetting"

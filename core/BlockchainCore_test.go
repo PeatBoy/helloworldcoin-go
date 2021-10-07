@@ -6,7 +6,7 @@ package core
 
 import (
 	"helloworld-blockchain-go/core/tool/ResourcePathTool"
-	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/netcore-dto/dto"
 	"helloworld-blockchain-go/util/FileUtil"
 	"helloworld-blockchain-go/util/JsonUtil"
 	"helloworld-blockchain-go/util/SystemUtil"

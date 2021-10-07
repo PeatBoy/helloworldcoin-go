@@ -18,7 +18,7 @@ import (
 	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
 	"helloworld-blockchain-go/core/tool/TransactionTool"
 	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/netcore-dto/dto"
 	"helloworld-blockchain-go/setting/GenesisBlockSetting"
 	"helloworld-blockchain-go/setting/SystemVersionSettingTool"
 	"helloworld-blockchain-go/util/ByteUtil"

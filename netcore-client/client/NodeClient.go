@@ -5,8 +5,8 @@ package client
 */
 
 import (
-	"helloworld-blockchain-go/dto"
-	"helloworld-blockchain-go/dto/API"
+	"helloworld-blockchain-go/netcore-dto/dto"
+	"helloworld-blockchain-go/netcore-dto/dto/API"
 	"helloworld-blockchain-go/setting/NetworkSetting"
 	"helloworld-blockchain-go/util/JsonUtil"
 	"helloworld-blockchain-go/util/NetUtil"

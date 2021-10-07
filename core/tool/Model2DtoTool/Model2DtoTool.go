@@ -6,7 +6,7 @@ package Model2DtoTool
 
 import (
 	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/dto"
+	"helloworld-blockchain-go/netcore-dto/dto"
 )
 
 func Block2BlockDto(block *model.Block) *dto.BlockDto {
