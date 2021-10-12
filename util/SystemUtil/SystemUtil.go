@@ -12,6 +12,16 @@ import (
 	"runtime"
 )
 
+func IsWindowsOperateSystem() bool {
+	return "windows" == runtime.GOOS
+}
+func IsMacOperateSystem() bool {
+	return "darwin" == runtime.GOOS
+}
+func IsLinuxOperateSystem() bool {
+	return "linux" == runtime.GOOS
+}
+
 func ErrorExit(message string, exception interface{}) {
 	LogUtil.Error("system error occurred, and exited, please check the error！"+message, exception)
 	os.Exit(1)

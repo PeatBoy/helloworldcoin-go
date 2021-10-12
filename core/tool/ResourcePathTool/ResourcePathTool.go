@@ -6,7 +6,7 @@ package ResourcePathTool
 
 import (
 	"helloworld-blockchain-go/util/FileUtil"
-	"helloworld-blockchain-go/util/OperateSystemUtil"
+	"helloworld-blockchain-go/util/SystemUtil"
 )
 
 /**
@@ -14,11 +14,11 @@ import (
  */
 func GetDataRootPath() string {
 	var dataRootPath string
-	if OperateSystemUtil.IsWindowsOperateSystem() {
+	if SystemUtil.IsWindowsOperateSystem() {
 		dataRootPath = "C:\\helloworld-blockchain-go\\"
-	} else if OperateSystemUtil.IsMacOperateSystem() {
+	} else if SystemUtil.IsMacOperateSystem() {
 		dataRootPath = "/tmp/helloworld-blockchain-go/"
-	} else if OperateSystemUtil.IsLinuxOperateSystem() {
+	} else if SystemUtil.IsLinuxOperateSystem() {
 		dataRootPath = "/tmp/helloworld-blockchain-go/"
 	} else {
 		dataRootPath = "/tmp/helloworld-blockchain-go/"
@@ -32,11 +32,11 @@ func GetDataRootPath() string {
  */
 func GetTestDataRootPath() string {
 	var dataRootPath string
-	if OperateSystemUtil.IsWindowsOperateSystem() {
+	if SystemUtil.IsWindowsOperateSystem() {
 		dataRootPath = "C:\\helloworld-blockchain-go-test\\"
-	} else if OperateSystemUtil.IsMacOperateSystem() {
+	} else if SystemUtil.IsMacOperateSystem() {
 		dataRootPath = "/tmp/helloworld-blockchain-go-test/"
-	} else if OperateSystemUtil.IsLinuxOperateSystem() {
+	} else if SystemUtil.IsLinuxOperateSystem() {
 		dataRootPath = "/tmp/helloworld-blockchain-go-test/"
 	} else {
 		dataRootPath = "/tmp/helloworld-blockchain-go-test/"

@@ -43,9 +43,9 @@ type TransactionVo struct {
 	OutputScripts []string `json:"outputScripts"`
 }
 type TransactionOutputVo3 struct {
-	Value           uint64 `json:"value"`
-	Spent           bool   `json:"spent"`
-	TransactionType string `json:"transactionType"`
+	Value                    uint64 `json:"value"`
+	UnspentTransactionOutput bool   `json:"unspentTransactionOutput"`
+	TransactionType          string `json:"transactionType"`
 
 	FromBlockHeight            uint64 `json:"fromBlockHeight"`
 	FromBlockHash              string `json:"fromBlockHash"`

@@ -9,6 +9,7 @@ import (
 	"helloworld-blockchain-go/netcore-dto/dto/API"
 	"helloworld-blockchain-go/setting/NetworkSetting"
 	"helloworld-blockchain-go/util/JsonUtil"
+	"helloworld-blockchain-go/util/LogUtil"
 	"helloworld-blockchain-go/util/NetUtil"
 	"helloworld-blockchain-go/util/StringUtil"
 )
@@ -27,7 +28,12 @@ func (n *NodeClient) GetIp() string {
 }
 
 func (n *NodeClient) PostTransaction(request dto.PostTransactionRequest) *dto.PostTransactionResponse {
-	defer func() {}()
+	defer func() {
+		if e := recover(); e != nil {
+			LogUtil.Error("client error.", e)
+		}
+	}()
+
 	requestUrl := n.getUrl(API.POST_TRANSACTION)
 	requestBody := JsonUtil.ToString(request)
 	responseHtml := NetUtil.Get(requestUrl, requestBody)
@@ -35,7 +41,12 @@ func (n *NodeClient) PostTransaction(request dto.PostTransactionRequest) *dto.Po
 }
 
 func (n *NodeClient) PingNode(request dto.PingRequest) *dto.PingResponse {
-	defer func() {}()
+	defer func() {
+		if e := recover(); e != nil {
+			LogUtil.Error("client error.", e)
+		}
+	}()
+
 	requestUrl := n.getUrl(API.PING)
 	requestBody := JsonUtil.ToString(request)
 	responseHtml := NetUtil.Get(requestUrl, requestBody)
@@ -43,7 +54,12 @@ func (n *NodeClient) PingNode(request dto.PingRequest) *dto.PingResponse {
 }
 
 func (n *NodeClient) GetBlock(request dto.GetBlockRequest) *dto.GetBlockResponse {
-	defer func() {}()
+	defer func() {
+		if e := recover(); e != nil {
+			LogUtil.Error("client error.", e)
+		}
+	}()
+
 	requestUrl := n.getUrl(API.GET_BLOCK)
 	requestBody := JsonUtil.ToString(request)
 	responseHtml := NetUtil.Get(requestUrl, requestBody)
@@ -51,7 +67,12 @@ func (n *NodeClient) GetBlock(request dto.GetBlockRequest) *dto.GetBlockResponse
 }
 
 func (n *NodeClient) GetNodes(request dto.GetNodesRequest) *dto.GetNodesResponse {
-	defer func() {}()
+	defer func() {
+		if e := recover(); e != nil {
+			LogUtil.Error("client error.", e)
+		}
+	}()
+
 	requestUrl := n.getUrl(API.GET_NODES)
 	requestBody := JsonUtil.ToString(request)
 	responseHtml := NetUtil.Get(requestUrl, requestBody)
@@ -59,7 +80,12 @@ func (n *NodeClient) GetNodes(request dto.GetNodesRequest) *dto.GetNodesResponse
 }
 
 func (n *NodeClient) PostBlock(request dto.PostBlockRequest) *dto.PostBlockResponse {
-	defer func() {}()
+	defer func() {
+		if e := recover(); e != nil {
+			LogUtil.Error("client error.", e)
+		}
+	}()
+
 	requestUrl := n.getUrl(API.POST_BLOCK)
 	requestBody := JsonUtil.ToString(request)
 	responseHtml := NetUtil.Get(requestUrl, requestBody)
@@ -67,7 +93,12 @@ func (n *NodeClient) PostBlock(request dto.PostBlockRequest) *dto.PostBlockRespo
 }
 
 func (n *NodeClient) PostBlockchainHeight(request dto.PostBlockchainHeightRequest) *dto.PostBlockchainHeightResponse {
-	defer func() {}()
+	defer func() {
+		if e := recover(); e != nil {
+			LogUtil.Error("client error.", e)
+		}
+	}()
+
 	requestUrl := n.getUrl(API.POST_BLOCKCHAIN_HEIGHT)
 	requestBody := JsonUtil.ToString(request)
 	responseHtml := NetUtil.Get(requestUrl, requestBody)
@@ -75,7 +106,12 @@ func (n *NodeClient) PostBlockchainHeight(request dto.PostBlockchainHeightReques
 }
 
 func (n *NodeClient) GetBlockchainHeight(request dto.GetBlockchainHeightRequest) *dto.GetBlockchainHeightResponse {
-	defer func() {}()
+	defer func() {
+		if e := recover(); e != nil {
+			LogUtil.Error("client error.", e)
+		}
+	}()
+
 	requestUrl := n.getUrl(API.GET_BLOCKCHAIN_HEIGHT)
 	requestBody := JsonUtil.ToString(request)
 	responseHtml := NetUtil.Get(requestUrl, requestBody)
@@ -83,7 +119,12 @@ func (n *NodeClient) GetBlockchainHeight(request dto.GetBlockchainHeightRequest)
 }
 
 func (n *NodeClient) GetUnconfirmedTransactions(request dto.GetUnconfirmedTransactionsRequest) *dto.GetUnconfirmedTransactionsResponse {
-	defer func() {}()
+	defer func() {
+		if e := recover(); e != nil {
+			LogUtil.Error("client error.", e)
+		}
+	}()
+
 	requestUrl := n.getUrl(API.GET_UNCONFIRMED_TRANSACTIONS)
 	requestBody := JsonUtil.ToString(request)
 	responseHtml := NetUtil.Get(requestUrl, requestBody)

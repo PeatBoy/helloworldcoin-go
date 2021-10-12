@@ -7,7 +7,7 @@ package vo
 type BlockVo struct {
 	Height              uint64 `json:"height"`
 	ConfirmCount        uint64 `json:"confirmCount"`
-	BlockSize           string `json:"blockSize"`
+	BlockSize           uint64 `json:"blockSize"`
 	TransactionCount    uint64 `json:"transactionCount"`
 	Time                string `json:"time"`
 	MinerIncentiveValue uint64 `json:"minerIncentiveValue"`
@@ -21,7 +21,7 @@ type BlockVo struct {
 }
 type BlockVo2 struct {
 	Height              uint64 `json:"height"`
-	BlockSize           string `json:"blockSize"`
+	BlockSize           uint64 `json:"blockSize"`
 	TransactionCount    uint64 `json:"transactionCount"`
 	MinerIncentiveValue uint64 `json:"minerIncentiveValue"`
 	Time                string `json:"time"`

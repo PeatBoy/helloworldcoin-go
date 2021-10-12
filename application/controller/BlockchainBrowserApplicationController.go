@@ -168,7 +168,7 @@ func (b *BlockchainBrowserApplicationController) QueryTop10Blocks(rw http.Respon
 	for _, block := range blocks {
 		var blockVo vo.BlockVo2
 		blockVo.Height = block.Height
-		blockVo.BlockSize = StringUtil.ValueOfUint64(SizeTool.CalculateBlockSize(block)) + "字符"
+		blockVo.BlockSize = SizeTool.CalculateBlockSize(block)
 		blockVo.TransactionCount = BlockTool.GetTransactionCount(block)
 		blockVo.MinerIncentiveValue = BlockTool.GetWritedIncentiveValue(block)
 		blockVo.Time = TimeUtil.FormatMillisecondTimestamp(block.Timestamp)

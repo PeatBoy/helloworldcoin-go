@@ -40,7 +40,7 @@ func (b *BlockchainBrowserApplicationService) QueryTransactionOutputByTransactio
 
 	//是否是未花费输出
 	transactionOutputTemp := b.blockchainNetCore.GetBlockchainCore().GetBlockchainDatabase().QueryUnspentTransactionOutputByTransactionOutputId(transactionOutput.TransactionHash, transactionOutput.TransactionOutputIndex)
-	transactionOutputVo3.Spent = transactionOutputTemp == nil
+	transactionOutputVo3.UnspentTransactionOutput = transactionOutputTemp != nil
 
 	//来源
 	inputTransactionVo := b.QueryTransactionByTransactionHash(transactionOutput.TransactionHash)
@@ -114,7 +114,7 @@ func (b *BlockchainBrowserApplicationService) QueryBlockViewByBlockHeight(blockH
 	var blockVo vo.BlockVo
 	blockVo.Height = block.Height
 	blockVo.ConfirmCount = BlockTool.GetTransactionCount(block)
-	blockVo.BlockSize = StringUtil.ValueOfUint64(SizeTool.CalculateBlockSize(block)) + "字符"
+	blockVo.BlockSize = SizeTool.CalculateBlockSize(block)
 	blockVo.TransactionCount = BlockTool.GetTransactionCount(block)
 	blockVo.Time = TimeUtil.FormatMillisecondTimestamp(block.Timestamp)
 	blockVo.MinerIncentiveValue = BlockTool.GetWritedIncentiveValue(block)
