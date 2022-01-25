@@ -8,6 +8,7 @@
         <script src="./lib/jquery-v3.5.1/jquery-3.5.1.js"></script>
         <script src="./lib/bootstrap-v3.4.1/js/bootstrap.js"></script>
         <link rel="stylesheet" href="./lib/bootstrap-v3.4.1/css/bootstrap.css">
+        <script src="./lib/layer-v3.0.1/layer.js" charset="utf-8"></script>
 
         <script src="./js/common.js"></script>
         <link rel="stylesheet" href="./css/common.css">
@@ -50,21 +51,19 @@
                         <td ><button class="btn btn-primary" type="submit"  id="minerSwitch">占位符</button></td>
                     </tr>
                     <tr>
-                        <td>区块搜寻策略</td>
+                        <td>区块搜寻器状态</td>
                         <td id="autoSearchBlock"></td>
                         <td><button class="btn btn-primary" type="submit" id="autoSearchBlockSwitch">占位符</button></td>
                     </tr>
                     <tr>
-                        <td>节点搜寻策略</td>
+                        <td>节点搜寻器状态</td>
                         <td id="autoSearchNode"></td>
                         <td ><button class="btn btn-primary" type="submit" id="autoSearchNodeSwitch">占位符</button></td>
                     </tr>
                     <tr>
-                        <td>最大挖矿高度</td>
-                        <td>
-                            <input type="text" id="maxBlockHeight">
-                        </td>
-                        <td ><button class="btn btn-primary" type="submit" id="setMaxBlockHeight">设置最大挖矿高度</button></td>
+                        <td>最大挖矿区块高度</td>
+                        <td id="maxBlockHeight"></td>
+                        <td ><button class="btn btn-primary" type="submit" id="setMaxBlockHeight">设置最大挖矿区块高度</button></td>
                     </tr>
                 </thead>
             </table>
@@ -84,44 +83,58 @@
                 });
                 minerInActiveState = response.data.minerInActiveState;
                 $('#minerStatus').text(response.data.minerInActiveState ? '挖矿中' : '休息中');
-                $('#minerSwitch').text(response.data.minerInActiveState ? 'stop_mining' : 'start_mining');
+                $('#minerSwitch').text(response.data.minerInActiveState ? '停止挖矿' : '开启挖矿');
             }());
             $(async function(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchBlock"
                 });
                 autoSearchBlock = response.data.autoSearchBlock;
-                $('#autoSearchBlock').text(autoSearchBlock ? '自动搜索新区块' : '停止搜索新区块')
-                $('#autoSearchBlockSwitch').text(autoSearchBlock ? '停止搜索新区块' : '自动搜索新区块')
+                $('#autoSearchBlock').text(autoSearchBlock ? '搜寻中' : '休息中')
+                $('#autoSearchBlockSwitch').text(autoSearchBlock ? '关闭搜寻区块' : '开启搜寻区块')
             }());
             $(async function(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchNode"
                 });
                 autoSearchNode = response.data.autoSearchNode;
-                $('#autoSearchNode').text(autoSearchNode ? '自动搜索新节点' : '已暂停搜索新节点');
-                $('#autoSearchNodeSwitch').text(autoSearchNode ? '停止搜索新节点' : '自动搜索新节点');
+                $('#autoSearchNode').text(autoSearchNode ? '搜寻中' : '休息中');
+                $('#autoSearchNodeSwitch').text(autoSearchNode ? '关闭搜寻节点' : '开启搜寻节点');
             }());
             $(async function(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/GetMinerMineMaxBlockHeight"
                 });
                 maxBlockHeight = response.data.maxBlockHeight;
-                $('#maxBlockHeight').val(maxBlockHeight );
+                $('#maxBlockHeight').text(maxBlockHeight );
             }());
 
             $('#deleteBlocks').click(async function(){
-                let height = prompt('请输入要删除的区块高度');
-                if(isEmpty(height)){
-                    return;
-                }
-                let response = await $ajax({
-                    url : baseUrl() + "/Api/NodeConsoleApplication/DeleteBlocks",
-                    data: `{
-                        "blockHeight":${height}
-                    }`
+                layer.prompt({
+                    formType: 2,
+                    title: '请输入要删除的区块高度',
+                    value:'',
+                    area: ['400px', '25px'],
+                    btn: ['确认','取消'],
+                    btn2: function(index, elem){
+                        location.reload();
+                    }
+                }, function(value, index, elem){
+                    if(isEmpty(value)){
+                        layer.close(index);
+                    }
+                    $.ajax({
+                         type: "post",
+                         url : baseUrl() + "/Api/NodeConsoleApplication/DeleteBlocks",
+                         data: `{"blockHeight":${value}}`,
+                         dataType: "json",
+                         contentType: "application/json",
+                         success(response){
+                            layer.close(index);
+                            location.reload();
+                         }
+                     });
                 });
-                location.reload();
             })
             $('#minerSwitch').click(async function(){
                 if(minerInActiveState){
@@ -160,15 +173,33 @@
                 location.reload();
             })
             $('#setMaxBlockHeight').click(async function(){
-                maxBlockHeight = $('#maxBlockHeight').val();
-                let response = await $ajax({
-                    url : baseUrl() + "/Api/NodeConsoleApplication/SetMinerMineMaxBlockHeight",
-                    data: `{
-                        "maxBlockHeight":${maxBlockHeight}
-                    }`
+                layer.prompt({
+                    formType: 2,
+                    title: '请输入最大挖矿区块高度',
+                    value:'',
+                    area: ['400px', '25px'],
+                    btn: ['确认','取消'],
+                    btn2: function(index, elem){
+                        location.reload();
+                    }
+                }, function(value, index, elem){
+                    if(isEmpty(value)){
+                        layer.close(index);
+                    }
+                    $.ajax({
+                         type: "post",
+                         url : baseUrl() + "/Api/NodeConsoleApplication/SetMinerMineMaxBlockHeight",
+                         data: `{"maxBlockHeight":${value}}`,
+                         dataType: "json",
+                         contentType: "application/json",
+                         success(response){
+                            layer.close(index);
+                            location.reload();
+                         }
+                     });
                 });
-                location.reload();
             })
+
         </script>
     </body>
 </html>

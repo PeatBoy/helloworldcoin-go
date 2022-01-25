@@ -56,7 +56,7 @@
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
                     <div class="panel-heading">block hash&nbsp;${block.hash}</div>
-                    <button type="button" class="btn btn-default">abstract</button>
+                    <button type="button" class="btn btn-default">summary</button>
                     <!-- Table -->
                     <table class="table">
                         <tbody>
@@ -67,7 +67,7 @@
                                 <td style="width:40%">${block.difficulty}</td>
                             </tr>
                             <tr>
-                                <td>confirmed count</td>
+                                <td>block confirmation</td>
                                 <td>${block.confirmCount}</td>
                                 <td>nonce</td>
                                 <td>${block.nonce}</td>
@@ -98,8 +98,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-default">transaction list</button>
                 </div>`)
+                $('#box').append(`<br/><br/><button type="button" class="btn btn-default">transaction list</button>`)
             }())
 
             let request2 = `{"blockHash":"${urlParameters.get("hash")}","pageCondition":{"from":1,"size":10}}`;

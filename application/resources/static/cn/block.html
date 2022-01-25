@@ -67,7 +67,7 @@
                                 <td style="width:40%">${block.difficulty}</td>
                             </tr>
                             <tr>
-                                <td>确认数</td>
+                                <td>区块确认数</td>
                                 <td>${block.confirmCount}</td>
                                 <td>随机数</td>
                                 <td>${block.nonce}</td>
@@ -91,15 +91,15 @@
                                 <td><a href='./block.html?hash=${block.nextBlockHash}'>${block.nextBlockHash || ''}</a></td>
                             </tr>
                             <tr>
-                                <td>矿工奖励</td>
+                                <td>矿工激励</td>
                                 <td>${block.minerIncentiveValue}</td>
                                 <td>默克尔树根</td>
                                 <td>${block.merkleTreeRoot}</td>
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-default">交易列表</button>
                 </div>`)
+                $('#box').append(`<br/><br/><button type="button" class="btn btn-default">transaction list</button>`)
             }())
 
             let request2 = `{"blockHash":"${urlParameters.get("hash")}","pageCondition":{"from":1,"size":10}}`;

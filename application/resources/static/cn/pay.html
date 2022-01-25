@@ -180,32 +180,11 @@
                       content: payDetailHtml
                     });
                 }else {
-                    alert(translateAutomaticBuildTransactionResponseMessage(response.message));
+                    alert('服务不可用');
                 }
             }
 
             addNonChangePayee();
-
-            function translateAutomaticBuildTransactionResponseMessage(element){
-                let translateValue = commonTranslate(element);
-                if(!isEmpty(translateValue)){
-                    return translateValue;
-                }
-
-                if(element == 'payee_can_not_empty'){
-                    return '收款方不能为空';
-                }
-                if(element == 'payee_address_can_not_empty'){
-                    return '收款方地址不能为空';
-                }
-                if(element == 'payee_value_can_not_less_equal_than_zero'){
-                    return '收款金额不能小于等于零';
-                }
-                if(element == 'not_enough_money_to_pay'){
-                   return '没有足够的钱进行支付';
-                }
-                return element;
-            }
         </script>
     </body>
 </html>

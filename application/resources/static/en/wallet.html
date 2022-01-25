@@ -75,7 +75,8 @@
 
             $('body').delegate('table .btn-danger', 'click', async function(){
                 let privateKey = $(this).parent().parent().find('a').text();
-                layer.confirm('confirm cancel？', {
+                layer.confirm('confirm delete', {
+                  title: 'information',
                   btn: ['delete','cancel']
                 }, function(){
                     $.ajax({
@@ -97,7 +98,7 @@
                     formType: 2,
                     title: 'enter private key',
                     value:'',
-                    area: ['400px', '150px'],
+                    area: ['400px', '120px'],
                     btn: ['confirm','cancel'],
                     btn2: function(index, elem){
                         location.reload();

@@ -36,16 +36,6 @@ async function $ajax(option){
     })
 }
 
-function commonTranslate(element){
-    if(element == 'request_param_illegal'){
-        return 'request param illegal';
-    }
-    if(element == 'service_unavailable'){
-        return 'service unavailable';
-    }
-    return null;
-}
-
 function transactionHtml(item){
     let {transactionInputs,transactionOutputs} = item;
 

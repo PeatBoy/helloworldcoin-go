@@ -8,6 +8,7 @@
         <script src="./lib/jquery-v3.5.1/jquery-3.5.1.js"></script>
         <script src="./lib/bootstrap-v3.4.1/js/bootstrap.js"></script>
         <link rel="stylesheet" href="./lib/bootstrap-v3.4.1/css/bootstrap.css">
+        <script src="./lib/layer-v3.0.1/layer.js" charset="utf-8"></script>
 
         <script src="./js/common.js"></script>
         <link rel="stylesheet" href="./css/common.css">
@@ -50,21 +51,19 @@
                         <td ><button class="btn btn-primary" type="submit"  id="minerSwitch">placeholder</button></td>
                     </tr>
                     <tr>
-                        <td>block search strategy</td>
+                        <td>block searcher status</td>
                         <td id="autoSearchBlock"></td>
                         <td><button class="btn btn-primary" type="submit" id="autoSearchBlockSwitch">placeholder</button></td>
                     </tr>
                     <tr>
-                        <td>node search strategy</td>
+                        <td>node searcher status</td>
                         <td id="autoSearchNode"></td>
                         <td ><button class="btn btn-primary" type="submit" id="autoSearchNodeSwitch">placeholder</button></td>
                     </tr>
                     <tr>
-                        <td>max block height</td>
-                        <td>
-                            <input type="text" id="maxBlockHeight">
-                        </td>
-                        <td ><button class="btn btn-primary" type="submit" id="setMaxBlockHeight">set the maximum block height</button></td>
+                        <td>maximum mine block height</td>
+                        <td id="maxBlockHeight"></td>
+                        <td ><button class="btn btn-primary" type="submit" id="setMaxBlockHeight">set maximum mine block height</button></td>
                     </tr>
                 </thead>
             </table>
@@ -84,44 +83,58 @@
                 });
                 minerInActiveState = response.data.minerInActiveState;
                 $('#minerStatus').text(response.data.minerInActiveState ? 'mining' : 'resting');
-                $('#minerSwitch').text(response.data.minerInActiveState ? 'stop_mining' : 'start_mining');
+                $('#minerSwitch').text(response.data.minerInActiveState ? 'stop mining' : 'start mining');
             }());
             $(async function(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchBlock"
                 });
                 autoSearchBlock = response.data.autoSearchBlock;
-                $('#autoSearchBlock').text(autoSearchBlock ? 'automatic search for new blocks' : 'searching for new blocks has been suspended')
-                $('#autoSearchBlockSwitch').text(autoSearchBlock ? 'searching for new blocks has been suspended' : 'automatic search for new blocks')
+                $('#autoSearchBlock').text(autoSearchBlock ? 'searching' : 'resting')
+                $('#autoSearchBlockSwitch').text(autoSearchBlock ? 'stop search block' : 'start search block')
             }());
             $(async function(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/IsAutoSearchNode"
                 });
                 autoSearchNode = response.data.autoSearchNode;
-                $('#autoSearchNode').text(autoSearchNode ? 'automatic search for new nodes' : 'searching for new nodes has been suspended');
-                $('#autoSearchNodeSwitch').text(autoSearchNode ? 'stop searching for new nodes' : 'automatic search for new nodes');
+                $('#autoSearchNode').text(autoSearchNode ? 'searching' : 'resting');
+                $('#autoSearchNodeSwitch').text(autoSearchNode ? 'stop search node' : 'start search node');
             }());
             $(async function(){
                 let response = await $ajax({
                     url : baseUrl() + "/Api/NodeConsoleApplication/GetMinerMineMaxBlockHeight"
                 });
                 maxBlockHeight = response.data.maxBlockHeight;
-                $('#maxBlockHeight').val(maxBlockHeight );
+                $('#maxBlockHeight').text(maxBlockHeight );
             }());
 
             $('#deleteBlocks').click(async function(){
-                let height = prompt('please enter the height of the block to be deleted');
-                if(isEmpty(height)){
-                    return;
-                }
-                let response = await $ajax({
-                    url : baseUrl() + "/Api/NodeConsoleApplication/DeleteBlocks",
-                    data: `{
-                        "blockHeight":${height}
-                    }`
+                layer.prompt({
+                    formType: 2,
+                    title: 'please enter the block height to be delete',
+                    value:'',
+                    area: ['400px', '25px'],
+                    btn: ['confirm','cancel'],
+                    btn2: function(index, elem){
+                        location.reload();
+                    }
+                }, function(value, index, elem){
+                    if(isEmpty(value)){
+                        layer.close(index);
+                    }
+                    $.ajax({
+                         type: "post",
+                         url : baseUrl() + "/Api/NodeConsoleApplication/DeleteBlocks",
+                         data: `{"blockHeight":${value}}`,
+                         dataType: "json",
+                         contentType: "application/json",
+                         success(response){
+                            layer.close(index);
+                            location.reload();
+                         }
+                     });
                 });
-                location.reload();
             })
             $('#minerSwitch').click(async function(){
                 if(minerInActiveState){
@@ -160,15 +173,33 @@
                 location.reload();
             })
             $('#setMaxBlockHeight').click(async function(){
-                maxBlockHeight = $('#maxBlockHeight').val();
-                let response = await $ajax({
-                    url : baseUrl() + "/Api/NodeConsoleApplication/SetMinerMineMaxBlockHeight",
-                    data: `{
-                        "maxBlockHeight":${maxBlockHeight}
-                    }`
+                layer.prompt({
+                    formType: 2,
+                    title: 'please enter maximum mine block height',
+                    value:'',
+                    area: ['400px', '25px'],
+                    btn: ['confirm','cancel'],
+                    btn2: function(index, elem){
+                        location.reload();
+                    }
+                }, function(value, index, elem){
+                    if(isEmpty(value)){
+                        layer.close(index);
+                    }
+                    $.ajax({
+                         type: "post",
+                         url : baseUrl() + "/Api/NodeConsoleApplication/SetMinerMineMaxBlockHeight",
+                         data: `{"maxBlockHeight":${value}}`,
+                         dataType: "json",
+                         contentType: "application/json",
+                         success(response){
+                            layer.close(index);
+                            location.reload();
+                         }
+                     });
                 });
-                location.reload();
             })
+
         </script>
     </body>
 </html>

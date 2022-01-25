@@ -180,32 +180,11 @@
                       content: payDetailHtml
                     });
                 }else {
-                    alert(translateAutomaticBuildTransactionResponseMessage(response.message));
+                    alert('service unavailable');
                 }
             }
 
             addNonChangePayee();
-
-            function translateAutomaticBuildTransactionResponseMessage(element){
-                let translateValue = commonTranslate(element);
-                if(!isEmpty(translateValue)){
-                    return translateValue;
-                }
-
-                if(element == 'payee_can_not_empty'){
-                    return 'payee can not empty';
-                }
-                if(element == 'payee_address_can_not_empty'){
-                    return 'payee address can not empty';
-                }
-                if(element == 'payee_value_can_not_less_equal_than_zero'){
-                    return 'payee value can not less equal than zero';
-                }
-                if(element == 'not_enough_money_to_pay'){
-                   return 'not enough money to pay';
-                }
-                return element;
-            }
         </script>
     </body>
 </html>

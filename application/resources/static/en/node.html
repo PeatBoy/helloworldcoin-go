@@ -47,7 +47,7 @@
                 <tr>
                     <th style="width:30%;">address</th>
                     <th style="width:10%;">height</th>
-                    <th style="width:30%;">manager</th>
+                    <th style="width:30%;">manage</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -82,7 +82,7 @@
                     <tbody>
                         <tr>
                             <th style="width:25%">address：</th>
-                            <th style="width:75%"><input type="text" placeholder="enter ip" id="table-add-node-text-ip"></th>
+                            <th style="width:75%"><input type="text" placeholder="enter node ip" id="table-add-node-text-ip"></th>
                         </tr>
                         <tr>
                             <th></th>
@@ -106,7 +106,7 @@
             $('body').delegate('#table-add-node-button-add', 'click', async function(){
                 let ip = $('#table-add-node-text-ip').val();
                 if(isEmpty(ip)){
-                    alert("node cannot be empty");
+                    alert("fail");
                     return;
                 }
                 let response = await $ajax({
@@ -114,7 +114,6 @@
                     data: `{"ip": "${ip}"}`
                 });
                 if(response.status == 'success'){
-                    alert("success");
                     location.reload();
                 }else {
                     alert("fail");
@@ -127,7 +126,7 @@
                     <tbody>
                         <tr>
                             <th style="width:25%">address：</th>
-                            <th style="width:75%"><input type="text" placeholder="enter ip" id="table-update-node-text-ip" readonly="readonly"></th>
+                            <th style="width:75%"><input type="text" placeholder="enter node ip" id="table-update-node-text-ip" readonly="readonly"></th>
                         </tr>
                         <tr>
                             <th>height：</th>
@@ -163,7 +162,6 @@
                     data: `{"ip": "${$('#table-update-node-text-ip').val()}","blockchainHeight": ${$('#table-update-node-text-blockchainHeight').val()}}`
                 });
                 if(response.status == 'success'){
-                    alert("success");
                     location.reload();
                 }else {
                     alert("fail");
@@ -177,7 +175,6 @@
                     data: `{"ip": "${ip}"}`
                 });
                 if(response.status == 'success'){
-                    alert("success");
                     location.reload();
                 }else {
                     alert("fail");

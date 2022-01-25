@@ -38,11 +38,11 @@
         </div>
         <div style="width: 100%;" id="container">
         </div>
-        <div style="margin-top: 10px; " class="page" id="page"><button class="btn btn-success" onclick="load()">刷新</button></div>
+        <div style="margin-top: 10px; " class="page" id="page"><button class="btn btn-success" onclick="refresh()">刷新</button></div>
         <script>
             let urlParameters = parseUrlParameters(location)
-            load();
-            async function load(){
+            refresh();
+            async function refresh(){
                 //交易哈希
                 let request = `{"transactionHash":"${urlParameters.get("transactionHash")}"}`
                 let response = await $ajax({
@@ -66,7 +66,7 @@
                     $('#container').html(unconfirmedTransactionHtml(transaction))
                     return;
                 }
-                alert("未查询到该交易");
+                alert("未查询到交易");
             }
         </script>
     </body>

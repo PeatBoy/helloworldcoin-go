@@ -62,7 +62,6 @@
                         data: request
                     });
                     if(response.data != null){
-                        alert("识别为区块高度，点击确认按钮，跳转到区块详情页。");
                         let {block} = response.data;
                         let redirectUrl = `./block.html?hash=${block.hash}`;
                         console.log(redirectUrl);
@@ -78,7 +77,6 @@
                     data: request
                 });
                 if(response.data != null){
-                    alert("识别为区块哈希，点击确认按钮，跳转到区块详情页。");
                     let redirectUrl = `./block.html?hash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
@@ -91,7 +89,6 @@
                     data: request
                 });
                 if(response.data != null){
-                    alert("识别为交易哈希，点击确认按钮，跳转到交易详情页。");
                     let redirectUrl = `./transaction.html?transactionHash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
@@ -104,7 +101,6 @@
                     data: request
                 });
                 if(response.data != null && response.data.transactionOutput != null){
-                    alert("识别为地址，点击确认按钮，跳转到地址详情页。");
                     let redirectUrl = `./address.html?address=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
@@ -117,12 +113,11 @@
                     data: request
                 });
                 if(response.data != null && response.data.transaction != null){
-                    alert("识别为未确认的交易，点击确认按钮，跳转到未确认的交易详情页。");
                     let redirectUrl = `./unconfirmed-transaction.html?transactionHash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
                 }
-                alert("请检查输入的区块高度、区块哈希、交易哈希、地址...");
+                alert("请检查输入");
             }
         </script>
     </body>

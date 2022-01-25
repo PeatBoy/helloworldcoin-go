@@ -75,7 +75,8 @@
 
             $('body').delegate('table .btn-danger', 'click', async function(){
                 let privateKey = $(this).parent().parent().find('a').text();
-                layer.confirm('确认删除？', {
+                layer.confirm('确认删除', {
+                  title: '信息',
                   btn: ['删除','取消']
                 }, function(){
                     $.ajax({
@@ -97,7 +98,7 @@
                     formType: 2,
                     title: '输入私钥',
                     value:'',
-                    area: ['400px', '150px'],
+                    area: ['400px', '120px'],
                     btn: ['确认','取消'],
                     btn2: function(index, elem){
                         location.reload();

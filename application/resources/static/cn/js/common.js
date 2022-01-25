@@ -36,30 +36,20 @@ async function $ajax(option){
     })
 }
 
-function commonTranslate(element){
-    if(element == 'request_param_illegal'){
-        return '请求参数非法';
-    }
-    if(element == 'service_unavailable'){
-        return '服务不可用';
-    }
-    return null;
-}
-
 function transactionHtml(item){
     let {transactionInputs,transactionOutputs} = item;
 
     let left = '';
     if(!isNull(transactionInputs)){
         transactionInputs.forEach(item1 => {
-            left += `<div>付：<span><a title="地址详情" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="交易输出详情" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
+            left += `<div>付款人：<span><a title="地址详情" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="交易输出详情" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
         })
     }
 
     let right = ''
     if(!isNull(transactionOutputs)){
         transactionOutputs.forEach(item1 => {
-            right += `<div style="display:flex">收：<span><a title="地址详情" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="交易输出详情" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
+            right += `<div style="display:flex">收款人：<span><a title="地址详情" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="交易输出详情" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
         });
     }
 
@@ -89,14 +79,14 @@ function unconfirmedTransactionHtml(item){
     let left = '';
     if(!isNull(transactionInputs)){
         transactionInputs.forEach(item1 => {
-            left += `<div>付：<span><a title="地址详情" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="交易输出详情" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
+            left += `<div>付款人：<span><a title="地址详情" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="交易输出详情" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
         })
     }
 
     let right = ''
     if(!isNull(transactionOutputs)){
         transactionOutputs.forEach(item1 => {
-            right += `<div style="display:flex">收：<span><a title="地址详情" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="交易输出详情" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
+            right += `<div style="display:flex">收款人：<span><a title="地址详情" target="_blank" href="./address.html?address=${item1.address}">${item1.address}</a></span>&nbsp;<a title="交易输出详情" target="_blank" href="./transactionoutput.html?transactionHash=${item1.transactionHash}&transactionOutputIndex=${item1.transactionOutputIndex}"><i class="glyphicon-euro"></i></a>&nbsp;<span>${item1.value}</span></div>`
         });
     }
 
