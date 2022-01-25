@@ -7,7 +7,6 @@ import (
 	"helloworld-blockchain-go/application/vo"
 	"helloworld-blockchain-go/netcore"
 	"helloworld-blockchain-go/netcore/model"
-	"helloworld-blockchain-go/util/StringUtil"
 	"net/http"
 )
 
@@ -65,10 +64,6 @@ func (n *NodeConsoleApplicationController) AddNode(rw http.ResponseWriter, req *
 	request := GetRequest(req, vo.AddNodeRequest{}).(*vo.AddNodeRequest)
 
 	ip := request.Ip
-	if StringUtil.IsEmpty(ip) {
-		requestParamIllegal(rw)
-		return
-	}
 	if n.blockchainNetCore.GetNodeService().QueryNode(ip) != nil {
 		//节点存在，认为是成功添加。
 		var response vo.AddNodeResponse
@@ -88,13 +83,8 @@ func (n *NodeConsoleApplicationController) AddNode(rw http.ResponseWriter, req *
 func (n *NodeConsoleApplicationController) UpdateNode(rw http.ResponseWriter, req *http.Request) {
 	request := GetRequest(req, vo.UpdateNodeRequest{}).(*vo.UpdateNodeRequest)
 
-	ip := request.Ip
-	if StringUtil.IsEmpty(ip) {
-		requestParamIllegal(rw)
-		return
-	}
 	var node model.Node
-	node.Ip = ip
+	node.Ip = request.Ip
 	node.BlockchainHeight = request.BlockchainHeight
 	n.blockchainNetCore.GetNodeService().UpdateNode(&node)
 	var response vo.UpdateNodeResponse

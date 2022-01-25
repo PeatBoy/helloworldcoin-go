@@ -8,7 +8,6 @@ import (
 	"helloworld-blockchain-go/application/vo"
 	"helloworld-blockchain-go/crypto/AccountUtil"
 	"helloworld-blockchain-go/netcore"
-	"helloworld-blockchain-go/util/StringUtil"
 	"net/http"
 )
 
@@ -45,10 +44,6 @@ func (w *WalletApplicationController) SaveAccount(rw http.ResponseWriter, req *h
 	request := GetRequest(req, vo.SaveAccountRequest{}).(*vo.SaveAccountRequest)
 
 	privateKey := request.PrivateKey
-	if StringUtil.IsEmpty(privateKey) {
-		requestParamIllegal(rw)
-		return
-	}
 	account := AccountUtil.AccountFromPrivateKey(privateKey)
 	w.blockchainNetCore.GetBlockchainCore().GetWallet().SaveAccount(account)
 	var response vo.SaveAccountResponse
@@ -60,10 +55,6 @@ func (w *WalletApplicationController) DeleteAccount(rw http.ResponseWriter, req 
 	request := GetRequest(req, vo.DeleteAccountRequest{}).(*vo.DeleteAccountRequest)
 
 	address := request.Address
-	if StringUtil.IsEmpty(address) {
-		requestParamIllegal(rw)
-		return
-	}
 	w.blockchainNetCore.GetBlockchainCore().GetWallet().DeleteAccountByAddress(address)
 	var response vo.DeleteAccountResponse
 
@@ -105,7 +96,7 @@ func (w *WalletApplicationController) AutomaticBuildTransaction(rw http.Response
 		success(rw, response)
 		return
 	} else {
-		fail(rw, response.Message)
+		serviceUnavailable(rw)
 		return
 	}
 }

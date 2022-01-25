@@ -23,9 +23,6 @@ func fail(rw http.ResponseWriter, message string) {
 	rw.Header().Set("content-type", "text/json")
 	io.WriteString(rw, s)
 }
-func requestParamIllegal(rw http.ResponseWriter) {
-	fail(rw, REQUEST_PARAM_ILLEGAL)
-}
 func serviceUnavailable(rw http.ResponseWriter) {
 	fail(rw, SERVICE_UNAVAILABLE)
 }
@@ -33,7 +30,6 @@ func ServiceUnauthorized(rw http.ResponseWriter) {
 	fail(rw, SERVICE_UNAUTHORIZED)
 }
 
-const REQUEST_PARAM_ILLEGAL = "request_param_illegal"
 const SERVICE_UNAVAILABLE = "service_unavailable"
 const SERVICE_UNAUTHORIZED = "service_unauthorized"
 

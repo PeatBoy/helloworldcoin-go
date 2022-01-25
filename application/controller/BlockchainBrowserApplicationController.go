@@ -12,7 +12,6 @@ import (
 	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
 	"helloworld-blockchain-go/netcore"
 	"helloworld-blockchain-go/setting/GenesisBlockSetting"
-	"helloworld-blockchain-go/util/StringUtil"
 	"helloworld-blockchain-go/util/TimeUtil"
 	"net/http"
 )
@@ -47,10 +46,6 @@ func (b *BlockchainBrowserApplicationController) QueryTransactionsByBlockHashTra
 	request := GetRequest(req, vo.QueryTransactionsByBlockHashTransactionHeightRequest{}).(*vo.QueryTransactionsByBlockHashTransactionHeightRequest)
 
 	pageCondition := request.PageCondition
-	if StringUtil.IsEmpty(request.BlockHash) {
-		requestParamIllegal(rw)
-		return
-	}
 	transactionVos := b.blockchainBrowserApplicationService.QueryTransactionListByBlockHashTransactionHeight(request.BlockHash, pageCondition.From, pageCondition.Size)
 	var response vo.QueryTransactionsByBlockHashTransactionHeightResponse
 	response.Transactions = transactionVos

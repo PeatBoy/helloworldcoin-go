@@ -89,20 +89,17 @@ func (w *Wallet) AutoBuildTransaction(request *model.AutoBuildTransactionRequest
 	if nonChangePayees == nil || len(nonChangePayees) == 0 {
 		var response model.AutoBuildTransactionResponse
 		response.BuildTransactionSuccess = false
-		response.Message = model.PAYEE_CAN_NOT_EMPTY
 		return &response
 	}
 	for _, payee := range nonChangePayees {
 		if StringUtil.IsEmpty(payee.Address) {
 			var response model.AutoBuildTransactionResponse
 			response.BuildTransactionSuccess = false
-			response.Message = model.PAYEE_ADDRESS_CAN_NOT_EMPTY
 			return &response
 		}
 		if payee.Value <= 0 {
 			var response model.AutoBuildTransactionResponse
 			response.BuildTransactionSuccess = false
-			response.Message = model.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO
 			return &response
 		}
 	}
@@ -139,7 +136,6 @@ func (w *Wallet) AutoBuildTransaction(request *model.AutoBuildTransactionRequest
 				transactionDto := w.buildTransaction(payers, payees)
 				var response model.AutoBuildTransactionResponse
 				response.BuildTransactionSuccess = true
-				response.Message = model.BUILD_TRANSACTION_SUCCESS
 				response.Transaction = transactionDto
 				response.TransactionHash = TransactionDtoTool.CalculateTransactionHash(transactionDto)
 				response.Fee = fee
@@ -152,7 +148,6 @@ func (w *Wallet) AutoBuildTransaction(request *model.AutoBuildTransactionRequest
 		}
 	}
 	var response model.AutoBuildTransactionResponse
-	response.Message = model.NOT_ENOUGH_MONEY_TO_PAY
 	response.BuildTransactionSuccess = false
 	return &response
 }

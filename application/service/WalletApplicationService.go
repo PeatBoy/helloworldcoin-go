@@ -9,7 +9,6 @@ import (
 	"helloworld-blockchain-go/netcore"
 	"helloworld-blockchain-go/netcore-client/client"
 	"helloworld-blockchain-go/netcore-dto/dto"
-	"helloworld-blockchain-go/util/StringUtil"
 )
 
 type WalletApplicationService struct {
@@ -59,7 +58,6 @@ func (w *WalletApplicationService) AutomaticBuildTransaction(request *vo.Automat
 
 	var response vo.AutomaticBuildTransactionResponse
 	response.BuildTransactionSuccess = autoBuildTransactionResponse.BuildTransactionSuccess
-	response.Message = payAlert2PayAlertVo(autoBuildTransactionResponse.Message)
 	response.TransactionHash = autoBuildTransactionResponse.TransactionHash
 	response.Fee = autoBuildTransactionResponse.Fee
 	response.Transaction = autoBuildTransactionResponse.Transaction
@@ -69,22 +67,6 @@ func (w *WalletApplicationService) AutomaticBuildTransaction(request *vo.Automat
 	response.NonChangePayees = payees2payeeVos(autoBuildTransactionResponse.NonChangePayees)
 
 	return &response
-}
-
-func payAlert2PayAlertVo(message string) string {
-	if StringUtil.Equals(vo.BUILD_TRANSACTION_SUCCESS, message) {
-		return vo.BUILD_TRANSACTION_SUCCESS
-	} else if StringUtil.Equals(vo.PAYEE_CAN_NOT_EMPTY, message) {
-		return vo.PAYEE_CAN_NOT_EMPTY
-	} else if StringUtil.Equals(vo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO, message) {
-		return vo.PAYEE_VALUE_CAN_NOT_LESS_EQUAL_THAN_ZERO
-	} else if StringUtil.Equals(vo.NOT_ENOUGH_MONEY_TO_PAY, message) {
-		return vo.NOT_ENOUGH_MONEY_TO_PAY
-	} else if StringUtil.Equals(vo.PAYEE_ADDRESS_CAN_NOT_EMPTY, message) {
-		return vo.PAYEE_ADDRESS_CAN_NOT_EMPTY
-	} else {
-		panic(nil)
-	}
 }
 
 func payeeVos2payees(payeeVos []*vo.PayeeVo) []*model.Payee {
