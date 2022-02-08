@@ -5,13 +5,13 @@ package StructureTool
 */
 
 import (
-	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/core/model/TransactionType"
-	"helloworld-blockchain-go/core/tool/BlockTool"
-	"helloworld-blockchain-go/core/tool/ScriptTool"
-	"helloworld-blockchain-go/setting/BlockSetting"
-	"helloworld-blockchain-go/util/LogUtil"
-	"helloworld-blockchain-go/util/StringUtil"
+	"helloworldcoin-go/core/model"
+	"helloworldcoin-go/core/model/TransactionType"
+	"helloworldcoin-go/core/tool/BlockTool"
+	"helloworldcoin-go/core/tool/ScriptTool"
+	"helloworldcoin-go/setting/BlockSetting"
+	"helloworldcoin-go/util/LogUtil"
+	"helloworldcoin-go/util/StringUtil"
 )
 
 func CheckBlockStructure(block *model.Block) bool {

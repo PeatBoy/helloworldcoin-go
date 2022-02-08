@@ -6,12 +6,12 @@ package core
 
 import (
 	"fmt"
-	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/core/tool/BlockTool"
-	"helloworld-blockchain-go/setting/GenesisBlockSetting"
-	"helloworld-blockchain-go/setting/IncentiveSetting"
-	"helloworld-blockchain-go/util/ByteUtil"
-	"helloworld-blockchain-go/util/StringUtil"
+	"helloworldcoin-go/core/model"
+	"helloworldcoin-go/core/tool/BlockTool"
+	"helloworldcoin-go/setting/GenesisBlockSetting"
+	"helloworldcoin-go/setting/IncentiveSetting"
+	"helloworldcoin-go/util/ByteUtil"
+	"helloworldcoin-go/util/StringUtil"
 	"math/big"
 )
 

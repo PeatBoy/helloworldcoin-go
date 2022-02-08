@@ -1,10 +1,10 @@
-// helloworld-blockchain-go project doc.go
+// helloworldcoin-go project doc.go
 
 /*
  @author x.king xdotking@gmail.com
 */
 
 /*
-helloworld-blockchain-go document
+helloworldcoin-go document
 */
 package main

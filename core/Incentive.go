@@ -5,9 +5,9 @@ package core
 */
 
 import (
-	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/core/tool/BlockTool"
-	"helloworld-blockchain-go/setting/IncentiveSetting"
+	"helloworldcoin-go/core/model"
+	"helloworldcoin-go/core/tool/BlockTool"
+	"helloworldcoin-go/setting/IncentiveSetting"
 )
 
 type Incentive struct {

@@ -4,7 +4,7 @@ package model
  @author x.king xdotking@gmail.com
 */
 
-import "helloworld-blockchain-go/netcore-dto/dto"
+import "helloworldcoin-go/netcore-dto/dto"
 
 type Payer struct {
 	PrivateKey             string

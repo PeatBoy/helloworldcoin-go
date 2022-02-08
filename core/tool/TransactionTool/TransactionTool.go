@@ -5,15 +5,15 @@ package TransactionTool
 */
 
 import (
-	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/core/model/TransactionType"
-	"helloworld-blockchain-go/core/tool/BlockchainDatabaseKeyTool"
-	"helloworld-blockchain-go/core/tool/Model2DtoTool"
-	"helloworld-blockchain-go/core/tool/ScriptTool"
-	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
-	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/util/LogUtil"
-	"helloworld-blockchain-go/util/StringsUtil"
+	"helloworldcoin-go/core/model"
+	"helloworldcoin-go/core/model/TransactionType"
+	"helloworldcoin-go/core/tool/BlockchainDatabaseKeyTool"
+	"helloworldcoin-go/core/tool/Model2DtoTool"
+	"helloworldcoin-go/core/tool/ScriptTool"
+	"helloworldcoin-go/core/tool/TransactionDtoTool"
+	"helloworldcoin-go/crypto/AccountUtil"
+	"helloworldcoin-go/util/LogUtil"
+	"helloworldcoin-go/util/StringsUtil"
 )
 
 func CalculateTransactionHash(transaction *model.Transaction) string {

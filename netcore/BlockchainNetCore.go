@@ -5,13 +5,13 @@ package netcore
 */
 
 import (
-	"helloworld-blockchain-go/core"
-	"helloworld-blockchain-go/core/tool/ResourcePathTool"
-	"helloworld-blockchain-go/netcore/configuration"
-	"helloworld-blockchain-go/netcore/dao"
-	"helloworld-blockchain-go/netcore/server"
-	"helloworld-blockchain-go/netcore/service"
-	"helloworld-blockchain-go/util/FileUtil"
+	"helloworldcoin-go/core"
+	"helloworldcoin-go/core/tool/ResourcePathTool"
+	"helloworldcoin-go/netcore/configuration"
+	"helloworldcoin-go/netcore/dao"
+	"helloworldcoin-go/netcore/server"
+	"helloworldcoin-go/netcore/service"
+	"helloworldcoin-go/util/FileUtil"
 )
 
 type BlockchainNetCore struct {

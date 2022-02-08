@@ -5,9 +5,9 @@ package core
 */
 
 import (
-	"helloworld-blockchain-go/core/tool/ResourcePathTool"
-	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/util/FileUtil"
+	"helloworldcoin-go/core/tool/ResourcePathTool"
+	"helloworldcoin-go/crypto/AccountUtil"
+	"helloworldcoin-go/util/FileUtil"
 	"testing"
 )
 

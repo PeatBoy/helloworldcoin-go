@@ -5,12 +5,12 @@ package DtoSizeTool
 */
 
 import (
-	"helloworld-blockchain-go/netcore-dto/dto"
-	"helloworld-blockchain-go/setting/BlockSetting"
-	"helloworld-blockchain-go/setting/ScriptSetting"
-	"helloworld-blockchain-go/setting/TransactionSetting"
-	"helloworld-blockchain-go/util/LogUtil"
-	"helloworld-blockchain-go/util/StringUtil"
+	"helloworldcoin-go/netcore-dto/dto"
+	"helloworldcoin-go/setting/BlockSetting"
+	"helloworldcoin-go/setting/ScriptSetting"
+	"helloworldcoin-go/setting/TransactionSetting"
+	"helloworldcoin-go/util/LogUtil"
+	"helloworldcoin-go/util/StringUtil"
 )
 
 //region 校验大小

@@ -5,11 +5,11 @@ package core
 */
 
 import (
-	"helloworld-blockchain-go/core/tool/ResourcePathTool"
-	"helloworld-blockchain-go/netcore-dto/dto"
-	"helloworld-blockchain-go/util/FileUtil"
-	"helloworld-blockchain-go/util/JsonUtil"
-	"helloworld-blockchain-go/util/SystemUtil"
+	"helloworldcoin-go/core/tool/ResourcePathTool"
+	"helloworldcoin-go/netcore-dto/dto"
+	"helloworldcoin-go/util/FileUtil"
+	"helloworldcoin-go/util/JsonUtil"
+	"helloworldcoin-go/util/SystemUtil"
 	"testing"
 )
 

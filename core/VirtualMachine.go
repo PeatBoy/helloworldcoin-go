@@ -5,14 +5,14 @@ package core
 */
 
 import (
-	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/core/model/script/BooleanCode"
-	"helloworld-blockchain-go/core/model/script/OperationCode"
-	"helloworld-blockchain-go/core/tool/TransactionTool"
-	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/util/ByteUtil"
-	"helloworld-blockchain-go/util/StringStack"
-	"helloworld-blockchain-go/util/StringUtil"
+	"helloworldcoin-go/core/model"
+	"helloworldcoin-go/core/model/script/BooleanCode"
+	"helloworldcoin-go/core/model/script/OperationCode"
+	"helloworldcoin-go/core/tool/TransactionTool"
+	"helloworldcoin-go/crypto/AccountUtil"
+	"helloworldcoin-go/util/ByteUtil"
+	"helloworldcoin-go/util/StringStack"
+	"helloworldcoin-go/util/StringUtil"
 )
 
 type VirtualMachine struct {

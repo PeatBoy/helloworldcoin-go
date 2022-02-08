@@ -5,7 +5,7 @@ package model
 */
 
 import (
-	"helloworld-blockchain-go/core/model/TransactionType"
+	"helloworldcoin-go/core/model/TransactionType"
 )
 
 type Block struct {

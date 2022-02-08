@@ -1,7 +1,7 @@
 package StringsUtil
 
 import (
-	"helloworld-blockchain-go/util/StringUtil"
+	"helloworldcoin-go/util/StringUtil"
 	"strings"
 )
 

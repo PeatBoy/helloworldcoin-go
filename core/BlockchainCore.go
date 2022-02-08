@@ -5,10 +5,10 @@ package core
 */
 
 import (
-	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/core/tool/Model2DtoTool"
-	"helloworld-blockchain-go/core/tool/ResourcePathTool"
-	"helloworld-blockchain-go/netcore-dto/dto"
+	"helloworldcoin-go/core/model"
+	"helloworldcoin-go/core/tool/Model2DtoTool"
+	"helloworldcoin-go/core/tool/ResourcePathTool"
+	"helloworldcoin-go/netcore-dto/dto"
 )
 
 type BlockchainCore struct {

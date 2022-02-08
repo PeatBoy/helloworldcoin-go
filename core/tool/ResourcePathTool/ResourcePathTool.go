@@ -5,8 +5,8 @@ package ResourcePathTool
 */
 
 import (
-	"helloworld-blockchain-go/util/FileUtil"
-	"helloworld-blockchain-go/util/SystemUtil"
+	"helloworldcoin-go/util/FileUtil"
+	"helloworldcoin-go/util/SystemUtil"
 )
 
 /**
@@ -15,13 +15,13 @@ import (
 func GetDataRootPath() string {
 	var dataRootPath string
 	if SystemUtil.IsWindowsOperateSystem() {
-		dataRootPath = "C:\\helloworld-blockchain-go\\"
+		dataRootPath = "C:\\helloworldcoin-go\\"
 	} else if SystemUtil.IsMacOperateSystem() {
-		dataRootPath = "/tmp/helloworld-blockchain-go/"
+		dataRootPath = "/tmp/helloworldcoin-go/"
 	} else if SystemUtil.IsLinuxOperateSystem() {
-		dataRootPath = "/tmp/helloworld-blockchain-go/"
+		dataRootPath = "/tmp/helloworldcoin-go/"
 	} else {
-		dataRootPath = "/tmp/helloworld-blockchain-go/"
+		dataRootPath = "/tmp/helloworldcoin-go/"
 	}
 	FileUtil.MakeDirectory(dataRootPath)
 	return dataRootPath
@@ -33,13 +33,13 @@ func GetDataRootPath() string {
 func GetTestDataRootPath() string {
 	var dataRootPath string
 	if SystemUtil.IsWindowsOperateSystem() {
-		dataRootPath = "C:\\helloworld-blockchain-go-test\\"
+		dataRootPath = "C:\\helloworldcoin-go-test\\"
 	} else if SystemUtil.IsMacOperateSystem() {
-		dataRootPath = "/tmp/helloworld-blockchain-go-test/"
+		dataRootPath = "/tmp/helloworldcoin-go-test/"
 	} else if SystemUtil.IsLinuxOperateSystem() {
-		dataRootPath = "/tmp/helloworld-blockchain-go-test/"
+		dataRootPath = "/tmp/helloworldcoin-go-test/"
 	} else {
-		dataRootPath = "/tmp/helloworld-blockchain-go-test/"
+		dataRootPath = "/tmp/helloworldcoin-go-test/"
 	}
 	FileUtil.MakeDirectory(dataRootPath)
 	return dataRootPath

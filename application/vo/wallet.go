@@ -4,7 +4,7 @@ package vo
  @author x.king xdotking@gmail.com
 */
 
-import "helloworld-blockchain-go/netcore-dto/dto"
+import "helloworldcoin-go/netcore-dto/dto"
 
 type PayerVo struct {
 	PrivateKey             string `json:"privateKey"`

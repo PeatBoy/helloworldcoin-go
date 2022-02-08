@@ -1,4 +1,4 @@
-module helloworld-blockchain-go
+module helloworldcoin-go
 
 go 1.16
 

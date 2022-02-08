@@ -5,14 +5,14 @@ package main
 */
 
 import (
-	"helloworld-blockchain-go/application/controller"
-	"helloworld-blockchain-go/application/interceptor"
-	"helloworld-blockchain-go/application/service"
-	"helloworld-blockchain-go/application/vo/BlockchainBrowserApplicationApi"
-	"helloworld-blockchain-go/application/vo/NodeConsoleApplicationApi"
-	"helloworld-blockchain-go/application/vo/WalletApplicationApi"
-	"helloworld-blockchain-go/netcore"
-	"helloworld-blockchain-go/util/SystemUtil"
+	"helloworldcoin-go/application/controller"
+	"helloworldcoin-go/application/interceptor"
+	"helloworldcoin-go/application/service"
+	"helloworldcoin-go/application/vo/BlockchainBrowserApplicationApi"
+	"helloworldcoin-go/application/vo/NodeConsoleApplicationApi"
+	"helloworldcoin-go/application/vo/WalletApplicationApi"
+	"helloworldcoin-go/netcore"
+	"helloworldcoin-go/util/SystemUtil"
 	"io"
 	"net/http"
 )

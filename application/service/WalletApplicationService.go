@@ -4,11 +4,11 @@ package service
  @author x.king xdotking@gmail.com
 */
 import (
-	"helloworld-blockchain-go/application/vo"
-	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/netcore"
-	"helloworld-blockchain-go/netcore-client/client"
-	"helloworld-blockchain-go/netcore-dto/dto"
+	"helloworldcoin-go/application/vo"
+	"helloworldcoin-go/core/model"
+	"helloworldcoin-go/netcore"
+	"helloworldcoin-go/netcore-client/client"
+	"helloworldcoin-go/netcore-dto/dto"
 )
 
 type WalletApplicationService struct {

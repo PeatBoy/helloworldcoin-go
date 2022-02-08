@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"helloworld-blockchain-go/util/JsonUtil"
+	"helloworldcoin-go/util/JsonUtil"
 	"io"
 	"io/ioutil"
 	"net/http"

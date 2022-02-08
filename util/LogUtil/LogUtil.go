@@ -6,7 +6,7 @@ package LogUtil
 
 import (
 	"fmt"
-	"helloworld-blockchain-go/util/JsonUtil"
+	"helloworldcoin-go/util/JsonUtil"
 )
 
 func Debug(message string) {

@@ -5,9 +5,9 @@ package service
 */
 
 import (
-	"helloworld-blockchain-go/netcore/dao"
-	"helloworld-blockchain-go/netcore/model"
-	"helloworld-blockchain-go/netcore/po"
+	"helloworldcoin-go/netcore/dao"
+	"helloworldcoin-go/netcore/model"
+	"helloworldcoin-go/netcore/po"
 )
 
 type NodeService struct {

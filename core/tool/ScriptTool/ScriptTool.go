@@ -5,13 +5,13 @@ package ScriptTool
 */
 
 import (
-	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/core/model/script/OperationCode"
-	"helloworld-blockchain-go/core/tool/Model2DtoTool"
-	"helloworld-blockchain-go/core/tool/ScriptDtoTool"
-	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/util/ByteUtil"
-	"helloworld-blockchain-go/util/StringUtil"
+	"helloworldcoin-go/core/model"
+	"helloworldcoin-go/core/model/script/OperationCode"
+	"helloworldcoin-go/core/tool/Model2DtoTool"
+	"helloworldcoin-go/core/tool/ScriptDtoTool"
+	"helloworldcoin-go/crypto/AccountUtil"
+	"helloworldcoin-go/util/ByteUtil"
+	"helloworldcoin-go/util/StringUtil"
 )
 
 func CreatePayToPublicKeyHashOutputScript(address string) *model.OutputScript {

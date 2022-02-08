@@ -5,11 +5,11 @@ package ScriptDtoTool
 */
 
 import (
-	"helloworld-blockchain-go/core/model/script/OperationCode"
-	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/netcore-dto/dto"
-	"helloworld-blockchain-go/util/ByteUtil"
-	"helloworld-blockchain-go/util/StringUtil"
+	"helloworldcoin-go/core/model/script/OperationCode"
+	"helloworldcoin-go/crypto/AccountUtil"
+	"helloworldcoin-go/netcore-dto/dto"
+	"helloworldcoin-go/util/ByteUtil"
+	"helloworldcoin-go/util/StringUtil"
 )
 
 //region 序列化与反序列化

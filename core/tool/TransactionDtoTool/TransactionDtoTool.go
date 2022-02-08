@@ -5,11 +5,11 @@ package TransactionDtoTool
 */
 
 import (
-	"helloworld-blockchain-go/core/tool/ScriptDtoTool"
-	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/crypto/Sha256Util"
-	"helloworld-blockchain-go/netcore-dto/dto"
-	"helloworld-blockchain-go/util/ByteUtil"
+	"helloworldcoin-go/core/tool/ScriptDtoTool"
+	"helloworldcoin-go/crypto/AccountUtil"
+	"helloworldcoin-go/crypto/Sha256Util"
+	"helloworldcoin-go/netcore-dto/dto"
+	"helloworldcoin-go/util/ByteUtil"
 )
 
 func CalculateTransactionHash(transaction *dto.TransactionDto) string {

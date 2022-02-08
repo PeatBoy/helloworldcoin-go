@@ -5,22 +5,22 @@ package core
 */
 
 import (
-	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/core/model/TransactionType"
-	"helloworld-blockchain-go/core/tool/BlockTool"
-	"helloworld-blockchain-go/core/tool/Model2DtoTool"
-	"helloworld-blockchain-go/core/tool/ScriptTool"
-	"helloworld-blockchain-go/core/tool/SizeTool"
-	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
-	"helloworld-blockchain-go/core/tool/TransactionTool"
-	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/setting/BlockSetting"
-	"helloworld-blockchain-go/setting/GenesisBlockSetting"
-	"helloworld-blockchain-go/util/ByteUtil"
-	"helloworld-blockchain-go/util/LogUtil"
-	"helloworld-blockchain-go/util/StringUtil"
-	"helloworld-blockchain-go/util/ThreadUtil"
-	"helloworld-blockchain-go/util/TimeUtil"
+	"helloworldcoin-go/core/model"
+	"helloworldcoin-go/core/model/TransactionType"
+	"helloworldcoin-go/core/tool/BlockTool"
+	"helloworldcoin-go/core/tool/Model2DtoTool"
+	"helloworldcoin-go/core/tool/ScriptTool"
+	"helloworldcoin-go/core/tool/SizeTool"
+	"helloworldcoin-go/core/tool/TransactionDtoTool"
+	"helloworldcoin-go/core/tool/TransactionTool"
+	"helloworldcoin-go/crypto/AccountUtil"
+	"helloworldcoin-go/setting/BlockSetting"
+	"helloworldcoin-go/setting/GenesisBlockSetting"
+	"helloworldcoin-go/util/ByteUtil"
+	"helloworldcoin-go/util/LogUtil"
+	"helloworldcoin-go/util/StringUtil"
+	"helloworldcoin-go/util/ThreadUtil"
+	"helloworldcoin-go/util/TimeUtil"
 )
 
 type Miner struct {

@@ -5,11 +5,11 @@ package AccountUtil
 */
 
 import (
-	"helloworld-blockchain-go/crypto/Base58Util"
-	"helloworld-blockchain-go/crypto/Ripemd160Util"
-	"helloworld-blockchain-go/crypto/Sha256Util"
-	"helloworld-blockchain-go/util/ByteUtil"
-	"helloworld-blockchain-go/util/StringUtil"
+	"helloworldcoin-go/crypto/Base58Util"
+	"helloworldcoin-go/crypto/Ripemd160Util"
+	"helloworldcoin-go/crypto/Sha256Util"
+	"helloworldcoin-go/util/ByteUtil"
+	"helloworldcoin-go/util/StringUtil"
 
 	"github.com/btcsuite/btcd/btcec"
 )

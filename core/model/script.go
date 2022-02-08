@@ -5,7 +5,7 @@ package model
 */
 
 import (
-	"helloworld-blockchain-go/util/StringStack"
+	"helloworldcoin-go/util/StringStack"
 )
 
 type Script = []string

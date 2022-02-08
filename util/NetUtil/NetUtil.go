@@ -6,7 +6,7 @@ package NetUtil
 
 import (
 	"bytes"
-	"helloworld-blockchain-go/util/LogUtil"
+	"helloworldcoin-go/util/LogUtil"
 	"io/ioutil"
 	"net/http"
 	"time"

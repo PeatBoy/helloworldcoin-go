@@ -2,7 +2,7 @@ package interceptor
 
 import (
 	"flag"
-	"helloworld-blockchain-go/util/StringsUtil"
+	"helloworldcoin-go/util/StringsUtil"
 	"net/http"
 )
 

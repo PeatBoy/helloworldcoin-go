@@ -5,7 +5,7 @@ package MerkleTreeUtil
 */
 
 import (
-	"helloworld-blockchain-go/util/ByteUtil"
+	"helloworldcoin-go/util/ByteUtil"
 	"testing"
 )
 

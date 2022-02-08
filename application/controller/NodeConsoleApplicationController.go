@@ -4,9 +4,9 @@ package controller
  @author x.king xdotking@gmail.com
 */
 import (
-	"helloworld-blockchain-go/application/vo"
-	"helloworld-blockchain-go/netcore"
-	"helloworld-blockchain-go/netcore/model"
+	"helloworldcoin-go/application/vo"
+	"helloworldcoin-go/netcore"
+	"helloworldcoin-go/netcore/model"
 	"net/http"
 )
 

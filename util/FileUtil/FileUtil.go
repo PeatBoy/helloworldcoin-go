@@ -5,7 +5,7 @@ package FileUtil
 */
 
 import (
-	"helloworld-blockchain-go/util/SystemUtil"
+	"helloworldcoin-go/util/SystemUtil"
 	"io/ioutil"
 	"os"
 	"path/filepath"

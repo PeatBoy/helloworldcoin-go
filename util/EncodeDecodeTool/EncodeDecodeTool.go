@@ -5,8 +5,8 @@ package EncodeDecodeTool
 */
 
 import (
-	"helloworld-blockchain-go/util/ByteUtil"
-	"helloworld-blockchain-go/util/JsonUtil"
+	"helloworldcoin-go/util/ByteUtil"
+	"helloworldcoin-go/util/JsonUtil"
 )
 
 func Encode(object interface{}) []byte {

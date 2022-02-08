@@ -5,16 +5,16 @@ package core
 */
 
 import (
-	"helloworld-blockchain-go/core/model"
-	"helloworld-blockchain-go/core/tool/ScriptDtoTool"
-	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
-	"helloworld-blockchain-go/crypto/AccountUtil"
-	"helloworld-blockchain-go/netcore-dto/dto"
-	"helloworld-blockchain-go/util/ByteUtil"
-	"helloworld-blockchain-go/util/EncodeDecodeTool"
-	"helloworld-blockchain-go/util/FileUtil"
-	"helloworld-blockchain-go/util/KvDbUtil"
-	"helloworld-blockchain-go/util/StringUtil"
+	"helloworldcoin-go/core/model"
+	"helloworldcoin-go/core/tool/ScriptDtoTool"
+	"helloworldcoin-go/core/tool/TransactionDtoTool"
+	"helloworldcoin-go/crypto/AccountUtil"
+	"helloworldcoin-go/netcore-dto/dto"
+	"helloworldcoin-go/util/ByteUtil"
+	"helloworldcoin-go/util/EncodeDecodeTool"
+	"helloworldcoin-go/util/FileUtil"
+	"helloworldcoin-go/util/KvDbUtil"
+	"helloworldcoin-go/util/StringUtil"
 )
 
 const WALLET_DATABASE_NAME = "WalletDatabase"

@@ -5,7 +5,7 @@ package vo
 */
 
 import (
-	"helloworld-blockchain-go/netcore-dto/dto"
+	"helloworldcoin-go/netcore-dto/dto"
 )
 
 type TransactionInputVo struct {

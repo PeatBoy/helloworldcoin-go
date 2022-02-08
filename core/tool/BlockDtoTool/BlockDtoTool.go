@@ -5,12 +5,12 @@ package BlockDtoTool
 */
 
 import (
-	"helloworld-blockchain-go/core/tool/TransactionDtoTool"
-	"helloworld-blockchain-go/crypto/MerkleTreeUtil"
-	"helloworld-blockchain-go/crypto/Sha256Util"
-	"helloworld-blockchain-go/netcore-dto/dto"
-	"helloworld-blockchain-go/util/ByteUtil"
-	"helloworld-blockchain-go/util/StringUtil"
+	"helloworldcoin-go/core/tool/TransactionDtoTool"
+	"helloworldcoin-go/crypto/MerkleTreeUtil"
+	"helloworldcoin-go/crypto/Sha256Util"
+	"helloworldcoin-go/netcore-dto/dto"
+	"helloworldcoin-go/util/ByteUtil"
+	"helloworldcoin-go/util/StringUtil"
 )
 
 func CalculateBlockHash(block *dto.BlockDto) string {

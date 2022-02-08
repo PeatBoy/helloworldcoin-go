@@ -5,13 +5,13 @@ package client
 */
 
 import (
-	"helloworld-blockchain-go/netcore-dto/dto"
-	"helloworld-blockchain-go/netcore-dto/dto/API"
-	"helloworld-blockchain-go/setting/NetworkSetting"
-	"helloworld-blockchain-go/util/JsonUtil"
-	"helloworld-blockchain-go/util/LogUtil"
-	"helloworld-blockchain-go/util/NetUtil"
-	"helloworld-blockchain-go/util/StringUtil"
+	"helloworldcoin-go/netcore-dto/dto"
+	"helloworldcoin-go/netcore-dto/dto/API"
+	"helloworldcoin-go/setting/NetworkSetting"
+	"helloworldcoin-go/util/JsonUtil"
+	"helloworldcoin-go/util/LogUtil"
+	"helloworldcoin-go/util/NetUtil"
+	"helloworldcoin-go/util/StringUtil"
 )
 
 type NodeClient struct {

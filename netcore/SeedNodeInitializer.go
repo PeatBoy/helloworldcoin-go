@@ -5,12 +5,12 @@ package netcore
 */
 
 import (
-	"helloworld-blockchain-go/netcore/configuration"
-	"helloworld-blockchain-go/netcore/model"
-	"helloworld-blockchain-go/netcore/service"
-	"helloworld-blockchain-go/setting/NetworkSetting"
-	"helloworld-blockchain-go/util/LogUtil"
-	"helloworld-blockchain-go/util/ThreadUtil"
+	"helloworldcoin-go/netcore/configuration"
+	"helloworldcoin-go/netcore/model"
+	"helloworldcoin-go/netcore/service"
+	"helloworldcoin-go/setting/NetworkSetting"
+	"helloworldcoin-go/util/LogUtil"
+	"helloworldcoin-go/util/ThreadUtil"
 )
 
 type SeedNodeInitializer struct {
