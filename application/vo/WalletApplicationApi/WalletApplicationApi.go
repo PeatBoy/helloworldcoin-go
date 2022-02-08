@@ -1,7 +1,7 @@
 package WalletApplicationApi
 
 /*
- @author king 409060350@qq.com
+ @author x.king xdotking@gmail.com
 */
 
 //生成账户(公钥、私钥、地址)

@@ -1,7 +1,7 @@
 package BlockchainBrowserApplicationApi
 
 /*
- @author king 409060350@qq.com
+ @author x.king xdotking@gmail.com
 */
 
 //查询区块链高度

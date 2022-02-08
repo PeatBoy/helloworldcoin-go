@@ -1,7 +1,7 @@
 package vo
 
 /*
- @author king 409060350@qq.com
+ @author x.king xdotking@gmail.com
 */
 
 type AccountVo struct {

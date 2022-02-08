@@ -1,7 +1,7 @@
 package IncentiveSetting
 
 /*
- @author king 409060350@qq.com
+ @author x.king xdotking@gmail.com
 */
 
 const BLOCK_TIME uint64 = uint64(1000) * uint64(60) * uint64(10)

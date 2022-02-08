@@ -1,7 +1,7 @@
 package API
 
 /*
- @author king 409060350@qq.com
+ @author x.king xdotking@gmail.com
 */
 
 const PING = "/ping"

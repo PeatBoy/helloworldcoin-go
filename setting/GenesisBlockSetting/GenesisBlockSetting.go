@@ -1,7 +1,7 @@
 package GenesisBlockSetting
 
 /*
- @author king 409060350@qq.com
+ @author x.king xdotking@gmail.com
 */
 
 const HEIGHT uint64 = uint64(0)

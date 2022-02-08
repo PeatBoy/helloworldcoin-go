@@ -1,7 +1,7 @@
 package BlockSetting
 
 /*
- @author king 409060350@qq.com
+ @author x.king xdotking@gmail.com
 */
 
 const BLOCK_MAX_TRANSACTION_COUNT uint64 = uint64(600)

@@ -1,7 +1,7 @@
 package NetworkSetting
 
 /*
- @author king 409060350@qq.com
+ @author x.king xdotking@gmail.com
 */
 
 const PORT uint64 = uint64(8888)

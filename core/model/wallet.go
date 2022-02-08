@@ -1,7 +1,7 @@
 package model
 
 /*
- @author king 409060350@qq.com
+ @author x.king xdotking@gmail.com
 */
 
 import "helloworld-blockchain-go/netcore-dto/dto"

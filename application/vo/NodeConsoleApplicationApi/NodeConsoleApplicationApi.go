@@ -1,7 +1,7 @@
 package NodeConsoleApplicationApi
 
 /*
- @author king 409060350@qq.com
+ @author x.king xdotking@gmail.com
 */
 
 //矿工是否激活
