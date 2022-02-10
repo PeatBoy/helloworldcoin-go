@@ -137,7 +137,7 @@ func checkScriptSize(scriptDto *[]string) bool {
 func CalculateBlockSize(blockDto *dto.BlockDto) uint64 {
 	size := uint64(0)
 	timestamp := blockDto.Timestamp
-	size += sizeOfUint64(timestamp)
+	size += sizeOfNumber(timestamp)
 
 	previousBlockHash := blockDto.PreviousHash
 	size += sizeOfString(previousBlockHash)
@@ -173,7 +173,7 @@ func calculateTransactionOutputSize(transactionOutputDto *dto.TransactionOutputD
 	outputScriptDto := transactionOutputDto.OutputScript
 	size += calculateScriptSize(outputScriptDto)
 	value := transactionOutputDto.Value
-	size += sizeOfUint64(value)
+	size += sizeOfNumber(value)
 	return size
 }
 func calculateTransactionInputsSize(inputs []*dto.TransactionInputDto) uint64 {
@@ -191,7 +191,7 @@ func calculateTransactionInputSize(input *dto.TransactionInputDto) uint64 {
 	transactionHash := input.TransactionHash
 	size += sizeOfString(transactionHash)
 	transactionOutputIndex := input.TransactionOutputIndex
-	size += sizeOfUint64(transactionOutputIndex)
+	size += sizeOfNumber(transactionOutputIndex)
 	inputScriptDto := input.InputScript
 	size += calculateScriptSize(inputScriptDto)
 	return size
@@ -209,7 +209,7 @@ func calculateScriptSize(script *[]string) uint64 {
 func sizeOfString(value string) uint64 {
 	return StringUtil.Length(value)
 }
-func sizeOfUint64(number uint64) uint64 {
+func sizeOfNumber(number uint64) uint64 {
 	return StringUtil.Length(StringUtil.ValueOfUint64(number))
 }
 
