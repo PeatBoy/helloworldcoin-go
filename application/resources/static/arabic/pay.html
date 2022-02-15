@@ -78,10 +78,22 @@
             });
 
             async function confirmPayment(){
+                if(Array.from($('[name="nonChangePayee"]')).length == 0){
+                    return;
+                }
                 let nonChangePayees = [];
-                Array.from($('[name="nonChangePayee"]')).forEach(item => {
-                    nonChangePayees.push({address:$(item).find('[name="address"]:first').val().trim(),value:parseInt($(item).find('[name="money"]:first').val())})
-                });
+                for (var item of Array.from($('[name="nonChangePayee"]'))) {
+                    let address = $(item).find('[name="address"]:first').val().trim();
+                    if(isEmpty(address)){
+                        return;
+                    }
+                    let value = parseInt($(item).find('[name="money"]:first').val());
+                    if(isEmpty(value)){
+                        return;
+                    }
+                    nonChangePayees.push({address:address,value:value})
+                }
+
                 let request1 = JSON.stringify({nonChangePayees})
                 let response = await $ajax({
                     url : baseUrl() + "/Api/WalletApplication/AutomaticBuildTransaction",
