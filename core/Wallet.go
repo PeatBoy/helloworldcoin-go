@@ -14,7 +14,6 @@ import (
 	"helloworldcoin-go/util/EncodeDecodeTool"
 	"helloworldcoin-go/util/FileUtil"
 	"helloworldcoin-go/util/KvDbUtil"
-	"helloworldcoin-go/util/StringUtil"
 )
 
 const WALLET_DATABASE_NAME = "WalletDatabase"
@@ -86,23 +85,6 @@ func (w *Wallet) getKeyByAccount(account *AccountUtil.Account) []byte {
 func (w *Wallet) AutoBuildTransaction(request *model.AutoBuildTransactionRequest) *model.AutoBuildTransactionResponse {
 	//校验[非找零]收款方
 	nonChangePayees := (*request).NonChangePayees
-	if nonChangePayees == nil || len(nonChangePayees) == 0 {
-		var response model.AutoBuildTransactionResponse
-		response.BuildTransactionSuccess = false
-		return &response
-	}
-	for _, payee := range nonChangePayees {
-		if StringUtil.IsEmpty(payee.Address) {
-			var response model.AutoBuildTransactionResponse
-			response.BuildTransactionSuccess = false
-			return &response
-		}
-		if payee.Value <= 0 {
-			var response model.AutoBuildTransactionResponse
-			response.BuildTransactionSuccess = false
-			return &response
-		}
-	}
 	//创建付款方
 	var payers []*model.Payer
 	//遍历钱包里的账户,用钱包里的账户付款
