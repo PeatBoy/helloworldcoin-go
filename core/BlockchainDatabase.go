@@ -20,7 +20,6 @@ import (
 	"helloworldcoin-go/crypto/AccountUtil"
 	"helloworldcoin-go/netcore-dto/dto"
 	"helloworldcoin-go/setting/GenesisBlockSetting"
-	"helloworldcoin-go/setting/SystemVersionSettingTool"
 	"helloworldcoin-go/util/ByteUtil"
 	"helloworldcoin-go/util/EncodeDecodeTool"
 	"helloworldcoin-go/util/FileUtil"
@@ -96,10 +95,6 @@ func (b *BlockchainDatabase) DeleteBlocks(blockHeight uint64) {
 }
 
 func (b *BlockchainDatabase) CheckBlock(block *model.Block) bool {
-	if !SystemVersionSettingTool.CheckSystemVersion(block.Height) {
-		LogUtil.Debug("系统版本过低，不支持校验区块，请尽快升级系统。")
-		return false
-	}
 
 	if !StructureTool.CheckBlockStructure(block) {
 		LogUtil.Debug("区块数据异常，请校验区块的结构。")
