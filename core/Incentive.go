@@ -35,7 +35,7 @@ func (incentive *Incentive) CheckIncentive(blockchainDatabase *BlockchainDatabas
 
 func getMinerSubsidy(block *model.Block) uint64 {
 	initCoin := IncentiveSetting.BLOCK_INIT_INCENTIVE
-	multiple := (block.Height - uint64(1)) / IncentiveSetting.INCENTIVE_HALVING_INTERVAL
+	multiple := (block.Height - uint64(1)) / IncentiveSetting.INCENTIVE_HALVE_INTERVAL
 
 	for multiple > 0 {
 		initCoin = initCoin / uint64(2)
