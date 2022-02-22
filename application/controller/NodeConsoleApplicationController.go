@@ -20,11 +20,11 @@ func NewNodeConsoleApplicationController(blockchainNetCore *netcore.BlockchainNe
 	return &b
 }
 
-func (n *NodeConsoleApplicationController) IsMineActive(rw http.ResponseWriter, req *http.Request) {
-	isMineActive := n.blockchainNetCore.GetBlockchainCore().GetMiner().IsActive()
+func (n *NodeConsoleApplicationController) IsMinerActive(rw http.ResponseWriter, req *http.Request) {
+	isMinerActive := n.blockchainNetCore.GetBlockchainCore().GetMiner().IsActive()
 
 	var response vo.IsMinerActiveResponse
-	response.MinerInActiveState = isMineActive
+	response.MinerInActiveState = isMinerActive
 
 	success(rw, response)
 }

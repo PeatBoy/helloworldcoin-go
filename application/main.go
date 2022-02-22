@@ -50,7 +50,7 @@ func main() {
 	apiMux.HandleFunc(WalletApplicationApi.AUTOMATIC_BUILD_TRANSACTION, walletApplicationController.AutomaticBuildTransaction)
 	apiMux.HandleFunc(WalletApplicationApi.SUBMIT_TRANSACTION_TO_BLOCKCHIAIN_NEWWORK, walletApplicationController.SubmitTransactionToBlockchainNetwork)
 
-	apiMux.HandleFunc(NodeConsoleApplicationApi.IS_MINER_ACTIVE, nodeConsoleApplicationController.IsMineActive)
+	apiMux.HandleFunc(NodeConsoleApplicationApi.IS_MINER_ACTIVE, nodeConsoleApplicationController.IsMinerActive)
 	apiMux.HandleFunc(NodeConsoleApplicationApi.ACTIVE_MINER, nodeConsoleApplicationController.ActiveMiner)
 	apiMux.HandleFunc(NodeConsoleApplicationApi.DEACTIVE_MINER, nodeConsoleApplicationController.DeactiveMiner)
 
