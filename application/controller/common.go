@@ -32,7 +32,3 @@ func ServiceUnauthorized(rw http.ResponseWriter) {
 
 const SERVICE_UNAVAILABLE = "service_unavailable"
 const SERVICE_UNAUTHORIZED = "service_unauthorized"
-
-const NOT_FOUND_TRANSACTION = "not_found_transaction"
-const NOT_FOUND_BLOCK = "not_found_block"
-const NOT_FOUND_UNCONFIRMED_TRANSACTIONS = "not_found_unconfirmed_transactions"

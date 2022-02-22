@@ -32,11 +32,6 @@ func (b *BlockchainBrowserApplicationController) QueryTransactionByTransactionHa
 	request := GetRequest(req, vo.QueryTransactionByTransactionHashRequest{}).(*vo.QueryTransactionByTransactionHashRequest)
 
 	transactionVo := b.blockchainBrowserApplicationService.QueryTransactionByTransactionHash(request.TransactionHash)
-	if transactionVo == nil {
-		fail(rw, NOT_FOUND_TRANSACTION)
-		return
-	}
-
 	var response vo.QueryTransactionByTransactionHashResponse
 	response.Transaction = transactionVo
 
@@ -83,10 +78,6 @@ func (b *BlockchainBrowserApplicationController) QueryUnconfirmedTransactionByTr
 	request := GetRequest(req, vo.QueryUnconfirmedTransactionByTransactionHashRequest{}).(*vo.QueryUnconfirmedTransactionByTransactionHashRequest)
 
 	unconfirmedTransactionVo := b.blockchainBrowserApplicationService.QueryUnconfirmedTransactionByTransactionHash(request.TransactionHash)
-	if unconfirmedTransactionVo == nil {
-		fail(rw, NOT_FOUND_UNCONFIRMED_TRANSACTIONS)
-		return
-	}
 	var response vo.QueryUnconfirmedTransactionByTransactionHashResponse
 	response.Transaction = unconfirmedTransactionVo
 
@@ -99,7 +90,8 @@ func (b *BlockchainBrowserApplicationController) QueryUnconfirmedTransactions(rw
 	pageCondition := request.PageCondition
 	transactionDtos := b.blockchainNetCore.GetBlockchainCore().QueryUnconfirmedTransactions(pageCondition.From, pageCondition.Size)
 	if transactionDtos == nil {
-		fail(rw, NOT_FOUND_UNCONFIRMED_TRANSACTIONS)
+		var response vo.QueryUnconfirmedTransactionsResponse
+		success(rw, response)
 		return
 	}
 
@@ -120,10 +112,6 @@ func (b *BlockchainBrowserApplicationController) QueryBlockByBlockHeight(rw http
 	request := GetRequest(req, vo.QueryBlockByBlockHeightRequest{}).(*vo.QueryBlockByBlockHeightRequest)
 
 	blockVo := b.blockchainBrowserApplicationService.QueryBlockViewByBlockHeight(request.BlockHeight)
-	if blockVo == nil {
-		fail(rw, NOT_FOUND_BLOCK)
-		return
-	}
 	var response vo.QueryBlockByBlockHeightResponse
 	response.Block = blockVo
 
@@ -134,7 +122,8 @@ func (b *BlockchainBrowserApplicationController) QueryBlockByBlockHash(rw http.R
 
 	block1 := b.blockchainNetCore.GetBlockchainCore().QueryBlockByBlockHash(request.BlockHash)
 	if block1 == nil {
-		fail(rw, NOT_FOUND_BLOCK)
+		var response vo.QueryBlockByBlockHashResponse
+		success(rw, response)
 		return
 	}
 	blockVo := b.blockchainBrowserApplicationService.QueryBlockViewByBlockHeight(block1.Height)
