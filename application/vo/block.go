@@ -44,8 +44,8 @@ type QueryBlockByBlockHeightRequest struct {
 type QueryBlockByBlockHeightResponse struct {
 	Block *BlockVo `json:"block"`
 }
-type QueryTop10BlocksRequest struct {
+type QueryLatest10BlocksRequest struct {
 }
-type QueryTop10BlocksResponse struct {
+type QueryLatest10BlocksResponse struct {
 	Blocks []BlockVo2 `json:"blocks"`
 }

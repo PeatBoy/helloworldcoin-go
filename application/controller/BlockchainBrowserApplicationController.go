@@ -144,7 +144,7 @@ func (b *BlockchainBrowserApplicationController) QueryBlockByBlockHash(rw http.R
 	success(rw, response)
 }
 
-func (b *BlockchainBrowserApplicationController) QueryTop10Blocks(rw http.ResponseWriter, req *http.Request) {
+func (b *BlockchainBrowserApplicationController) QueryLatest10Blocks(rw http.ResponseWriter, req *http.Request) {
 	var blocks []*model.Block
 	blockHeight := b.blockchainNetCore.GetBlockchainCore().QueryBlockchainHeight()
 	for {
@@ -171,7 +171,7 @@ func (b *BlockchainBrowserApplicationController) QueryTop10Blocks(rw http.Respon
 		blockVos = append(blockVos, blockVo)
 	}
 
-	var response vo.QueryTop10BlocksResponse
+	var response vo.QueryLatest10BlocksResponse
 	response.Blocks = blockVos
 
 	success(rw, response)

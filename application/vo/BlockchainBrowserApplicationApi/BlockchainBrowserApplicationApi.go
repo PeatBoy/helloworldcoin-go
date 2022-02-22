@@ -32,4 +32,4 @@ const QUERY_BLOCK_BY_BLOCK_HEIGHT = "/Api/BlockchainBrowserApplication/QueryBloc
 const QUERY_BLOCK_BY_BLOCK_HASH = "/Api/BlockchainBrowserApplication/QueryBlockByBlockHash"
 
 //查询最近的10个区块
-const QUERY_TOP10_BLOCKS = "/Api/BlockchainBrowserApplication/QueryTop10Blocks"
+const QUERY_LATEST_10_BLOCKS = "/Api/BlockchainBrowserApplication/QueryLatest10Blocks"

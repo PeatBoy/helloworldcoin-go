@@ -65,7 +65,7 @@
         <script>
             $(async function(){
                 let response = await $ajax({
-                    url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTop10Blocks"
+                    url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryLatest10Blocks"
                 })
                 $(response.data.blocks).each((index, item) => {
                     $('tbody').append(`

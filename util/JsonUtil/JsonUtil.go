@@ -177,7 +177,7 @@ func ToObject(jsonString string, object interface{}) interface{} {
 		json.Unmarshal([]byte(jsonString), &_0152)
 		return &_0152
 	}
-	_0153, ok := object.(vo.QueryTop10BlocksRequest)
+	_0153, ok := object.(vo.QueryLatest10BlocksRequest)
 	if ok {
 		json.Unmarshal([]byte(jsonString), &_0153)
 		return &_0153
