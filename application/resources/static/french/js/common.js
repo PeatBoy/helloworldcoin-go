@@ -7,11 +7,32 @@ function parseUrlParameters(location){
 }
 
 function isNull(element){
-    return element == null || element == undefined
+    return element == null || element == undefined;
+}
+function isEmpty(element){
+    return element == null || element == undefined || element == "";
+}
+function arrayIsNull(element){
+    return element == null || element == undefined || element.length == 0;
 }
 
-function isEmpty(element){
-    return element == null || element == undefined || element == ""
+function queryTransactionByTransactionHashResponseIsEmpty(response){
+    return isNull(response) || isNull(response.data)|| isNull(response.data.transaction);
+}
+function queryUnconfirmedTransactionByTransactionHashResponseIsEmpty(response){
+    return isNull(response) || isNull(response.data)|| isNull(response.data.transaction);
+}
+function queryUnconfirmedTransactionsResponseIsEmpty(response){
+    return isNull(response) || isNull(response.data)|| arrayIsNull(response.data.unconfirmedTransactions);
+}
+function queryBlockByBlockHeightResponseIsEmpty(response){
+    return isNull(response) || isNull(response.data)|| isNull(response.data.block);
+}
+function queryBlockByBlockHashResponseIsEmpty(response){
+    return isNull(response) || isNull(response.data)|| isNull(response.data.block);
+}
+function queryTransactionsByBlockHashTransactionHeightResponseIsEmpty(response){
+    return isNull(response) || isNull(response.data)|| arrayIsNull(response.data.transactions);
 }
 
 async function $ajax(option){

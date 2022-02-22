@@ -19,7 +19,7 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockByBlockHeight",
                     data: request
                 });
-                if(response.data != null){
+                if(!queryBlockByBlockHeightResponseIsEmpty(response)){
                     let {block} = response.data;
                     let redirectUrl = `./block.html${location.search}&hash=${block.hash}`;
                     window.location.href = redirectUrl;

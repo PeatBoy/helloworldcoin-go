@@ -47,10 +47,11 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryUnconfirmedTransactions",
                     data: request
                 });
-                let {unconfirmedTransactions} = response.data;
-                if(unconfirmedTransactions == null || unconfirmedTransactions.length == 0){
+                if(queryUnconfirmedTransactionsResponseIsEmpty(response)){
                     $("#page button").html("加载未确认交易完成");
                 }
+
+                let {unconfirmedTransactions} = response.data;
                 if(!isNull(unconfirmedTransactions)){
                     unconfirmedTransactions.forEach(item => {
                         $('#container').append(unconfirmedTransactionHtml(item))

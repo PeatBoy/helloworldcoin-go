@@ -55,7 +55,6 @@
                         "transactionOutputIndex":${urlParameters.get("transactionOutputIndex")}
                     }`
                 });
-                console.log(response);
                 let transactionOutput = response.data.transactionOutput;
                 $('.panel-heading').text(`거래 산출[거래 해시시  ${urlParameters.get("transactionHash")}    거래 산출 지수  ${urlParameters.get("transactionOutputIndex")}]`);
 

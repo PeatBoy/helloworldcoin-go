@@ -61,10 +61,9 @@
                         url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockByBlockHeight",
                         data: request
                     });
-                    if(response.data != null){
+                    if(!queryBlockByBlockHeightResponseIsEmpty(response)){
                         let {block} = response.data;
                         let redirectUrl = `./block.html?hash=${block.hash}`;
-                        console.log(redirectUrl);
                         window.location.href = redirectUrl;
                         return;
                     }
@@ -76,7 +75,7 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockByBlockHash",
                     data: request
                 });
-                if(response.data != null){
+                if(!queryBlockByBlockHashResponseIsEmpty(response)){
                     let redirectUrl = `./block.html?hash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
@@ -88,7 +87,7 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionByTransactionHash",
                     data: request
                 });
-                if(response.data != null){
+                if(!queryTransactionByTransactionHashResponseIsEmpty(response)){
                     let redirectUrl = `./transaction.html?transactionHash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;
@@ -112,7 +111,7 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryUnconfirmedTransactionByTransactionHash",
                     data: request
                 });
-                if(response.data != null && response.data.transaction != null){
+                if(!queryUnconfirmedTransactionByTransactionHashResponseIsEmpty(response)){
                     let redirectUrl = `./unconfirmed-transaction.html?transactionHash=${searchValue}`;
                     window.location.href = redirectUrl;
                     return;

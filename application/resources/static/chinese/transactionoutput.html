@@ -55,7 +55,6 @@
                         "transactionOutputIndex":${urlParameters.get("transactionOutputIndex")}
                     }`
                 });
-                console.log(response);
                 let transactionOutput = response.data.transactionOutput;
                 $('.panel-heading').text(`交易输出[交易哈希  ${urlParameters.get("transactionHash")}    交易输出索引  ${urlParameters.get("transactionOutputIndex")}]`);
 

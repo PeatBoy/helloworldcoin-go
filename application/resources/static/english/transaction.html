@@ -97,7 +97,7 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionByTransactionHash",
                     data: `{"transactionHash":"${urlParameters.get("transactionHash")}"}`
                 });
-                if(response.data == null){
+                if(queryTransactionByTransactionHashResponseIsEmpty(response)){
                     return;
                 }
 

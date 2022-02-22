@@ -51,6 +51,9 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockByBlockHash",
                     data: request1
                 });
+                if(!queryBlockByBlockHashResponseIsEmpty(response)){
+                    return
+                }
                 let {block} = response1.data;
                 $('#box').append(`
                 <div class="panel panel-default">
@@ -108,14 +111,12 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionsByBlockHashTransactionHeight",
                     data: request2
                 });
-                console.log(response2);
-                if(response2.status == 'success' && (response2.data == null || response2.data.transactions == null || response2.data.transactions.length==0)){
+                if(queryTransactionsByBlockHashTransactionHeightResponseIsEmpty(response2)){
                     $("#button-load").html("로드 트랜잭션 완료");
                     return;
                 }
                 let transactions = response2.data.transactions;
                 $(transactions).each((index, item) => {
-                    console.log(item);
                     $('#box').append(transactionHtml(item))
                 })
 

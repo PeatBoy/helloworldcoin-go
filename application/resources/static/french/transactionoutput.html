@@ -55,7 +55,6 @@
                         "transactionOutputIndex":${urlParameters.get("transactionOutputIndex")}
                     }`
                 });
-                console.log(response);
                 let transactionOutput = response.data.transactionOutput;
                 $('.panel-heading').text(`Sortie de la transaction[Hachage de la transaction  ${urlParameters.get("transactionHash")}    Indice de sortie des transactions  ${urlParameters.get("transactionOutputIndex")}]`);
 

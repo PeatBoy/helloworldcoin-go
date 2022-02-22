@@ -55,7 +55,6 @@
                         "transactionOutputIndex":${urlParameters.get("transactionOutputIndex")}
                     }`
                 });
-                console.log(response);
                 let transactionOutput = response.data.transactionOutput;
                 $('.panel-heading').text(`トランザクション出力（しゅつりょく）[トランザクションハッシュ  ${urlParameters.get("transactionHash")}    トランザクション出力（しゅつりょく）インデックス  ${urlParameters.get("transactionOutputIndex")}]`);
 

@@ -54,7 +54,6 @@
                         "address":"${urlParameters.get("address")}"
                     }`
                 });
-                console.log(response);
                 let transactionOutput = response.data.transactionOutput;
 
                 $('.panel-heading').text(`address ${urlParameters.get("address")}`);

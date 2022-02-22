@@ -49,7 +49,7 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryTransactionByTransactionHash",
                     data: request
                 });
-                if(response.data != null){
+                if(!queryTransactionByTransactionHashResponseIsEmpty(response)){
                     let {blockDto} = response.data;
                     let redirectUrl = `./transaction.html?transactionHash=${urlParameters.get("transactionHash")}`;
                     window.location.href = redirectUrl;
@@ -61,7 +61,7 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryUnconfirmedTransactionByTransactionHash",
                     data: request
                 });
-                if(response.data != null){
+                if(!queryUnconfirmedTransactionByTransactionHashResponseIsEmpty(response)){
                     let {transaction} = response.data;
                     $('#container').html(unconfirmedTransactionHtml(transaction))
                     return;
