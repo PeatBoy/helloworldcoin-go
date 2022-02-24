@@ -54,7 +54,7 @@
                         </tr>
                         <tr>
                             <td>Nombre de confirmations de blocage</td>
-                            <td class="confirmCount"></td>
+                            <td class="blockConfirmations"></td>
                             <td>Montant d'entrée de la transaction</td>
                             <td class="transactionInputValues"></td>
                         </tr>
@@ -101,12 +101,12 @@
                     return;
                 }
 
-                let {inputScripts, outputScripts, transactionHash, transactionOutputValues, blockHeight, blockHash,transactionFee, confirmCount, transactionInputCount, transactionType, blockTime, transactionInputValues, transactionOutputCount} = response.data.transaction;
+                let {inputScripts, outputScripts, transactionHash, transactionOutputValues, blockHeight, blockHash,transactionFee, blockConfirmations, transactionInputCount, transactionType, blockTime, transactionInputValues, transactionOutputCount} = response.data.transaction;
                 $('.panel-heading').text("Hachage de la transaction " + transactionHash);
                 $('.blockHeight').html(`<a target="_blank" href="./block.html?hash=${blockHash}">${blockHeight}</a>`);
                 $('.blockHash').html(`<a target="_blank" href="./block.html?hash=${blockHash}">${blockHash}</a>`);
                 $('.transactionFee').text(transactionFee);
-                $('.confirmCount').text(confirmCount);
+                $('.blockConfirmations').text(blockConfirmations);
                 $('.transactionInputCount').text(transactionInputCount);
                 $('.transactionType').text(transactionType == 'GENESIS_TRANSACTION'?"Transaction Genesis":"Transaction standard");
                 $('.transactionInputValues').text(transactionInputValues);

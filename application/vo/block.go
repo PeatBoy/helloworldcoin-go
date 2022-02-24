@@ -6,7 +6,7 @@ package vo
 
 type BlockVo struct {
 	Height              uint64 `json:"height"`
-	ConfirmCount        uint64 `json:"confirmCount"`
+	BlockConfirmations  uint64 `json:"blockConfirmations"`
 	BlockSize           uint64 `json:"blockSize"`
 	TransactionCount    uint64 `json:"transactionCount"`
 	Time                string `json:"time"`

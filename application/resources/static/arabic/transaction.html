@@ -54,7 +54,7 @@
                         </tr>
                         <tr>
                             <td>عدد تأكيدات الحظر</td>
-                            <td class="confirmCount"></td>
+                            <td class="blockConfirmations"></td>
                             <td>مبلغ إدخال الحركة</td>
                             <td class="transactionInputValues"></td>
                         </tr>
@@ -101,12 +101,12 @@
                     return;
                 }
 
-                let {inputScripts, outputScripts, transactionHash, transactionOutputValues, blockHeight, blockHash,transactionFee, confirmCount, transactionInputCount, transactionType, blockTime, transactionInputValues, transactionOutputCount} = response.data.transaction;
+                let {inputScripts, outputScripts, transactionHash, transactionOutputValues, blockHeight, blockHash,transactionFee, blockConfirmations, transactionInputCount, transactionType, blockTime, transactionInputValues, transactionOutputCount} = response.data.transaction;
                 $('.panel-heading').text("تجزئة المعاملة " + transactionHash);
                 $('.blockHeight').html(`<a target="_blank" href="./block.html?hash=${blockHash}">${blockHeight}</a>`);
                 $('.blockHash').html(`<a target="_blank" href="./block.html?hash=${blockHash}">${blockHash}</a>`);
                 $('.transactionFee').text(transactionFee);
-                $('.confirmCount').text(confirmCount);
+                $('.blockConfirmations').text(blockConfirmations);
                 $('.transactionInputCount').text(transactionInputCount);
                 $('.transactionType').text(transactionType == 'GENESIS_TRANSACTION'?"معاملة التكوين":"معاملة قياسية");
                 $('.transactionInputValues').text(transactionInputValues);

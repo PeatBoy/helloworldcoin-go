@@ -109,11 +109,13 @@ func (b *BlockchainBrowserApplicationService) QueryBlockViewByBlockHeight(blockH
 	if block == nil {
 		return nil
 	}
+
+	blockchainHeight := b.blockchainNetCore.GetBlockchainCore().QueryBlockchainHeight()
 	nextBlock := b.blockchainNetCore.GetBlockchainCore().QueryBlockByBlockHeight(block.Height + 1)
 
 	var blockVo vo.BlockVo
 	blockVo.Height = block.Height
-	blockVo.ConfirmCount = BlockTool.GetTransactionCount(block)
+	blockVo.BlockConfirmations = blockchainHeight - block.Height + 1
 	blockVo.BlockSize = SizeTool.CalculateBlockSize(block)
 	blockVo.TransactionCount = BlockTool.GetTransactionCount(block)
 	blockVo.Time = TimeUtil.FormatMillisecondTimestamp(block.Timestamp)
@@ -188,7 +190,7 @@ func (b *BlockchainBrowserApplicationService) QueryTransactionByTransactionHash(
 
 	blockchainHeight := b.blockchainNetCore.GetBlockchainCore().QueryBlockchainHeight()
 	block := b.blockchainNetCore.GetBlockchainCore().QueryBlockByBlockHeight(transaction.BlockHeight)
-	transactionVo.ConfirmCount = blockchainHeight - block.Height + 1
+	transactionVo.BlockConfirmations = blockchainHeight - block.Height + 1
 	transactionVo.BlockTime = TimeUtil.FormatMillisecondTimestamp(block.Timestamp)
 	transactionVo.BlockHash = block.Hash
 

@@ -51,7 +51,7 @@
                     url : baseUrl() + "/Api/BlockchainBrowserApplication/QueryBlockByBlockHash",
                     data: request1
                 });
-                if(!queryBlockByBlockHashResponseIsEmpty(response)){
+                if(queryBlockByBlockHashResponseIsEmpty(response1)){
                     return
                 }
                 let {block} = response1.data;
@@ -71,7 +71,7 @@
                             </tr>
                             <tr>
                                 <td>block confirmation</td>
-                                <td>${block.confirmCount}</td>
+                                <td>${block.blockConfirmations}</td>
                                 <td>nonce</td>
                                 <td>${block.nonce}</td>
                             </tr>

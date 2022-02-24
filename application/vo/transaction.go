@@ -23,11 +23,11 @@ type TransactionOutputVo struct {
 	TransactionOutputIndex uint64 `json:"transactionOutputIndex"`
 }
 type TransactionVo struct {
-	BlockHeight     uint64 `json:"blockHeight"`
-	BlockHash       string `json:"blockHash"`
-	ConfirmCount    uint64 `json:"confirmCount"`
-	TransactionHash string `json:"transactionHash"`
-	BlockTime       string `json:"blockTime"`
+	BlockHeight        uint64 `json:"blockHeight"`
+	BlockHash          string `json:"blockHash"`
+	BlockConfirmations uint64 `json:"blockConfirmations"`
+	TransactionHash    string `json:"transactionHash"`
+	BlockTime          string `json:"blockTime"`
 
 	TransactionFee          uint64 `json:"transactionFee"`
 	TransactionType         string `json:"transactionType"`
