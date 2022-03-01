@@ -15,6 +15,7 @@ import (
 	"math/big"
 )
 
+// Consensus Proof Of WorkConsensus
 type Consensus struct {
 }
 
@@ -23,6 +24,7 @@ func NewConsensus() *Consensus {
 	return &consensus
 }
 
+// CheckConsensus Check whether the block satisfies the consensus
 func (c *Consensus) CheckConsensus(blockchainDatabase *BlockchainDatabase, block *model.Block) bool {
 	difficulty := block.Difficulty
 	if StringUtil.IsEmpty(difficulty) {
@@ -39,6 +41,7 @@ func (c *Consensus) CheckConsensus(blockchainDatabase *BlockchainDatabase, block
 	return bigIntDifficulty.Cmp(bigIntHash) > 0
 }
 
+// CalculateDifficult Calculate mining difficulty of the target block
 func (c *Consensus) CalculateDifficult(blockchainDatabase *BlockchainDatabase, targetBlock *model.Block) string {
 
 	targetDifficult := ""
