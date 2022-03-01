@@ -47,7 +47,7 @@ func (i *Miner) Start() {
 		}
 
 		blockChainHeight := i.blockchainDatabase.QueryBlockchainHeight()
-		//'当前区块链的高度'是否大于'矿工最大被允许的挖矿高度'
+
 		if blockChainHeight >= i.coreConfiguration.getMinerMineMaxBlockHeight() {
 			continue
 		}
@@ -59,21 +59,18 @@ func (i *Miner) Start() {
 			if !i.IsActive() {
 				break
 			}
-			//在挖矿的期间，可能收集到新的交易。每隔一定的时间，重新组装挖矿中的区块，这样新收集到交易就可以被放进挖矿中的区块了。
 			if TimeUtil.MillisecondTimestamp()-startTimestamp > i.coreConfiguration.GetMinerMineTimeInterval() {
 				break
 			}
-			//随机数
 			block.Nonce = ByteUtil.BytesToHexString(ByteUtil.Random32Bytes())
 			block.Hash = BlockTool.CalculateBlockHash(block)
-			//挖矿成功
 			if i.blockchainDatabase.consensus.CheckConsensus(i.blockchainDatabase, block) {
 				i.wallet.SaveAccount(minerAccount)
-				LogUtil.Debug("祝贺您！挖矿成功！！！区块高度:" + StringUtil.ValueOfUint64(block.Height) + ",区块哈希:" + block.Hash)
+				LogUtil.Debug("Congratulations! Mining success! Block height:" + StringUtil.ValueOfUint64(block.Height) + ", Block hash:" + block.Hash)
 				blockDto := Model2DtoTool.Block2BlockDto(block)
 				isAddBlockToBlockchainSuccess := i.blockchainDatabase.AddBlockDto(blockDto)
 				if !isAddBlockToBlockchainSuccess {
-					LogUtil.Debug("挖矿成功，但是区块放入区块链失败。")
+					LogUtil.Debug("Mining succeeded, but the block failed to be put into the blockchain.")
 				}
 				break
 			}
@@ -127,7 +124,6 @@ func (i *Miner) buildMiningBlock(blockchainDatabase *BlockchainDatabase, unconfi
 	merkleTreeRoot := BlockTool.CalculateBlockMerkleTreeRoot(&nonNonceBlock)
 	nonNonceBlock.MerkleTreeRoot = merkleTreeRoot
 
-	//计算挖矿难度
 	nonNonceBlock.Difficulty = blockchainDatabase.consensus.CalculateDifficult(blockchainDatabase, &nonNonceBlock)
 	return &nonNonceBlock
 }
@@ -158,7 +154,7 @@ func (i *Miner) packingTransactions(blockchainDatabase *BlockchainDatabase, unco
 			defer func() {
 				if e := recover(); e != nil {
 					transactionHash := TransactionDtoTool.CalculateTransactionHash(transactionDto)
-					LogUtil.Error("类型转换异常,将从挖矿交易数据库中删除该交易["+transactionHash+"]。", e)
+					LogUtil.Error("Abnormal transaction, transaction hash:"+transactionHash, e)
 					unconfirmedTransactionDatabase.DeleteByTransactionHash(transactionHash)
 				}
 			}()
@@ -176,7 +172,7 @@ func (i *Miner) packingTransactions(blockchainDatabase *BlockchainDatabase, unco
 			transactions = append(transactions, transaction)
 		} else {
 			transactionHash := TransactionTool.CalculateTransactionHash(transaction)
-			LogUtil.Debug("交易不能被挖矿,将从挖矿交易数据库中删除该交易。交易哈希" + transactionHash)
+			LogUtil.Debug("Abnormal transaction, transaction hash:" + transactionHash)
 			unconfirmedTransactionDatabase.DeleteByTransactionHash(transactionHash)
 		}
 	}
@@ -184,7 +180,8 @@ func (i *Miner) packingTransactions(blockchainDatabase *BlockchainDatabase, unco
 	backupTransactions = []*model.Transaction{}
 	backupTransactions = append(backupTransactions, transactions...)
 	transactions = []*model.Transaction{}
-	//防止双花
+
+	//prevent double spending
 	transactionOutputIdSet := make(map[string]bool)
 	for _, transaction := range backupTransactions {
 		inputs := transaction.Inputs
@@ -205,7 +202,7 @@ func (i *Miner) packingTransactions(blockchainDatabase *BlockchainDatabase, unco
 				transactions = append(transactions, transaction)
 			} else {
 				transactionHash := TransactionTool.CalculateTransactionHash(transaction)
-				LogUtil.Debug("交易不能被挖矿,将从挖矿交易数据库中删除该交易。交易哈希" + transactionHash)
+				LogUtil.Debug("Abnormal transaction, transaction hash:" + transactionHash)
 				unconfirmedTransactionDatabase.DeleteByTransactionHash(transactionHash)
 			}
 		}
@@ -214,7 +211,8 @@ func (i *Miner) packingTransactions(blockchainDatabase *BlockchainDatabase, unco
 	backupTransactions = []*model.Transaction{}
 	backupTransactions = append(backupTransactions, transactions...)
 	transactions = []*model.Transaction{}
-	//防止一个地址被用多次
+
+	//Prevent an address used multiple times
 	addressSet := make(map[string]bool)
 	for _, transaction := range backupTransactions {
 		outputs := transaction.Outputs
@@ -234,24 +232,20 @@ func (i *Miner) packingTransactions(blockchainDatabase *BlockchainDatabase, unco
 				transactions = append(transactions, transaction)
 			} else {
 				transactionHash := TransactionTool.CalculateTransactionHash(transaction)
-				LogUtil.Debug("交易不能被挖矿,将从挖矿交易数据库中删除该交易。交易哈希" + transactionHash)
+				LogUtil.Debug("Abnormal transaction, transaction hash:" + transactionHash)
 				unconfirmedTransactionDatabase.DeleteByTransactionHash(transactionHash)
 			}
 		}
 	}
 
-	//按照费率(每字符的手续费)从大到小排序交易
-	//TransactionTool.sortByTransactionFeeRateDescend(transactions);
+	//TODO TransactionTool.sortByTransactionFeeRateDescend(transactions);
 
 	backupTransactions = []*model.Transaction{}
 	backupTransactions = append(backupTransactions, transactions...)
 	transactions = []*model.Transaction{}
-	//到此时，剩余交易都是经过验证的了，且按照交易费率从大到小排列了。
-	//尽可能多的获取交易
+
 	size := uint64(0)
 	for i := 0; i < len(backupTransactions); i++ {
-		//序号从0开始，加一。
-		//留给挖矿交易一个位置，减一。
 		if uint64(i+1) > BlockSetting.BLOCK_MAX_TRANSACTION_COUNT-1 {
 			break
 		}
