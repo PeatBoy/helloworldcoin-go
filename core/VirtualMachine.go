@@ -31,43 +31,43 @@ func (this *VirtualMachine) Execute(transactionEnvironment *model.Transaction, s
 		bytesOperationCode := ByteUtil.HexStringToBytes(operationCode)
 		if ByteUtil.Equals(OperationCode.OP_DUP.Code, bytesOperationCode) {
 			if stack.Size() < 1 {
-				panic("指令运行异常")
+				panic("Virtual Machine Execute Error.")
 			}
 			stack.Push(*stack.Peek())
 		} else if ByteUtil.Equals(OperationCode.OP_HASH160.Code, bytesOperationCode) {
 			if stack.Size() < 1 {
-				panic("指令运行异常")
+				panic("Virtual Machine Execute Error.")
 			}
 			publicKey := stack.Pop()
 			publicKeyHash := AccountUtil.PublicKeyHashFromPublicKey(*publicKey)
 			stack.Push(publicKeyHash)
 		} else if ByteUtil.Equals(OperationCode.OP_EQUALVERIFY.Code, bytesOperationCode) {
 			if stack.Size() < 2 {
-				panic("指令运行异常")
+				panic("Virtual Machine Execute Error.")
 			}
 			if !StringUtil.Equals(*stack.Pop(), *stack.Pop()) {
-				panic("脚本执行失败")
+				panic("Virtual Machine Execute Error.")
 			}
 		} else if ByteUtil.Equals(OperationCode.OP_CHECKSIG.Code, bytesOperationCode) {
 			if stack.Size() < 2 {
-				panic("指令运行异常")
+				panic("Virtual Machine Execute Error.")
 			}
 			publicKey := stack.Pop()
 			signature := stack.Pop()
 			bytesSignature := ByteUtil.HexStringToBytes(*signature)
 			verifySignatureSuccess := TransactionTool.VerifySignature(transactionEnvironment, *publicKey, bytesSignature)
 			if !verifySignatureSuccess {
-				panic("脚本执行失败")
+				panic("Virtual Machine Execute Error.")
 			}
 			stack.Push(ByteUtil.BytesToHexString(BooleanCode.TRUE.Code))
 		} else if ByteUtil.Equals(OperationCode.OP_PUSHDATA.Code, bytesOperationCode) {
 			if len(*script) < i+2 {
-				panic("指令运行异常")
+				panic("Virtual Machine Execute Error.")
 			}
 			i++
 			stack.Push((*script)[i])
 		} else {
-			panic("不能识别的操作码")
+			panic("Virtual Machine Execute Error.")
 		}
 	}
 	return stack
