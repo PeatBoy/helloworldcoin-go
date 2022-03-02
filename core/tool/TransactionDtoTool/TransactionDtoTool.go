@@ -18,6 +18,29 @@ func CalculateTransactionHash(transaction *dto.TransactionDto) string {
 	return ByteUtil.BytesToHexString(sha256Digest)
 }
 
+func SignatureHashAll(transactionDto *dto.TransactionDto) string {
+	bytesTransaction := BytesTransaction(transactionDto, true)
+	sha256Digest := Sha256Util.DoubleDigest(bytesTransaction)
+	return ByteUtil.BytesToHexString(sha256Digest)
+}
+
+func Signature(privateKey string, transactionDto *dto.TransactionDto) string {
+	signatureHashAll := SignatureHashAll(transactionDto)
+	bytesSignatureHashAll := ByteUtil.HexStringToBytes(signatureHashAll)
+	signature := AccountUtil.Signature(privateKey, bytesSignatureHashAll)
+	return signature
+}
+
+func VerifySignature(transaction *dto.TransactionDto, publicKey string, bytesSignature []byte) bool {
+	message := SignatureHashAll(transaction)
+	bytesMessage := ByteUtil.HexStringToBytes(message)
+	return AccountUtil.VerifySignature(publicKey, bytesMessage, bytesSignature)
+}
+
+//region Serialization and Deserialization
+/**
+ * Serialization: Convert TransactionDto into byte array. Requires that the resulting byte array can Convert into the original transaction.
+ */
 func BytesTransaction(transaction *dto.TransactionDto, omitInputScript bool) []byte {
 	var bytesUnspentTransactionOutputs [][]byte
 	inputs := transaction.Inputs
@@ -47,30 +70,4 @@ func BytesTransaction(transaction *dto.TransactionDto, omitInputScript bool) []b
 	return data
 }
 
-/**
- * 获取待签名数据
- */
-func SignatureHashAll(transactionDto *dto.TransactionDto) string {
-	bytesTransaction := BytesTransaction(transactionDto, true)
-	sha256Digest := Sha256Util.DoubleDigest(bytesTransaction)
-	return ByteUtil.BytesToHexString(sha256Digest)
-}
-
-/**
- * 验证签名
- */
-func VerifySignature(transaction *dto.TransactionDto, publicKey string, bytesSignature []byte) bool {
-	message := SignatureHashAll(transaction)
-	bytesMessage := ByteUtil.HexStringToBytes(message)
-	return AccountUtil.VerifySignature(publicKey, bytesMessage, bytesSignature)
-}
-
-/**
- * 交易签名
- */
-func Signature(privateKey string, transactionDto *dto.TransactionDto) string {
-	signatureHashAll := SignatureHashAll(transactionDto)
-	bytesSignatureHashAll := ByteUtil.HexStringToBytes(signatureHashAll)
-	signature := AccountUtil.Signature(privateKey, bytesSignatureHashAll)
-	return signature
-}
+//endregion
