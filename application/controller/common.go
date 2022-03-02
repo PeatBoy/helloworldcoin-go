@@ -24,11 +24,8 @@ func fail(rw http.ResponseWriter, message string) {
 	io.WriteString(rw, s)
 }
 func serviceUnavailable(rw http.ResponseWriter) {
-	fail(rw, SERVICE_UNAVAILABLE)
+	fail(rw, "service_unavailable")
 }
 func ServiceUnauthorized(rw http.ResponseWriter) {
-	fail(rw, SERVICE_UNAUTHORIZED)
+	fail(rw, "service_unauthorized")
 }
-
-const SERVICE_UNAVAILABLE = "service_unavailable"
-const SERVICE_UNAUTHORIZED = "service_unauthorized"
