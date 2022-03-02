@@ -13,74 +13,70 @@ import (
 	"helloworldcoin-go/util/StringUtil"
 )
 
-//region 校验大小
+//region check Size
 /**
- * 校验区块大小。用来限制区块的大小。
- * 注意：校验区块的大小，不仅要校验区块的大小
- * ，还要校验区块内部各个属性(时间戳、前哈希、随机数、交易)的大小。
+ * check Block Size: used to limit the size of the block.
  */
 func CheckBlockSize(blockDto *dto.BlockDto) bool {
-	//区块的时间戳的长度不需要校验  假设时间戳长度不正确，则在随后的业务逻辑中走不通
+	//The length of the timestamp of the block does not need to be verified. If the timestamp length is incorrect, it will not work in the business logic.
 
-	//区块的前哈希的长度不需要校验  假设前哈希长度不正确，则在随后的业务逻辑中走不通
+	//The length of the previous hash of the block does not need to be verified. If the previous hash length is incorrect, it will not work in the business logic.
 
-	//校验区块随机数大小
+	//Check block nonce size
 	nonceSize := sizeOfString(blockDto.Nonce)
 	if nonceSize != BlockSetting.NONCE_CHARACTER_COUNT {
-		LogUtil.Debug("nonce[" + blockDto.Nonce + "]长度非法。")
+		LogUtil.Debug("Illegal nonce length.")
 		return false
 	}
 
-	//校验每一笔交易大小
+	//Check the size of each transaction
 	transactionDtos := blockDto.Transactions
 	if transactionDtos != nil {
 		for _, transactionDto := range transactionDtos {
 			if !CheckTransactionSize(transactionDto) {
-				LogUtil.Debug("交易数据异常，交易大小非法。")
+				LogUtil.Debug("Illegal transaction size.")
 				return false
 			}
 		}
 	}
 
-	//校验区块占用的存储空间
+	//Check Block size
 	blockSize := CalculateBlockSize(blockDto)
 	if blockSize > BlockSetting.BLOCK_MAX_CHARACTER_COUNT {
-		LogUtil.Debug("区块数据的大小是[" + StringUtil.ValueOfUint64(blockSize) + "]超过了限制[" + StringUtil.ValueOfUint64(BlockSetting.BLOCK_MAX_CHARACTER_COUNT) + "]。")
+		LogUtil.Debug("Block size exceeds limit.")
 		return false
 	}
 	return true
 }
 
 /**
- * 校验交易的大小：用来限制交易的大小。
- * 注意：校验交易的大小，不仅要校验交易的大小
- * ，还要校验交易内部各个属性(交易输入、交易输出)的大小。
+ * Check transaction size: used to limit the size of the transaction.
  */
 func CheckTransactionSize(transactionDto *dto.TransactionDto) bool {
-	//校验交易输入
+	//Check transaction input size
 	transactionInputDtos := transactionDto.Inputs
 	if transactionInputDtos != nil {
 		for _, transactionInputDto := range transactionInputDtos {
-			//交易的未花费输出大小不需要校验  假设不正确，则在随后的业务逻辑中走不通
+			//The unspent output size of the transaction does not need to be verified. If the assumption is incorrect, it will not work in the business logic.
 
-			//校验脚本大小
+			//Check script size
 			inputScriptDto := transactionInputDto.InputScript
-			//校验输入脚本的大小
+			//Check the size of the input script
 			if !checkInputScriptSize(inputScriptDto) {
 				return false
 			}
 		}
 	}
 
-	//校验交易输出
+	//Check transaction output size
 	transactionOutputDtos := transactionDto.Outputs
 	if transactionOutputDtos != nil {
 		for _, transactionOutputDto := range transactionOutputDtos {
-			//交易输出金额大小不需要校验  假设不正确，则在随后的业务逻辑中走不通
+			//The size of the transaction output amount does not need to be verified. If the assumption is incorrect, it will not work in the business logic.
 
-			//校验脚本大小
+			//Check script size
 			outputScriptDto := transactionOutputDto.OutputScript
-			//校验输出脚本的大小
+			//Check the size of the output script
 			if !checkOutputScriptSize(outputScriptDto) {
 				return false
 			}
@@ -91,17 +87,16 @@ func CheckTransactionSize(transactionDto *dto.TransactionDto) bool {
 	//校验整笔交易大小十分合法
 	transactionSize := CalculateTransactionSize(transactionDto)
 	if transactionSize > TransactionSetting.TRANSACTION_MAX_CHARACTER_COUNT {
-		LogUtil.Debug("交易的大小是[" + StringUtil.ValueOfUint64(transactionSize) + "]，超过了限制值[" + StringUtil.ValueOfUint64(TransactionSetting.TRANSACTION_MAX_CHARACTER_COUNT) + "]。")
+		LogUtil.Debug("Transaction size exceeds limit.")
 		return false
 	}
 	return true
 }
 
 /**
- * 校验输入脚本的大小
+ * check Input Script Size
  */
 func checkInputScriptSize(inputScriptDto *dto.InputScriptDto) bool {
-	//校验脚本大小
 	if !checkScriptSize(inputScriptDto) {
 		return false
 	}
@@ -109,10 +104,9 @@ func checkInputScriptSize(inputScriptDto *dto.InputScriptDto) bool {
 }
 
 /**
- * 校验输出脚本的大小
+ * check Output Script Size
  */
 func checkOutputScriptSize(outputScriptDto *dto.OutputScriptDto) bool {
-	//校验脚本大小
 	if !checkScriptSize(outputScriptDto) {
 		return false
 	}
@@ -120,12 +114,14 @@ func checkOutputScriptSize(outputScriptDto *dto.OutputScriptDto) bool {
 }
 
 /**
- * 校验脚本的大小
+ * check Script Size
  */
 func checkScriptSize(scriptDto *[]string) bool {
-	//脚本内的操作码、操作数大小不需要校验，因为操作码、操作数不合规，在脚本结构上就构不成一个合格的脚本。
+	//There is no need to check the size of opcodes and operands in the script.
+	//Illegal opcodes, illegal operands cannot constitute a legal script.
+	//Illegal script will not work in the business logic.
 	if calculateScriptSize(scriptDto) > ScriptSetting.SCRIPT_MAX_CHARACTER_COUNT {
-		LogUtil.Debug("交易校验失败：交易输出脚本大小超出限制。")
+		LogUtil.Debug("Script size exceeds limit.")
 		return false
 	}
 	return true
@@ -133,7 +129,7 @@ func checkScriptSize(scriptDto *[]string) bool {
 
 //endregion
 
-//region 计算大小
+//region calculate Size
 func CalculateBlockSize(blockDto *dto.BlockDto) uint64 {
 	size := uint64(0)
 	timestamp := blockDto.Timestamp

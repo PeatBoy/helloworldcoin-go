@@ -36,11 +36,6 @@ func CalculateBlockMerkleTreeRoot(block *dto.BlockDto) string {
 	return ByteUtil.BytesToHexString(MerkleTreeUtil.CalculateMerkleTreeRoot(bytesTransactionHashs))
 }
 
-/**
- * 简单的校验两个区块是否相等
- * 注意：这里没有严格校验,例如没有校验区块中的交易是否完全一样
- * ，所以即使这里认为两个区块相等，实际上这两个区块还是有可能不相等的。
- */
 func IsBlockEquals(block1 *dto.BlockDto, block2 *dto.BlockDto) bool {
 	block1Hash := CalculateBlockHash(block1)
 	block2Hash := CalculateBlockHash(block2)
