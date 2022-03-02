@@ -10,26 +10,16 @@ import (
 	"helloworldcoin-go/core/tool/BlockchainDatabaseKeyTool"
 	"helloworldcoin-go/core/tool/Model2DtoTool"
 	"helloworldcoin-go/core/tool/ScriptTool"
+	"helloworldcoin-go/core/tool/SizeTool"
 	"helloworldcoin-go/core/tool/TransactionDtoTool"
 	"helloworldcoin-go/crypto/AccountUtil"
 	"helloworldcoin-go/util/LogUtil"
 	"helloworldcoin-go/util/StringsUtil"
 )
 
-func CalculateTransactionHash(transaction *model.Transaction) string {
-	transactionDto := Model2DtoTool.Transaction2TransactionDto(transaction)
-	return TransactionDtoTool.CalculateTransactionHash(transactionDto)
-}
-func GetTransactionFee(transaction *model.Transaction) uint64 {
-	if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {
-		transactionFee := GetInputValue(transaction) - GetOutputValue(transaction)
-		return transactionFee
-	} else if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
-		return 0
-	} else {
-		panic(nil)
-	}
-}
+/**
+ * Get Total Input Value Of Transaction
+ */
 func GetInputValue(transaction *model.Transaction) uint64 {
 	inputs := transaction.Inputs
 	total := uint64(0)
@@ -40,6 +30,10 @@ func GetInputValue(transaction *model.Transaction) uint64 {
 	}
 	return total
 }
+
+/**
+ * Get Total Output Value Of Transaction
+ */
 func GetOutputValue(transaction *model.Transaction) uint64 {
 	outputs := transaction.Outputs
 	total := uint64(0)
@@ -52,49 +46,90 @@ func GetOutputValue(transaction *model.Transaction) uint64 {
 }
 
 /**
- * 区块新产生的地址是否存在重复
+ * Get Total Fees Of Transaction
  */
-func IsExistDuplicateNewAddress(transaction *model.Transaction) bool {
-	var newAddresss []string
-	outputs := transaction.Outputs
-	if outputs != nil {
-		for _, output := range outputs {
-			address := output.Address
-			newAddresss = append(newAddresss, address)
-		}
+func GetTransactionFee(transaction *model.Transaction) uint64 {
+	if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {
+		transactionFee := GetInputValue(transaction) - GetOutputValue(transaction)
+		return transactionFee
+	} else if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
+		return 0
+	} else {
+		panic(nil)
 	}
-	return StringsUtil.HasDuplicateElement(&newAddresss)
 }
+
+/**
+ * Get Fee Rate Of Transaction
+ */
+func GetTransactionFeeRate(transaction *model.Transaction) uint64 {
+	if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {
+		return GetTransactionFee(transaction) / SizeTool.CalculateTransactionSize(transaction)
+	} else if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
+		return 0
+	} else {
+		panic("")
+	}
+}
+
+/**
+ * Signature Hash All
+ */
+func SignatureHashAll(transaction *model.Transaction) string {
+	transactionDto := Model2DtoTool.Transaction2TransactionDto(transaction)
+	return TransactionDtoTool.SignatureHashAll(transactionDto)
+}
+
+/**
+ * Signature
+ */
+func signature(privateKey string, transaction *model.Transaction) string {
+	transactionDto := Model2DtoTool.Transaction2TransactionDto(transaction)
+	return TransactionDtoTool.Signature(privateKey, transactionDto)
+}
+
+/**
+ * Verify Signature
+ */
+func VerifySignature(transaction *model.Transaction, publicKey string, bytesSignature []byte) bool {
+	transactionDto := Model2DtoTool.Transaction2TransactionDto(transaction)
+	return TransactionDtoTool.VerifySignature(transactionDto, publicKey, bytesSignature)
+}
+
+func CalculateTransactionHash(transaction *model.Transaction) string {
+	transactionDto := Model2DtoTool.Transaction2TransactionDto(transaction)
+	return TransactionDtoTool.CalculateTransactionHash(transactionDto)
+}
+
+func GetTransactionInputCount(transaction *model.Transaction) uint64 {
+	inputs := transaction.Inputs
+	if inputs == nil {
+		return uint64(0)
+	}
+	return uint64(len(inputs))
+}
+func GetTransactionOutputCount(transaction *model.Transaction) uint64 {
+	outputs := transaction.Outputs
+	if outputs == nil {
+		return uint64(0)
+	}
+	return uint64(len(outputs))
+}
+
 func GetTransactionOutputId(transactionOutput *model.TransactionOutput) string {
 	return BlockchainDatabaseKeyTool.BuildTransactionOutputId(transactionOutput.TransactionHash, transactionOutput.TransactionOutputIndex)
 }
 
 /**
- * 交易中是否存在重复的[未花费交易输出]
- */
-func IsExistDuplicateUtxo(transaction *model.Transaction) bool {
-	var utxoIds []string
-	inputs := transaction.Inputs
-	if inputs != nil {
-		for _, transactionInput := range inputs {
-			unspentTransactionOutput := transactionInput.UnspentTransactionOutput
-			utxoId := GetTransactionOutputId(unspentTransactionOutput)
-			utxoIds = append(utxoIds, utxoId)
-		}
-	}
-	return StringsUtil.HasDuplicateElement(&utxoIds)
-}
-
-/**
- * 交易中的金额是否符合系统的约束
+ * Check Transaction Value
  */
 func CheckTransactionValue(transaction *model.Transaction) bool {
 	inputs := transaction.Inputs
 	if inputs != nil {
-		//校验交易输入的金额
+		//Check Transaction Input Value
 		for _, input := range inputs {
 			if !CheckValue(input.UnspentTransactionOutput.Value) {
-				LogUtil.Debug("交易金额不合法")
+				LogUtil.Debug("Transaction value is illegal.")
 				return false
 			}
 		}
@@ -102,24 +137,24 @@ func CheckTransactionValue(transaction *model.Transaction) bool {
 
 	outputs := transaction.Outputs
 	if outputs != nil {
-		//校验交易输出的金额
+		//Check Transaction Output Value
 		for _, output := range outputs {
 			if !CheckValue(output.Value) {
-				LogUtil.Debug("交易金额不合法")
+				LogUtil.Debug("Transaction value is illegal.")
 				return false
 			}
 		}
 	}
 
-	//根据交易类型，做进一步的校验
+	//further check by transaction type
 	if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
-		//没有需要校验的，跳过。
+		//There is no need to check, skip.
 	} else if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {
-		//交易输入必须要大于等于交易输出
+		//The transaction input value must be greater than or equal to the transaction output value
 		inputsValue := GetInputValue(transaction)
 		outputsValue := GetOutputValue(transaction)
 		if inputsValue < outputsValue {
-			LogUtil.Debug("交易校验失败：交易的输入必须大于等于交易的输出。不合法的交易。")
+			LogUtil.Debug("Transaction value is illegal.")
 			return false
 		}
 		return true
@@ -130,14 +165,27 @@ func CheckTransactionValue(transaction *model.Transaction) bool {
 }
 
 /**
- * 校验交易中的地址是否是P2PKH地址
+ * Check whether the transaction value is legal: this is used to limit the maximum value, minimum value, decimal places, etc. of the transaction value
+ */
+func CheckValue(transactionAmount uint64) bool {
+	//The transaction value cannot be less than or equal to 0
+	if transactionAmount <= 0 {
+		return false
+	}
+	//The maximum value is 2^64
+	//The reserved decimal place is 0
+	return true
+}
+
+/**
+ * Check if the address in the transaction is a P2PKH address
  */
 func CheckPayToPublicKeyHashAddress(transaction *model.Transaction) bool {
 	outputs := transaction.Outputs
 	if outputs != nil {
 		for _, output := range outputs {
 			if !AccountUtil.IsPayToPublicKeyHashAddress(output.Address) {
-				LogUtil.Debug("交易地址不合法")
+				LogUtil.Debug("Transaction address is illegal.")
 				return false
 			}
 		}
@@ -146,7 +194,7 @@ func CheckPayToPublicKeyHashAddress(transaction *model.Transaction) bool {
 }
 
 /**
- * 校验交易中的脚本是否是P2PKH脚本
+ * Check if the script in the transaction is a P2PKH script
  */
 func CheckPayToPublicKeyHashScript(transaction *model.Transaction) bool {
 	inputs := transaction.Inputs
@@ -169,84 +217,32 @@ func CheckPayToPublicKeyHashScript(transaction *model.Transaction) bool {
 }
 
 /**
- * 获取待签名数据
+ * Is there a duplicate [unspent transaction output] in the transaction
  */
-func SignatureHashAll(transaction *model.Transaction) string {
-	transactionDto := Model2DtoTool.Transaction2TransactionDto(transaction)
-	return TransactionDtoTool.SignatureHashAll(transactionDto)
-}
-
-/**
- * 验证签名
- */
-func VerifySignature(transaction *model.Transaction, publicKey string, bytesSignature []byte) bool {
-	transactionDto := Model2DtoTool.Transaction2TransactionDto(transaction)
-	return TransactionDtoTool.VerifySignature(transactionDto, publicKey, bytesSignature)
-}
-func CalculateTransactionFee(transaction *model.Transaction) uint64 {
-	if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
-		//创世交易没有交易手续费
-		return 0
-	} else if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {
-		inputsValue := getInputValue(transaction)
-		outputsValue := getOutputValue(transaction)
-		return inputsValue - outputsValue
-	} else {
-		panic(nil)
-	}
-}
-
-/**
- * 交易输入总额
- */
-func getInputValue(transaction *model.Transaction) uint64 {
+func IsExistDuplicateUtxo(transaction *model.Transaction) bool {
+	var utxoIds []string
 	inputs := transaction.Inputs
-	total := uint64(0)
 	if inputs != nil {
-		for _, input := range inputs {
-			total += input.UnspentTransactionOutput.Value
+		for _, transactionInput := range inputs {
+			unspentTransactionOutput := transactionInput.UnspentTransactionOutput
+			utxoId := GetTransactionOutputId(unspentTransactionOutput)
+			utxoIds = append(utxoIds, utxoId)
 		}
 	}
-	return total
+	return StringsUtil.HasDuplicateElement(&utxoIds)
 }
 
 /**
- * 交易输出总额
+ * Whether the newly generated address of the block is duplicated
  */
-func getOutputValue(transaction *model.Transaction) uint64 {
+func IsExistDuplicateNewAddress(transaction *model.Transaction) bool {
+	var newAddresss []string
 	outputs := transaction.Outputs
-	total := uint64(0)
 	if outputs != nil {
 		for _, output := range outputs {
-			total += output.Value
+			address := output.Address
+			newAddresss = append(newAddresss, address)
 		}
 	}
-	return total
-}
-func GetTransactionInputCount(transaction *model.Transaction) uint64 {
-	inputs := transaction.Inputs
-	if inputs == nil {
-		return uint64(0)
-	}
-	return uint64(len(inputs))
-}
-func GetTransactionOutputCount(transaction *model.Transaction) uint64 {
-	outputs := transaction.Outputs
-	if outputs == nil {
-		return uint64(0)
-	}
-	return uint64(len(outputs))
-}
-
-/**
- * 校验交易金额是否是一个合法的交易金额：这里用于限制交易金额的最大值、最小值、小数保留位等
- */
-func CheckValue(transactionAmount uint64) bool {
-	//交易金额不能小于等于0
-	if transactionAmount <= 0 {
-		return false
-	}
-	//最大值是2^64
-	//小数保留位是0位
-	return true
+	return StringsUtil.HasDuplicateElement(&newAddresss)
 }

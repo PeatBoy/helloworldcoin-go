@@ -181,7 +181,7 @@ func (b *BlockchainBrowserApplicationService) QueryTransactionByTransactionHash(
 	transactionVo.TransactionHash = transaction.TransactionHash
 	transactionVo.BlockHeight = transaction.BlockHeight
 
-	transactionVo.TransactionFee = TransactionTool.CalculateTransactionFee(transaction)
+	transactionVo.TransactionFee = TransactionTool.GetTransactionFee(transaction)
 	transactionVo.TransactionType = transaction.TransactionType
 	transactionVo.TransactionInputCount = TransactionTool.GetTransactionInputCount(transaction)
 	transactionVo.TransactionOutputCount = TransactionTool.GetTransactionOutputCount(transaction)
