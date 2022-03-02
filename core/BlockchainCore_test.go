@@ -17,23 +17,31 @@ func TestBlockchainDataFormat(t *testing.T) {
 	FileUtil.DeleteDirectory(ResourcePathTool.GetTestDataRootPath())
 
 	stringBlock1 := FileUtil.Read(SystemUtil.SystemRootDirectory() + "\\core" + "\\test\\resources\\blocks\\block1.json")
-	block1 := JsonUtil.ToObject(stringBlock1, dto.BlockDto{}).(*dto.BlockDto)
+	blockDto1 := JsonUtil.ToObject(stringBlock1, dto.BlockDto{}).(*dto.BlockDto)
 	stringBlock2 := FileUtil.Read(SystemUtil.SystemRootDirectory() + "\\core" + "\\test\\resources\\blocks\\block2.json")
-	block2 := JsonUtil.ToObject(stringBlock2, dto.BlockDto{}).(*dto.BlockDto)
+	blockDto2 := JsonUtil.ToObject(stringBlock2, dto.BlockDto{}).(*dto.BlockDto)
 	stringBlock3 := FileUtil.Read(SystemUtil.SystemRootDirectory() + "\\core" + "\\test\\resources\\blocks\\block3.json")
-	block3 := JsonUtil.ToObject(stringBlock3, dto.BlockDto{}).(*dto.BlockDto)
+	blockDto3 := JsonUtil.ToObject(stringBlock3, dto.BlockDto{}).(*dto.BlockDto)
+
+	block1Hash := "e213eaae8259e1aca2044f35036ec5fc3c4370a33fa28353a749e8257e1d2e9e"
+	block2Hash := "8759b498f57e3b359759b7723850a99968f6e8b4bd8143e2ea41b3dbfbb59942"
 	block3Hash := "739f3554dae0a4d2b73142ae8be398fccc8971c9fac52baea1741f4205dc0315"
 
 	blockchainCore := NewBlockchainCore(ResourcePathTool.GetTestDataRootPath())
-	blockchainCore.AddBlockDto(block1)
-	blockchainCore.AddBlockDto(block2)
-	blockchainCore.AddBlockDto(block3)
+	blockchainCore.AddBlockDto(blockDto1)
+	blockchainCore.AddBlockDto(blockDto2)
+	blockchainCore.AddBlockDto(blockDto3)
 
-	//若一切正常，此时区块链的最后一个区块就是我们传入的最后一个区块
-	tailBlock := blockchainCore.QueryTailBlock()
-
-	//校验区块哈希
-	if block3Hash != tailBlock.Hash {
+	block1 := blockchainCore.QueryBlockByBlockHeight(1)
+	if block1Hash != block1.Hash {
+		t.Error("test failed")
+	}
+	block2 := blockchainCore.QueryBlockByBlockHeight(2)
+	if block2Hash != block2.Hash {
+		t.Error("test failed")
+	}
+	block3 := blockchainCore.QueryBlockByBlockHeight(3)
+	if block3Hash != block3.Hash {
 		t.Error("test failed")
 	}
 }
