@@ -14,52 +14,13 @@ import (
 	"helloworldcoin-go/util/StringUtil"
 )
 
-func CreatePayToPublicKeyHashOutputScript(address string) *model.OutputScript {
-	var script model.OutputScript
-	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_DUP.Code))
-	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_HASH160.Code))
-	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
-	publicKeyHash := AccountUtil.PublicKeyHashFromAddress(address)
-	script = append(script, publicKeyHash)
-	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_EQUALVERIFY.Code))
-	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_CHECKSIG.Code))
-	return &script
+func InputScript2String(inputScript *model.InputScript) string {
+	return Script2String(inputScript)
 }
-
-/**
- * 构建完整脚本
- */
-func CreateScript(inputScript *model.InputScript, outputScript *model.OutputScript) *model.Script {
-	var script model.Script
-	script = append(script, *inputScript...)
-	script = append(script, *outputScript...)
-	return &script
+func OutputScript2String(outputScript *model.OutputScript) string {
+	return Script2String(outputScript)
 }
-
-/**
- * 是否是P2PKH输入脚本
- */
-func IsPayToPublicKeyHashInputScript(inputScript *model.InputScript) bool {
-	inputScriptDto := Model2DtoTool.InputScript2InputScriptDto(inputScript)
-	return ScriptDtoTool.IsPayToPublicKeyHashInputScript(inputScriptDto)
-}
-
-/**
- * 是否是P2PKH输出脚本
- */
-func IsPayToPublicKeyHashOutputScript(outputScript *model.OutputScript) bool {
-	outputScriptDto := Model2DtoTool.OutputScript2OutputScriptDto(outputScript)
-	return ScriptDtoTool.IsPayToPublicKeyHashOutputScript(outputScriptDto)
-}
-
-//region 可视、可阅读的脚本，区块链浏览器使用
-func StringInputScript(inputScript *model.InputScript) string {
-	return stringScript(inputScript)
-}
-func StringOutputScript(outputScript *model.OutputScript) string {
-	return stringScript(outputScript)
-}
-func stringScript(script *model.Script) string {
+func Script2String(script *model.Script) string {
 	stringScript := ""
 	for i := 0; i < len(*script); i++ {
 		operationCode := (*script)[i]
@@ -78,10 +39,43 @@ func stringScript(script *model.Script) string {
 			stringScript = StringUtil.Concatenate3(stringScript, OperationCode.OP_PUSHDATA.Name, StringUtil.BLANKSPACE)
 			stringScript = StringUtil.Concatenate3(stringScript, operationData, StringUtil.BLANKSPACE)
 		} else {
-			panic("不能识别的指令")
+			panic("Unrecognized OperationCode.")
 		}
 	}
 	return stringScript
 }
 
-//endregion
+func CreateScript(inputScript *model.InputScript, outputScript *model.OutputScript) *model.Script {
+	var script model.Script
+	script = append(script, *inputScript...)
+	script = append(script, *outputScript...)
+	return &script
+}
+func CreatePayToPublicKeyHashInputScript(sign string, publicKey string) *model.InputScript {
+	var script model.InputScript
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
+	script = append(script, sign)
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
+	script = append(script, publicKey)
+	return &script
+}
+func CreatePayToPublicKeyHashOutputScript(address string) *model.OutputScript {
+	var script model.OutputScript
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_DUP.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_HASH160.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
+	publicKeyHash := AccountUtil.PublicKeyHashFromAddress(address)
+	script = append(script, publicKeyHash)
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_EQUALVERIFY.Code))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_CHECKSIG.Code))
+	return &script
+}
+
+func IsPayToPublicKeyHashInputScript(inputScript *model.InputScript) bool {
+	inputScriptDto := Model2DtoTool.InputScript2InputScriptDto(inputScript)
+	return ScriptDtoTool.IsPayToPublicKeyHashInputScript(inputScriptDto)
+}
+func IsPayToPublicKeyHashOutputScript(outputScript *model.OutputScript) bool {
+	outputScriptDto := Model2DtoTool.OutputScript2OutputScriptDto(outputScript)
+	return ScriptDtoTool.IsPayToPublicKeyHashOutputScript(outputScriptDto)
+}

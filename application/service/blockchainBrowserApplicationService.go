@@ -35,7 +35,7 @@ func (b *BlockchainBrowserApplicationService) QueryTransactionOutputByTransactio
 	transactionOutputVo3.FromBlockHash = transactionOutput.BlockHash
 	transactionOutputVo3.FromTransactionHash = transactionOutput.TransactionHash
 	transactionOutputVo3.Value = transactionOutput.Value
-	transactionOutputVo3.FromOutputScript = ScriptTool.StringOutputScript(transactionOutput.OutputScript)
+	transactionOutputVo3.FromOutputScript = ScriptTool.OutputScript2String(transactionOutput.OutputScript)
 	transactionOutputVo3.FromTransactionOutputIndex = transactionOutput.TransactionOutputIndex
 
 	//是否是未花费输出
@@ -59,7 +59,7 @@ func (b *BlockchainBrowserApplicationService) QueryTransactionOutputByTransactio
 				if StringUtil.Equals(transactionOutput.TransactionHash, unspentTransactionOutput.TransactionHash) &&
 					transactionOutput.TransactionOutputIndex == unspentTransactionOutput.TransactionOutputIndex {
 					transactionOutputVo3.ToTransactionInputIndex = uint64(inputIndex) + uint64(1)
-					transactionOutputVo3.ToInputScript = ScriptTool.StringInputScript(transactionInput.InputScript)
+					transactionOutputVo3.ToInputScript = ScriptTool.InputScript2String(transactionInput.InputScript)
 					break
 				}
 			}
@@ -201,7 +201,7 @@ func (b *BlockchainBrowserApplicationService) QueryTransactionByTransactionHash(
 			var transactionInputVo vo.TransactionInputVo
 			transactionInputVo.Address = transactionInput.UnspentTransactionOutput.Address
 			transactionInputVo.Value = transactionInput.UnspentTransactionOutput.Value
-			transactionInputVo.InputScript = ScriptTool.StringInputScript(transactionInput.InputScript)
+			transactionInputVo.InputScript = ScriptTool.InputScript2String(transactionInput.InputScript)
 			transactionInputVo.TransactionHash = transactionInput.UnspentTransactionOutput.TransactionHash
 			transactionInputVo.TransactionOutputIndex = transactionInput.UnspentTransactionOutput.TransactionOutputIndex
 			transactionInputVos = append(transactionInputVos, &transactionInputVo)
@@ -216,7 +216,7 @@ func (b *BlockchainBrowserApplicationService) QueryTransactionByTransactionHash(
 			var transactionOutputVo vo.TransactionOutputVo
 			transactionOutputVo.Address = transactionOutput.Address
 			transactionOutputVo.Value = transactionOutput.Value
-			transactionOutputVo.OutputScript = ScriptTool.StringOutputScript(transactionOutput.OutputScript)
+			transactionOutputVo.OutputScript = ScriptTool.OutputScript2String(transactionOutput.OutputScript)
 			transactionOutputVo.TransactionHash = transactionOutput.TransactionHash
 			transactionOutputVo.TransactionOutputIndex = transactionOutput.TransactionOutputIndex
 			transactionOutputVos = append(transactionOutputVos, &transactionOutputVo)
