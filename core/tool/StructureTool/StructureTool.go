@@ -11,91 +11,94 @@ import (
 	"helloworldcoin-go/core/tool/ScriptTool"
 	"helloworldcoin-go/setting/BlockSetting"
 	"helloworldcoin-go/util/LogUtil"
-	"helloworldcoin-go/util/StringUtil"
 )
 
+/**
+ * Check Block Structure
+ */
 func CheckBlockStructure(block *model.Block) bool {
 	transactions := block.Transactions
 	if transactions == nil || len(transactions) == 0 {
-		LogUtil.Debug("区块数据异常：区块中的交易数量为0。区块必须有一笔创世的交易。")
+		LogUtil.Debug("Block data error: The number of transactions in the block is 0. A block must have a genesis transaction.")
 		return false
 	}
-	//校验区块中交易的数量
+	//Check the number of transactions in the block
 	transactionCount := BlockTool.GetTransactionCount(block)
 	if transactionCount > BlockSetting.BLOCK_MAX_TRANSACTION_COUNT {
-		LogUtil.Debug("区块包含的交易数量是[" + StringUtil.ValueOfUint64(transactionCount) + "]，超过了限制[" + StringUtil.ValueOfUint64(BlockSetting.BLOCK_MAX_TRANSACTION_COUNT) + "]。")
+		LogUtil.Debug("Block data error: The number of transactions in the block exceeds the limit.")
 		return false
 	}
 	for i := 0; i < len(transactions); i++ {
 		transaction := transactions[i]
 		if i == 0 {
 			if transaction.TransactionType != TransactionType.GENESIS_TRANSACTION {
-				LogUtil.Debug("区块数据异常：区块第一笔交易必须是创世交易。")
+				LogUtil.Debug("Block data error: The first transaction of the block must be a genesis transaction.")
 				return false
 			}
 		} else {
 			if transaction.TransactionType != TransactionType.STANDARD_TRANSACTION {
-				LogUtil.Debug("区块数据异常：区块非第一笔交易必须是标准交易。")
+				LogUtil.Debug("Block data error: The non-first transaction of the block must be a standard transaction.")
 				return false
 			}
 		}
 	}
-	//校验交易的结构
+	//Check the structure of the transaction
 	for _, transaction := range transactions {
 		if !CheckTransactionStructure(transaction) {
-			LogUtil.Debug("交易数据异常：交易结构异常。")
+			LogUtil.Debug("Transaction data error: The transaction structure is abnormal.")
 			return false
 		}
 	}
 	return true
 }
 
+/**
+ * Check Transaction Structure
+ */
 func CheckTransactionStructure(transaction *model.Transaction) bool {
 	if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
 		inputs := transaction.Inputs
 		if inputs != nil && len(inputs) != 0 {
-			LogUtil.Debug("交易数据异常：创世交易不能有交易输入。")
+			LogUtil.Debug("Transaction data error: Genesis transactions cannot have transaction input.")
 			return false
 		}
 		outputs := transaction.Outputs
 		if outputs == nil || len(outputs) != 1 {
-			LogUtil.Debug("交易数据异常：创世交易有且只能有一笔交易输出。")
+			LogUtil.Debug("Transaction data error: The genesis transaction has one and only one transaction output.")
 			return false
 		}
 	} else if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {
 		inputs := transaction.Inputs
 		if inputs == nil || len(inputs) < 1 {
-			LogUtil.Debug("交易数据异常：标准交易的交易输入数量至少是1。")
+			LogUtil.Debug("Transaction data error: The number of transaction inputs for a standard transaction is at least 1.")
 			return false
 		}
 		outputs := transaction.Outputs
 		if outputs == nil || len(outputs) < 1 {
-			LogUtil.Debug("交易数据异常：标准交易的交易输出数量至少是1。")
+			LogUtil.Debug("Transaction data error: The transaction output number of a standard transaction is at least 1.")
 			return false
 		}
 	} else {
 		panic(nil)
 	}
-	//校验脚本结构
-	//输入脚本不需要校验，如果输入脚本结构有误，则在业务[交易输入脚本解锁交易输出脚本]上就通不过。
-
-	//校验输入脚本
+	//Check Transaction Input Script
 	inputs := transaction.Inputs
 	if inputs != nil {
 		for _, input := range inputs {
-			//这里采用严格校验，必须是P2PKH输入脚本。
+			//Strict Check: must be a P2PKH input script.
 			if !ScriptTool.IsPayToPublicKeyHashInputScript(input.InputScript) {
-				LogUtil.Debug("交易数据异常：创世交易不能有交易输入。")
+				LogUtil.Debug("Transaction data error: The transaction input script is not a P2PKH input script.")
 				return false
 			}
 		}
 	}
-	//校验输出脚本
-	//校验输出脚本
+	//Check Transaction Output Script
 	outputs := transaction.Outputs
 	if outputs != nil {
 		for _, transactionOutput := range outputs {
+			//Strict Check: must be a P2PKH output script.
 			if !ScriptTool.IsPayToPublicKeyHashOutputScript(transactionOutput.OutputScript) {
+				LogUtil.Debug("Transaction data error: The transaction output script is not a P2PKH output script.")
 				return false
 			}
 		}
