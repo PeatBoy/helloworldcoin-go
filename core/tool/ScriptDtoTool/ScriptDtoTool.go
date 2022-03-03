@@ -12,18 +12,14 @@ import (
 	"helloworldcoin-go/util/StringUtil"
 )
 
-//region 序列化与反序列化
-func BytesInputScript(inputScript *dto.InputScriptDto) []byte {
-	return BytesScript(inputScript)
+//region Serialization and Deserialization
+func InputScript2Bytes(inputScript *dto.InputScriptDto) []byte {
+	return Script2Bytes(inputScript)
 }
-func BytesOutputScript(outputScript *dto.OutputScriptDto) []byte {
-	return BytesScript(outputScript)
+func OutputScript2Bytes(outputScript *dto.OutputScriptDto) []byte {
+	return Script2Bytes(outputScript)
 }
-
-/**
- * 字节型脚本：将脚本序列化，要求序列化后的脚本可以反序列化。
- */
-func BytesScript(script *dto.ScriptDto) []byte {
+func Script2Bytes(script *dto.ScriptDto) []byte {
 	var bytesScript []byte
 	for i := 0; i < len(*script); i++ {
 		operationCode := (*script)[i]
@@ -39,7 +35,7 @@ func BytesScript(script *dto.ScriptDto) []byte {
 			bytesOperationData := ByteUtil.HexStringToBytes(operationData)
 			bytesScript = ByteUtil.Concatenate3(bytesScript, ByteUtil.ConcatenateLength(bytesOperationCode), ByteUtil.ConcatenateLength(bytesOperationData))
 		} else {
-
+			panic("Unrecognized OperationCode.")
 		}
 	}
 	return bytesScript
@@ -47,37 +43,15 @@ func BytesScript(script *dto.ScriptDto) []byte {
 
 //endregion
 
-func GetPublicKeyHashFromPayToPublicKeyHashOutputScript(outputScript *dto.OutputScriptDto) string {
-	return (*outputScript)[3]
-}
+func CreatePayToPublicKeyHashInputScript(sign string, publicKey string) *dto.InputScriptDto {
+	var script dto.InputScriptDto
 
-/**
- * 是否是P2PKH输入脚本
- */
-func IsPayToPublicKeyHashInputScript(inputScriptDto *dto.InputScriptDto) bool {
-	return (len(*inputScriptDto) == 4) &&
-		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code), (*inputScriptDto)[0])) &&
-		(136 <= StringUtil.Length((*inputScriptDto)[1]) && 144 >= StringUtil.Length((*inputScriptDto)[1])) &&
-		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code), (*inputScriptDto)[2])) &&
-		(66 == StringUtil.Length((*inputScriptDto)[3]))
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
+	script = append(script, sign)
+	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
+	script = append(script, publicKey)
+	return &script
 }
-
-/**
- * 是否是P2PKH输出脚本
- */
-func IsPayToPublicKeyHashOutputScript(outputScriptDto *dto.OutputScriptDto) bool {
-	return (len(*outputScriptDto) == 6) &&
-		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_DUP.Code), (*outputScriptDto)[0])) &&
-		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_HASH160.Code), (*outputScriptDto)[1])) &&
-		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code), (*outputScriptDto)[2])) &&
-		(40 == StringUtil.Length((*outputScriptDto)[3])) &&
-		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_EQUALVERIFY.Code), (*outputScriptDto)[4])) &&
-		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_CHECKSIG.Code), (*outputScriptDto)[5]))
-}
-
-/**
- * 创建P2PKH输出脚本
- */
 func CreatePayToPublicKeyHashOutputScript(address string) *dto.OutputScriptDto {
 	var script dto.OutputScriptDto
 	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_DUP.Code))
@@ -89,16 +63,22 @@ func CreatePayToPublicKeyHashOutputScript(address string) *dto.OutputScriptDto {
 	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_CHECKSIG.Code))
 	return &script
 }
-
-/**
- * 创建P2PKH输入脚本
- */
-func CreatePayToPublicKeyHashInputScript(sign string, publicKey string) *dto.InputScriptDto {
-	var script dto.InputScriptDto
-
-	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
-	script = append(script, sign)
-	script = append(script, ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code))
-	script = append(script, publicKey)
-	return &script
+func IsPayToPublicKeyHashInputScript(inputScriptDto *dto.InputScriptDto) bool {
+	return (len(*inputScriptDto) == 4) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code), (*inputScriptDto)[0])) &&
+		(136 <= StringUtil.Length((*inputScriptDto)[1]) && 144 >= StringUtil.Length((*inputScriptDto)[1])) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code), (*inputScriptDto)[2])) &&
+		(66 == StringUtil.Length((*inputScriptDto)[3]))
+}
+func IsPayToPublicKeyHashOutputScript(outputScriptDto *dto.OutputScriptDto) bool {
+	return (len(*outputScriptDto) == 6) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_DUP.Code), (*outputScriptDto)[0])) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_HASH160.Code), (*outputScriptDto)[1])) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_PUSHDATA.Code), (*outputScriptDto)[2])) &&
+		(40 == StringUtil.Length((*outputScriptDto)[3])) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_EQUALVERIFY.Code), (*outputScriptDto)[4])) &&
+		(StringUtil.Equals(ByteUtil.BytesToHexString(OperationCode.OP_CHECKSIG.Code), (*outputScriptDto)[5]))
+}
+func GetPublicKeyHashFromPayToPublicKeyHashOutputScript(outputScript *dto.OutputScriptDto) string {
+	return (*outputScript)[3]
 }

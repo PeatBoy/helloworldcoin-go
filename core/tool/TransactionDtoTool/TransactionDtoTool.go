@@ -50,7 +50,7 @@ func BytesTransaction(transaction *dto.TransactionDto, omitInputScript bool) []b
 		bytesUnspentTransactionOutput := ByteUtil.Concatenate(ByteUtil.ConcatenateLength(bytesTransactionHash),
 			ByteUtil.ConcatenateLength(bytesTransactionOutputIndex))
 		if !omitInputScript {
-			bytesInputScript := ScriptDtoTool.BytesInputScript(input.InputScript)
+			bytesInputScript := ScriptDtoTool.InputScript2Bytes(input.InputScript)
 			bytesUnspentTransactionOutput = ByteUtil.Concatenate(bytesUnspentTransactionOutput, ByteUtil.ConcatenateLength(bytesInputScript))
 		}
 		bytesUnspentTransactionOutputs = append(bytesUnspentTransactionOutputs, ByteUtil.ConcatenateLength(bytesUnspentTransactionOutput))
@@ -59,7 +59,7 @@ func BytesTransaction(transaction *dto.TransactionDto, omitInputScript bool) []b
 	var bytesTransactionOutputs [][]byte
 	outputs := transaction.Outputs
 	for _, output := range outputs {
-		bytesOutputScript := ScriptDtoTool.BytesOutputScript(output.OutputScript)
+		bytesOutputScript := ScriptDtoTool.OutputScript2Bytes(output.OutputScript)
 		bytesValue := ByteUtil.Uint64ToBytes(output.Value)
 		bytesTransactionOutput := ByteUtil.Concatenate(ByteUtil.ConcatenateLength(bytesOutputScript), ByteUtil.ConcatenateLength(bytesValue))
 		bytesTransactionOutputs = append(bytesTransactionOutputs, ByteUtil.ConcatenateLength(bytesTransactionOutput))
