@@ -31,6 +31,7 @@ func GetTransactionCount(block *model.Block) uint64 {
 	transactions := block.Transactions
 	return uint64(len(transactions))
 }
+
 func GetTransactionOutputCount(block *model.Block) uint64 {
 	transactionOutputCount := uint64(0)
 	transactions := block.Transactions
@@ -41,6 +42,7 @@ func GetTransactionOutputCount(block *model.Block) uint64 {
 	}
 	return transactionOutputCount
 }
+
 func GetBlockFee(block *model.Block) uint64 {
 	blockFee := uint64(0)
 	transactions := block.Transactions
@@ -58,9 +60,11 @@ func GetBlockFee(block *model.Block) uint64 {
 	}
 	return blockFee
 }
+
 func GetWritedIncentiveValue(block *model.Block) uint64 {
 	return block.Transactions[0].Outputs[0].Value
 }
+
 func GetNextBlockHeight(currentBlock *model.Block) uint64 {
 	var nextBlockHeight uint64
 	if currentBlock == nil {
@@ -70,6 +74,7 @@ func GetNextBlockHeight(currentBlock *model.Block) uint64 {
 	}
 	return nextBlockHeight
 }
+
 func CheckBlockHeight(previousBlock *model.Block, currentBlock *model.Block) bool {
 	if previousBlock == nil {
 		return (GenesisBlockSetting.HEIGHT + 1) == currentBlock.Height
@@ -77,6 +82,7 @@ func CheckBlockHeight(previousBlock *model.Block, currentBlock *model.Block) boo
 		return (previousBlock.Height + 1) == currentBlock.Height
 	}
 }
+
 func CheckPreviousBlockHash(previousBlock *model.Block, currentBlock *model.Block) bool {
 	if previousBlock == nil {
 		return StringUtil.Equals(GenesisBlockSetting.HASH, currentBlock.PreviousHash)
@@ -84,6 +90,7 @@ func CheckPreviousBlockHash(previousBlock *model.Block, currentBlock *model.Bloc
 		return StringUtil.Equals(previousBlock.Hash, currentBlock.PreviousHash)
 	}
 }
+
 func CheckBlockTimestamp(previousBlock *model.Block, currentBlock *model.Block) bool {
 	if currentBlock.Timestamp > TimeUtil.MillisecondTimestamp() {
 		return false
@@ -95,9 +102,6 @@ func CheckBlockTimestamp(previousBlock *model.Block, currentBlock *model.Block) 
 	}
 }
 
-/**
- * 区块新产生的哈希是否存在重复
- */
 func IsExistDuplicateNewHash(block *model.Block) bool {
 	var newHashs []string
 	blockHash := block.Hash
@@ -112,9 +116,6 @@ func IsExistDuplicateNewHash(block *model.Block) bool {
 	return StringsUtil.HasDuplicateElement(&newHashs)
 }
 
-/**
- * 区块新产生的地址是否存在重复
- */
 func IsExistDuplicateNewAddress(block *model.Block) bool {
 	var newAddresss []string
 	transactions := block.Transactions
@@ -132,9 +133,6 @@ func IsExistDuplicateNewAddress(block *model.Block) bool {
 	return StringsUtil.HasDuplicateElement(&newAddresss)
 }
 
-/**
- * 区块中是否存在重复的[未花费交易输出]
- */
 func IsExistDuplicateUtxo(block *model.Block) bool {
 	var utxoIds []string
 	transactions := block.Transactions
@@ -153,20 +151,10 @@ func IsExistDuplicateUtxo(block *model.Block) bool {
 	return StringsUtil.HasDuplicateElement(&utxoIds)
 }
 
-/**
- * 简单的校验两个区块是否相等
- * 注意：这里没有严格校验,例如没有校验区块中的交易是否完全一样
- * ，所以即使这里认为两个区块相等，实际上这两个区块还是有可能不相等的。
- */
 func IsBlockEquals(block1 *model.Block, block2 *model.Block) bool {
 	return StringUtil.Equals(block1.Hash, block2.Hash)
 }
 
-/**
- * 格式化难度
- * 前置填零，返回[长度为64位][十六进制字符串形式的]难度
- */
 func FormatDifficulty(difficulty string) string {
-	//难度长度是256bit，64位十六进制的字符串数，如果传入的难度长度不够，这里进行前置补充零操作。
 	return StringUtil.PrefixPadding(difficulty, 64, "0")
 }
