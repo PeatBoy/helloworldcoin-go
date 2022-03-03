@@ -6,7 +6,7 @@ package netcore
 
 import (
 	"helloworldcoin-go/core"
-	"helloworldcoin-go/core/tool/ResourcePathTool"
+	"helloworldcoin-go/core/tool/ResourceTool"
 	"helloworldcoin-go/netcore/configuration"
 	"helloworldcoin-go/netcore/dao"
 	"helloworldcoin-go/netcore/server"
@@ -36,7 +36,7 @@ type BlockchainNetCore struct {
 }
 
 func NewDefaultBlockchainNetCore() *BlockchainNetCore {
-	return NewBlockchainNetCore(ResourcePathTool.GetDataRootPath())
+	return NewBlockchainNetCore(ResourceTool.GetDataRootPath())
 }
 func NewBlockchainNetCore(netcorePath string) *BlockchainNetCore {
 	netCoreConfiguration := configuration.NewNetCoreConfiguration(netcorePath)

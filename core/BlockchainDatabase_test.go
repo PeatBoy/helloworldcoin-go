@@ -5,14 +5,14 @@ package core
 */
 
 import (
-	"helloworldcoin-go/core/tool/ResourcePathTool"
+	"helloworldcoin-go/core/tool/ResourceTool"
 	"helloworldcoin-go/netcore-dto/dto"
 	"helloworldcoin-go/util/FileUtil"
 	"testing"
 )
 
 func TestQueryBlockByBlockHeight(t *testing.T) {
-	FileUtil.DeleteDirectory(ResourcePathTool.GetTestDataRootPath())
+	FileUtil.DeleteDirectory(ResourceTool.GetTestDataRootPath())
 
 	transactionOutputDto := dto.TransactionOutputDto{OutputScript: &[]string{"01", "02", "00", "82f46bdbb4550d3c552f1764b53fd0005c81ad3d", "03", "04"}, Value: uint64(5000000000)}
 	var outputs []*dto.TransactionOutputDto
@@ -27,7 +27,7 @@ func TestQueryBlockByBlockHeight(t *testing.T) {
 	consensus := &Consensus{}
 	incentive := &Incentive{}
 	virtualMachine := &VirtualMachine{}
-	coreConfiguration := &CoreConfiguration{corePath: ResourcePathTool.GetTestDataRootPath()}
+	coreConfiguration := &CoreConfiguration{corePath: ResourceTool.GetTestDataRootPath()}
 	blockchainDatabase := NewBlockchainDatabase(consensus, incentive, virtualMachine, coreConfiguration)
 	blockchainDatabase.AddBlockDto(blockDto)
 

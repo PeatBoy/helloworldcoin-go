@@ -5,7 +5,7 @@ package core
 */
 
 import (
-	"helloworldcoin-go/core/tool/ResourcePathTool"
+	"helloworldcoin-go/core/tool/ResourceTool"
 	"helloworldcoin-go/netcore-dto/dto"
 	"helloworldcoin-go/util/FileUtil"
 	"helloworldcoin-go/util/JsonUtil"
@@ -14,7 +14,7 @@ import (
 )
 
 func TestBlockchainDataFormat(t *testing.T) {
-	FileUtil.DeleteDirectory(ResourcePathTool.GetTestDataRootPath())
+	FileUtil.DeleteDirectory(ResourceTool.GetTestDataRootPath())
 
 	stringBlock1 := FileUtil.Read(SystemUtil.SystemRootDirectory() + "\\core" + "\\test\\resources\\blocks\\block1.json")
 	blockDto1 := JsonUtil.ToObject(stringBlock1, dto.BlockDto{}).(*dto.BlockDto)
@@ -27,7 +27,7 @@ func TestBlockchainDataFormat(t *testing.T) {
 	block2Hash := "8759b498f57e3b359759b7723850a99968f6e8b4bd8143e2ea41b3dbfbb59942"
 	block3Hash := "739f3554dae0a4d2b73142ae8be398fccc8971c9fac52baea1741f4205dc0315"
 
-	blockchainCore := NewBlockchainCore(ResourcePathTool.GetTestDataRootPath())
+	blockchainCore := NewBlockchainCore(ResourceTool.GetTestDataRootPath())
 	blockchainCore.AddBlockDto(blockDto1)
 	blockchainCore.AddBlockDto(blockDto2)
 	blockchainCore.AddBlockDto(blockDto3)

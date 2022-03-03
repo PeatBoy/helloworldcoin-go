@@ -7,7 +7,7 @@ package core
 import (
 	"helloworldcoin-go/core/model"
 	"helloworldcoin-go/core/tool/Model2DtoTool"
-	"helloworldcoin-go/core/tool/ResourcePathTool"
+	"helloworldcoin-go/core/tool/ResourceTool"
 	"helloworldcoin-go/netcore-dto/dto"
 )
 
@@ -20,7 +20,7 @@ type BlockchainCore struct {
 }
 
 func NewDefaultBlockchainCore() *BlockchainCore {
-	return NewBlockchainCore(ResourcePathTool.GetDataRootPath())
+	return NewBlockchainCore(ResourceTool.GetDataRootPath())
 }
 func NewBlockchainCore(corePath string) *BlockchainCore {
 	coreConfiguration := NewCoreConfiguration(corePath)

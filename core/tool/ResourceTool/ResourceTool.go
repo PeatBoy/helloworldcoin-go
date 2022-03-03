@@ -1,4 +1,4 @@
-package ResourcePathTool
+package ResourceTool
 
 /*
  @author x.king xdotking@gmail.com
@@ -9,9 +9,6 @@ import (
 	"helloworldcoin-go/util/SystemUtil"
 )
 
-/**
- * 获取区块链数据存放目录
- */
 func GetDataRootPath() string {
 	var dataRootPath string
 	if SystemUtil.IsWindowsOperateSystem() {
@@ -27,9 +24,6 @@ func GetDataRootPath() string {
 	return dataRootPath
 }
 
-/**
- * 获取测试区块链数据存放目录
- */
 func GetTestDataRootPath() string {
 	var dataRootPath string
 	if SystemUtil.IsWindowsOperateSystem() {

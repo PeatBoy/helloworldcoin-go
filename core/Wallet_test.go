@@ -5,15 +5,15 @@ package core
 */
 
 import (
-	"helloworldcoin-go/core/tool/ResourcePathTool"
+	"helloworldcoin-go/core/tool/ResourceTool"
 	"helloworldcoin-go/crypto/AccountUtil"
 	"helloworldcoin-go/util/FileUtil"
 	"testing"
 )
 
 func TestGetAllAccounts(t *testing.T) {
-	FileUtil.DeleteDirectory(ResourcePathTool.GetTestDataRootPath())
-	coreConfiguration := &CoreConfiguration{corePath: ResourcePathTool.GetTestDataRootPath()}
+	FileUtil.DeleteDirectory(ResourceTool.GetTestDataRootPath())
+	coreConfiguration := &CoreConfiguration{corePath: ResourceTool.GetTestDataRootPath()}
 	incentive := &Incentive{}
 	consensus := &Consensus{}
 	virtualMachine := &VirtualMachine{}
