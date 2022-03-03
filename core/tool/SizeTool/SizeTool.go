@@ -10,20 +10,16 @@ import (
 	"helloworldcoin-go/core/tool/Model2DtoTool"
 )
 
-//region 校验大小
+//region check Size
 /**
- * 校验区块大小。用来限制区块的大小。
- * 注意：校验区块的大小，不仅要校验区块的大小
- * ，还要校验区块内部各个属性(时间戳、前哈希、随机数、交易)的大小。
+ * check Block Size: used to limit the size of the block.
  */
 func CheckBlockSize(block *model.Block) bool {
 	return DtoSizeTool.CheckBlockSize(Model2DtoTool.Block2BlockDto(block))
 }
 
 /**
- * 校验交易的大小：用来限制交易的大小。
- * 注意：校验交易的大小，不仅要校验交易的大小
- * ，还要校验交易内部各个属性(交易输入、交易输出)的大小。
+ * Check transaction size: used to limit the size of the transaction.
  */
 func CheckTransactionSize(transaction *model.Transaction) bool {
 	return DtoSizeTool.CheckTransactionSize(Model2DtoTool.Transaction2TransactionDto(transaction))
@@ -31,7 +27,7 @@ func CheckTransactionSize(transaction *model.Transaction) bool {
 
 //endregion
 
-//region 计算大小
+//region calculate Size
 func CalculateBlockSize(block *model.Block) uint64 {
 	return DtoSizeTool.CalculateBlockSize(Model2DtoTool.Block2BlockDto(block))
 }
