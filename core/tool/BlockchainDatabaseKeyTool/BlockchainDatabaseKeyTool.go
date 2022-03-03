@@ -32,7 +32,7 @@ const (
 	VERTICAL_LINE_FLAG                                                     = "|"
 )
 
-//拼装数据库Key的值
+//region Build Key
 func BuildBlockchainHeightKey() []byte {
 	stringKey := BLOCKCHAIN_HEIGHT_KEY + END_FLAG
 	return ByteUtil.StringToUtf8Bytes(stringKey)
@@ -105,12 +105,14 @@ func BuildTransactionHeightToTransactionKey(transactionHeight uint64) []byte {
 	stringKey := TRANSACTION_HEIGHT_TO_TRANSACTION_PREFIX_FLAG + StringUtil.ValueOfUint64(transactionHeight) + END_FLAG
 	return ByteUtil.StringToUtf8Bytes(stringKey)
 }
-
 func BuildTransactionOutputIdToSpentTransactionOutputHeightKey(transactionHash string, transactionOutputIndex uint64) []byte {
 	transactionOutputId := BuildTransactionOutputId(transactionHash, transactionOutputIndex)
 	stringKey := TRANSACTION_OUTPUT_ID_TO_SPENT_TRANSACTION_OUTPUT_HEIGHT_PREFIX_FLAG + transactionOutputId + END_FLAG
 	return ByteUtil.StringToUtf8Bytes(stringKey)
 }
+
+//endregion
+
 func BuildTransactionOutputId(transactionHash string, transactionOutputIndex uint64) string {
 	transactionOutputId := StringUtil.Concatenate3(transactionHash, VERTICAL_LINE_FLAG, StringUtil.ValueOfUint64(transactionOutputIndex))
 	return transactionOutputId
