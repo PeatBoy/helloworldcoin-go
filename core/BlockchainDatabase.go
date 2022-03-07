@@ -984,7 +984,7 @@ func (b *BlockchainDatabase) transactionOutputDto2TransactionOutput(transactionO
 }
 func (b *BlockchainDatabase) obtainTransactionDto(transactionDto *dto.TransactionDto) TransactionType.TransactionType {
 	if transactionDto.Inputs == nil || len(transactionDto.Inputs) == 0 {
-		return TransactionType.GENESIS_TRANSACTION
+		return TransactionType.COINBASE_TRANSACTION
 	}
 	return TransactionType.STANDARD_TRANSACTION
 }

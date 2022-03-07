@@ -52,7 +52,7 @@ func GetTransactionFee(transaction *model.Transaction) uint64 {
 	if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {
 		transactionFee := GetInputValue(transaction) - GetOutputValue(transaction)
 		return transactionFee
-	} else if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
+	} else if transaction.TransactionType == TransactionType.COINBASE_TRANSACTION {
 		return 0
 	} else {
 		panic(nil)
@@ -65,7 +65,7 @@ func GetTransactionFee(transaction *model.Transaction) uint64 {
 func GetTransactionFeeRate(transaction *model.Transaction) uint64 {
 	if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {
 		return GetTransactionFee(transaction) / SizeTool.CalculateTransactionSize(transaction)
-	} else if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
+	} else if transaction.TransactionType == TransactionType.COINBASE_TRANSACTION {
 		return 0
 	} else {
 		panic("")
@@ -147,7 +147,7 @@ func CheckTransactionValue(transaction *model.Transaction) bool {
 	}
 
 	//further check by transaction type
-	if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
+	if transaction.TransactionType == TransactionType.COINBASE_TRANSACTION {
 		//There is no need to check, skip.
 	} else if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {
 		//The transaction input value must be greater than or equal to the transaction output value

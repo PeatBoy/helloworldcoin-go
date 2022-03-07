@@ -48,7 +48,7 @@ func GetBlockFee(block *model.Block) uint64 {
 	transactions := block.Transactions
 	if transactions != nil {
 		for _, transaction := range transactions {
-			if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
+			if transaction.TransactionType == TransactionType.COINBASE_TRANSACTION {
 				continue
 			} else if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {
 				fee := TransactionTool.GetTransactionFee(transaction)

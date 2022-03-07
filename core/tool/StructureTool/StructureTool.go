@@ -19,7 +19,7 @@ import (
 func CheckBlockStructure(block *model.Block) bool {
 	transactions := block.Transactions
 	if transactions == nil || len(transactions) == 0 {
-		LogUtil.Debug("Block data error: The number of transactions in the block is 0. A block must have a genesis transaction.")
+		LogUtil.Debug("Block data error: The number of transactions in the block is 0. A block must have a coinbase transaction.")
 		return false
 	}
 	//Check the number of transactions in the block
@@ -31,8 +31,8 @@ func CheckBlockStructure(block *model.Block) bool {
 	for i := 0; i < len(transactions); i++ {
 		transaction := transactions[i]
 		if i == 0 {
-			if transaction.TransactionType != TransactionType.GENESIS_TRANSACTION {
-				LogUtil.Debug("Block data error: The first transaction of the block must be a genesis transaction.")
+			if transaction.TransactionType != TransactionType.COINBASE_TRANSACTION {
+				LogUtil.Debug("Block data error: The first transaction of the block must be a coinbase transaction.")
 				return false
 			}
 		} else {
@@ -56,15 +56,15 @@ func CheckBlockStructure(block *model.Block) bool {
  * Check Transaction Structure
  */
 func CheckTransactionStructure(transaction *model.Transaction) bool {
-	if transaction.TransactionType == TransactionType.GENESIS_TRANSACTION {
+	if transaction.TransactionType == TransactionType.COINBASE_TRANSACTION {
 		inputs := transaction.Inputs
 		if inputs != nil && len(inputs) != 0 {
-			LogUtil.Debug("Transaction data error: Genesis transactions cannot have transaction input.")
+			LogUtil.Debug("Transaction data error: The coinbase transaction cannot have transaction input.")
 			return false
 		}
 		outputs := transaction.Outputs
 		if outputs == nil || len(outputs) != 1 {
-			LogUtil.Debug("Transaction data error: The genesis transaction has one and only one transaction output.")
+			LogUtil.Debug("Transaction data error: The coinbase transaction has one and only one transaction output.")
 			return false
 		}
 	} else if transaction.TransactionType == TransactionType.STANDARD_TRANSACTION {

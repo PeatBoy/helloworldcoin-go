@@ -130,7 +130,7 @@ func (i *Miner) buildMiningBlock(blockchainDatabase *BlockchainDatabase, unconfi
 
 func (i *Miner) buildIncentiveTransaction(address string, incentiveValue uint64) *model.Transaction {
 	var transaction model.Transaction
-	transaction.TransactionType = TransactionType.GENESIS_TRANSACTION
+	transaction.TransactionType = TransactionType.COINBASE_TRANSACTION
 
 	var outputs []*model.TransactionOutput
 	var output model.TransactionOutput

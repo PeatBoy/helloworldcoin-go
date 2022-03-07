@@ -7,6 +7,6 @@ package TransactionType
 type TransactionType = string
 
 const (
-	GENESIS_TRANSACTION  TransactionType = "GENESIS_TRANSACTION"
+	COINBASE_TRANSACTION TransactionType = "COINBASE_TRANSACTION"
 	STANDARD_TRANSACTION TransactionType = "STANDARD_TRANSACTION"
 )
