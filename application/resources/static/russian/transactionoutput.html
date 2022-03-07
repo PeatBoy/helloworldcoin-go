@@ -59,7 +59,7 @@
                 $('.panel-heading').text(`вывод транзакции[Хэш транзакции  ${urlParameters.get("transactionHash")}    Выходной индекс транзакции  ${urlParameters.get("transactionOutputIndex")}]`);
 
 
-                let transactionOutputTransactionType = transactionOutput.transactionType == 'GENESIS_TRANSACTION'?"Транзакция Бытия":"Стандартная транзакция";
+                let transactionOutputTransactionType = getTransactionTypeName(transactionOutput.transactionType);
 
                 $('#summary').html(`
                     <button type="button" class="btn btn-default">резюме</button>

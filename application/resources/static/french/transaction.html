@@ -65,7 +65,6 @@
                             <td class="transactionOutputCount"></td>
                         </tr>
                         <tr>
-                            <!-- TODO block_time? -->
                             <td>Temps de blocage</td>
                             <td class="blockTime"></td>
                             <td>Montant de sortie de la transaction</td>
@@ -108,7 +107,7 @@
                 $('.transactionFee').text(transactionFee);
                 $('.blockConfirmations').text(blockConfirmations);
                 $('.transactionInputCount').text(transactionInputCount);
-                $('.transactionType').text(transactionType == 'GENESIS_TRANSACTION'?"Transaction Genesis":"Transaction standard");
+                $('.transactionType').text(getTransactionTypeName(transactionType));
                 $('.transactionInputValues').text(transactionInputValues);
                 $('.blockTime').text(blockTime);
                 $('.transactionOutputValues').text(transactionOutputValues);

@@ -59,7 +59,7 @@
                 $('.panel-heading').text(`거래 산출[거래 해시시  ${urlParameters.get("transactionHash")}    거래 산출 지수  ${urlParameters.get("transactionOutputIndex")}]`);
 
 
-                let transactionOutputTransactionType = transactionOutput.transactionType == 'GENESIS_TRANSACTION'?"창세기 거래":"기준 거래";
+                let transactionOutputTransactionType = getTransactionTypeName(transactionOutput.transactionType);
 
                 $('#summary').html(`
                     <button type="button" class="btn btn-default">요약</button>

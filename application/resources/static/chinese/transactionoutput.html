@@ -59,7 +59,7 @@
                 $('.panel-heading').text(`交易输出[交易哈希  ${urlParameters.get("transactionHash")}    交易输出索引  ${urlParameters.get("transactionOutputIndex")}]`);
 
 
-                let transactionOutputTransactionType = transactionOutput.transactionType == 'GENESIS_TRANSACTION'?"创世交易":"普通交易";
+                let transactionOutputTransactionType = getTransactionTypeName(transactionOutput.transactionType);
 
                 $('#summary').html(`
                     <button type="button" class="btn btn-default">摘要</button>

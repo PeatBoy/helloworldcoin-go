@@ -65,7 +65,6 @@
                             <td class="transactionOutputCount"></td>
                         </tr>
                         <tr>
-                            <!-- TODO block_time? -->
                             <td>블록 시간</td>
                             <td class="blockTime"></td>
                             <td>거래 산출 금액</td>
@@ -108,7 +107,7 @@
                 $('.transactionFee').text(transactionFee);
                 $('.blockConfirmations').text(blockConfirmations);
                 $('.transactionInputCount').text(transactionInputCount);
-                $('.transactionType').text(transactionType == 'GENESIS_TRANSACTION'?"창세기 거래":"기준 거래");
+                $('.transactionType').text(getTransactionTypeName(transactionType));
                 $('.transactionInputValues').text(transactionInputValues);
                 $('.blockTime').text(blockTime);
                 $('.transactionOutputValues').text(transactionOutputValues);

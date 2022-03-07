@@ -59,7 +59,7 @@
                 $('.panel-heading').text(`ناتج المعاملة[تجزئة المعاملة  ${urlParameters.get("transactionHash")}    مؤشر ناتج المعاملة  ${urlParameters.get("transactionOutputIndex")}]`);
 
 
-                let transactionOutputTransactionType = transactionOutput.transactionType == 'GENESIS_TRANSACTION'?"معاملة التكوين":"معاملة قياسية";
+                let transactionOutputTransactionType = getTransactionTypeName(transactionOutput.transactionType);
 
                 $('#summary').html(`
                     <button type="button" class="btn btn-default">ملخص</button>

@@ -59,7 +59,7 @@
                 $('.panel-heading').text(`Salida de transacción[Hash de transacción  ${urlParameters.get("transactionHash")}    Índice de salida de transacciones  ${urlParameters.get("transactionOutputIndex")}]`);
 
 
-                let transactionOutputTransactionType = transactionOutput.transactionType == 'GENESIS_TRANSACTION'?"Transacción de Génesis":"Transacción estándar";
+                let transactionOutputTransactionType = getTransactionTypeName(transactionOutput.transactionType);
 
                 $('#summary').html(`
                     <button type="button" class="btn btn-default">Resumen</button>

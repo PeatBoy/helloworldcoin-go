@@ -56,7 +56,9 @@ async function $ajax(option){
         })
     })
 }
-
+function getTransactionTypeName(transactionType){
+    return transactionType == 'COINBASE_TRANSACTION'?"COINBASEトランザクション":"標準（ひょうじゅん）取引（とりひき）";
+}
 function transactionHtml(item){
     let {transactionInputs,transactionOutputs} = item;
 
@@ -74,7 +76,7 @@ function transactionHtml(item){
         });
     }
 
-    let itemTransactionType = item.transactionType == 'GENESIS_TRANSACTION'?"ジェネシストランザクション":"標準（ひょうじゅん）取引（とりひき）";
+    let itemTransactionType = getTransactionTypeName(item.transactionType);
 
     let transactionHtml = `
         <div style="font-size: 14px; line-height: 40px; margin-top: 10px;">

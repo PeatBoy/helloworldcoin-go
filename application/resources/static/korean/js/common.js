@@ -56,7 +56,9 @@ async function $ajax(option){
         })
     })
 }
-
+function getTransactionTypeName(transactionType){
+    return transactionType == 'COINBASE_TRANSACTION'?"코인베이스 거래":"기준 거래";
+}
 function transactionHtml(item){
     let {transactionInputs,transactionOutputs} = item;
 
@@ -74,7 +76,7 @@ function transactionHtml(item){
         });
     }
 
-    let itemTransactionType = item.transactionType == 'GENESIS_TRANSACTION'?"창세기 거래":"기준 거래";
+    let itemTransactionType = getTransactionTypeName(item.transactionType);
 
     let transactionHtml = `
         <div style="font-size: 14px; line-height: 40px; margin-top: 10px;">

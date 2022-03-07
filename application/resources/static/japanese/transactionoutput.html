@@ -59,7 +59,7 @@
                 $('.panel-heading').text(`トランザクション出力（しゅつりょく）[トランザクションハッシュ  ${urlParameters.get("transactionHash")}    トランザクション出力（しゅつりょく）インデックス  ${urlParameters.get("transactionOutputIndex")}]`);
 
 
-                let transactionOutputTransactionType = transactionOutput.transactionType == 'GENESIS_TRANSACTION'?"ジェネシストランザクション":"標準（ひょうじゅん）取引（とりひき）";
+                let transactionOutputTransactionType = getTransactionTypeName(transactionOutput.transactionType);
 
                 $('#summary').html(`
                     <button type="button" class="btn btn-default">サマリ</button>
