@@ -45,6 +45,9 @@ func (i *Miner) Start() {
 		if !i.IsActive() {
 			continue
 		}
+		if i.isMiningHeightExceedsLimit() {
+			continue
+		}
 
 		blockChainHeight := i.blockchainDatabase.QueryBlockchainHeight()
 
@@ -257,4 +260,8 @@ func (i *Miner) packingTransactions(blockchainDatabase *BlockchainDatabase, unco
 		transactions = append(transactions, transaction)
 	}
 	return transactions
+}
+func (i *Miner) isMiningHeightExceedsLimit() bool {
+	blockChainHeight := i.blockchainDatabase.QueryBlockchainHeight()
+	return blockChainHeight >= i.coreConfiguration.getMinerMineMaxBlockHeight()
 }
