@@ -72,25 +72,16 @@ func GetTransactionFeeRate(transaction *model.Transaction) uint64 {
 	}
 }
 
-/**
- * Signature Hash All
- */
-func SignatureHashAll(transaction *model.Transaction) string {
+func getSignatureHashAllRawMaterial(transaction *model.Transaction) string {
 	transactionDto := Model2DtoTool.Transaction2TransactionDto(transaction)
-	return TransactionDtoTool.SignatureHashAll(transactionDto)
+	return TransactionDtoTool.GetSignatureHashAllRawMaterial(transactionDto)
 }
 
-/**
- * Signature
- */
 func signature(privateKey string, transaction *model.Transaction) string {
 	transactionDto := Model2DtoTool.Transaction2TransactionDto(transaction)
 	return TransactionDtoTool.Signature(privateKey, transactionDto)
 }
 
-/**
- * Verify Signature
- */
 func VerifySignature(transaction *model.Transaction, publicKey string, bytesSignature []byte) bool {
 	transactionDto := Model2DtoTool.Transaction2TransactionDto(transaction)
 	return TransactionDtoTool.VerifySignature(transactionDto, publicKey, bytesSignature)

@@ -18,21 +18,21 @@ func CalculateTransactionHash(transaction *dto.TransactionDto) string {
 	return ByteUtil.BytesToHexString(sha256Digest)
 }
 
-func SignatureHashAll(transactionDto *dto.TransactionDto) string {
+func GetSignatureHashAllRawMaterial(transactionDto *dto.TransactionDto) string {
 	bytesTransaction := BytesTransaction(transactionDto, true)
 	sha256Digest := Sha256Util.DoubleDigest(bytesTransaction)
 	return ByteUtil.BytesToHexString(sha256Digest)
 }
 
 func Signature(privateKey string, transactionDto *dto.TransactionDto) string {
-	signatureHashAll := SignatureHashAll(transactionDto)
-	bytesSignatureHashAll := ByteUtil.HexStringToBytes(signatureHashAll)
-	signature := AccountUtil.Signature(privateKey, bytesSignatureHashAll)
+	message := GetSignatureHashAllRawMaterial(transactionDto)
+	bytesMessage := ByteUtil.HexStringToBytes(message)
+	signature := AccountUtil.Signature(privateKey, bytesMessage)
 	return signature
 }
 
 func VerifySignature(transaction *dto.TransactionDto, publicKey string, bytesSignature []byte) bool {
-	message := SignatureHashAll(transaction)
+	message := GetSignatureHashAllRawMaterial(transaction)
 	bytesMessage := ByteUtil.HexStringToBytes(message)
 	return AccountUtil.VerifySignature(publicKey, bytesMessage, bytesSignature)
 }
